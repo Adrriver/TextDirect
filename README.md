@@ -1,4 +1,5 @@
 # TextDirect
+<<<<<<< HEAD
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0-beta.32.3.
 
@@ -25,3 +26,6 @@ Before running the tests make sure you are serving the app via `ng serve`.
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+=======
+College students can sell books to each other at a fair price, informed by going prices across America.
+>>>>>>> fa69aa3e65bf1e14807d784b87556d42886fe7c8
