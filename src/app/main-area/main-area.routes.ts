@@ -15,6 +15,7 @@ import { SearchComponent } from './search/search.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
 import { UserAccountSettingsComponent } from './user-account-settings/user-account-settings.component';
+import { MyItemsComponent } from './my-items/my-items.component';
 
 const mainRoutes: Routes = [
   {
@@ -35,6 +36,7 @@ const mainRoutes: Routes = [
         { path: 'cart', component: ShoppingCartComponent },
         { path: 'transaction-history', component: TransactionHistoryComponent },
         { path: 'user-account-settings', component: UserAccountSettingsComponent },
+        { path: 'my-items', component: MyItemsComponent }
     ]
   }
 ];

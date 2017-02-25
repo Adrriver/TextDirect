@@ -21,6 +21,7 @@ import { PriceReportDetailComponent } from './price-report-detail/price-report-d
 import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
 import { TextSearchHitsComponent } from './text-search-hits/text-search-hits.component';
 import { HelpRequestFormComponent } from './help-request-form/help-request-form.component';
+import { MyItemsComponent } from './my-items/my-items.component';
 
 @NgModule({
   imports: [
@@ -46,6 +47,7 @@ import { HelpRequestFormComponent } from './help-request-form/help-request-form.
                   PriceReportDetailComponent,
                   TransactionHistoryComponent,
                   TextSearchHitsComponent,
-                  HelpRequestFormComponent]
+                  HelpRequestFormComponent,
+                  MyItemsComponent]
 })
 export class MainAreaModule { }
