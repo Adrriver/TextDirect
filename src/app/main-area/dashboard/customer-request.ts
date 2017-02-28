@@ -1,7 +1,7 @@
 /* Class: CustomerRequest
    Author: Adrian Rivera
    Date: 02/24/2017
-*/
+
 
 export class CustomerRequest {
 
@@ -55,3 +55,5 @@ export class CustomerRequest {
         return this.outcome;
     }
 }
+
+*/
