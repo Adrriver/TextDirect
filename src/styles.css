@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import '../node_modules/@angular/material/core/theming/prebuilt/deeppurple-amber.css';
+@import '~/../node_modules/@angular/material/core/theming/prebuilt/indigo-green.scss';
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
@@ -7,6 +7,21 @@ body {
  font-family: 'Roboto';
  }
 
-h2 {
-    font-weight: 500;
+.primary-color {
+    color: #303F9F!important;
+  }
+.accent-color {
+    color: #4CAF50!important;
+  }
+
+.background-primary-color {
+    background-color: #303F9F!important;
+  }
+
+.background-accent-color {
+    background-color: #4CAF50!important;
+  }
+
+.white-text {
+    color: #FFF!important;
 }
