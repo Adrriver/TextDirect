@@ -1,26 +1,29 @@
-import { Address } from './address';
+import { PaymentMethod } from './payment-method'; 
 
 export class UserAccount {
 
     //general account properties
     public username: string;
     public password: string;
+    public emailAddress: string; //verified college/university email account (.edu)
     public firstName: string;
     public lastName: string;
     public telephoneNumber: string;
-    public shippingAddress: Address;
-    public billingAddress: Address;
+    public paymentMethod: PaymentMethod;
+    
 
-    public UserAccount(username: string, pw: string, fName: string, lName: string, phone: string,
-        shipping: Address, billing: Address) {
+    public UserAccount(username: string, pw: string, email: string, fName: string,
+                       lName: string, phone: string, payment: PaymentMethod)
+
+    {
 
         this.username = username;
         this.password = pw;
+        this.emailAddress = email;
         this.firstName = fName;
         this.lastName = lName;
         this.telephoneNumber = phone;
-        this.shippingAddress = shipping;
-        this.billingAddress = billing;
+        this.paymentMethod = payment;      
 
     }
 
