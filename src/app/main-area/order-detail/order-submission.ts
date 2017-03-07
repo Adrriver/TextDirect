@@ -4,6 +4,7 @@ import { Item } from '../items/item';
 export class OrderSubmission {
     
     protected orderItems: Item[]; //include array of items in user cart at time of order submission
-    private 
+
+    public OrderSubmission() { }
 
 }

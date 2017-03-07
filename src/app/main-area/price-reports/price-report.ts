@@ -13,11 +13,11 @@ export class PriceReport {
     public reportDate: string;
     public condition: string;
     public quantity: number;
-    public flagged: [boolean, string]; // 'flagged' : Boolean, 'reason' : string 
+    public flagged: [string]; // 'flagged' : Boolean, 'reason' : string 
 
     //single constructor 
     public PriceReport(isbn: string, seller: string, url: string, reporter: string, price: number,
-        reportDate: string, condition: string, quantity: number, flagged: [boolean, string]) {
+        reportDate: string, condition: string, quantity: number, flagged: [string]) {
 
         this.productISBN = isbn;
         this.bookSeller = seller;
@@ -27,8 +27,7 @@ export class PriceReport {
         this.reportDate = reportDate;
         this.condition = condition;
         this.quantity = quantity;
-        this.flagged['flagged'] = false;
-        this.flagged['reason'] = "";
+        this.flagged['flagged'] = flagged['flagged'];        
     }
 
 }
