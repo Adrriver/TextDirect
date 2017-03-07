@@ -8,6 +8,9 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { routing, appRoutingProviders } from './app.routes';
 import { RegistrationComponent } from './registration/registration.component';
+import { AuthGuardService } from './main-area/auth-guard.service';
+import { AuthGuardAdminService } from './administration/auth-guard-admin.service';
+
 //non-core services
 import { CurrentActivityService } from './current-activity.service';
 import { CustomerRequestsService } from './customer-requests.service';
@@ -32,10 +35,12 @@ import 'hammerjs';
     BrowserModule,
     FormsModule,
     HttpModule,
-      routing,
-      MaterialModule.forRoot()
+    routing,
+    MaterialModule.forRoot()
   ],
   providers: [appRoutingProviders,
+              AuthGuardService,
+              AuthGuardAdminService,
               CurrentActivityService,
               CustomerRequestsService,
               OrderSubmissionService,
