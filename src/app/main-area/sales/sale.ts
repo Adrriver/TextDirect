@@ -6,7 +6,7 @@ export class Sale {
     public dateOfSale: string;
     public purchasedBy: string; //must be registered user name
     public accepted: [string]; // item accepted by individual by whom item was purchased {"pending", "accepted", "rejected"}
-    public shippingStatus: [string]; // shipped: boolean ('not shipped' or 'shipped'), timeOfShipment: string (date/time)
+    public shippingStatus: [string]; // 'shipped' : {'status': (t | f), 'timeOfShipment': (date/time) as string}
 
 
     public Sale(item: Item, date: string, buyer: string, accepted: [string], shippingStatus: [string]) {

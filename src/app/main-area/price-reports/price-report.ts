@@ -13,7 +13,7 @@ export class PriceReport {
     public reportDate: string;
     public condition: string;
     public quantity: number;
-    public flagged: [string]; // 'flagged' : Boolean, 'reason' : string 
+    public flagged: [string]; // 'flagged' : {'isFlagged': boolean : t | f, 'reason': string : "..."}
 
     //single constructor 
     public PriceReport(isbn: string, seller: string, url: string, reporter: string, price: number,

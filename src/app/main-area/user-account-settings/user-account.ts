@@ -1,5 +1,5 @@
 import { PaymentMethod } from './payment-method'; 
-
+import { Address } from './address';
 export class UserAccount {
 
     //general account properties
@@ -10,12 +10,11 @@ export class UserAccount {
     public lastName: string;
     public telephoneNumber: string;
     public paymentMethod: PaymentMethod;
+    public shippingAddress: Address;
     
 
     public UserAccount(username: string, pw: string, email: string, fName: string,
-                       lName: string, phone: string, payment: PaymentMethod)
-
-    {
+                       lName: string, phone: string, payment: PaymentMethod) {
 
         this.username = username;
         this.password = pw;

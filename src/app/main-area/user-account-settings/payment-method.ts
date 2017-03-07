@@ -5,8 +5,7 @@ export class PaymentMethod {
     public nameOnCard: string;
     public lastFour: number; //also serves to store full 16-digit credit card number
     public expirationDate: string;
-    public provider: string;
-    public shippingAddress: Address;
+    public provider: string;    
     public billingAddress: Address;
     public cardSecurityCode: number;
     
@@ -17,7 +16,6 @@ export class PaymentMethod {
         this.lastFour = lastFour;
         this.expirationDate = expDate;
         this.provider = provider;   
-        this.shippingAddress = shipping;
         this.billingAddress = billing;
         this.cardSecurityCode = CVV;
     }

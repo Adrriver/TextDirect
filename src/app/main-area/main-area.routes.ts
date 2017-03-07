@@ -16,27 +16,29 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
 import { UserAccountSettingsComponent } from './user-account-settings/user-account-settings.component';
 import { MyItemsComponent } from './my-items/my-items.component';
+import { AuthGuardService } from './auth-guard.service';
 
 const mainRoutes: Routes = [
   {
     path: '',
     component: MainAreaComponent,
+    canActivate: [AuthGuardService],
     children: [
         { path: 'main-home', component: MainHomeComponent },
-        { path: 'checkout', component: CheckoutComponent },
-        { path: 'dashboard', component: DashboardComponent },
-        { path: 'help', component: HelpRequestFormComponent },
-        { path: 'detail/:id', component: ItemDetailComponent },
-        { path: 'item-creator', component: NewItemCreatorComponent },
-        { path: 'detail/:id', component: OrderDetailComponent }, 
-        { path: 'retrieve-password', component: PasswordRetrievalComponent },
-        { path: 'detail/:id', component: PriceReportDetailComponent }, 
-        { path: 'detail/:id', component: SaleDetailComponent }, 
-        { path: 'search', component: SearchComponent },
-        { path: 'cart', component: ShoppingCartComponent },
-        { path: 'transaction-history', component: TransactionHistoryComponent },
-        { path: 'user-account-settings', component: UserAccountSettingsComponent },
-        { path: 'my-items', component: MyItemsComponent }
+        { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuardService] },
+        { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
+        { path: 'help', component: HelpRequestFormComponent, canActivate: [AuthGuardService] },
+        { path: 'detail/:id', component: ItemDetailComponent, canActivate: [AuthGuardService]},
+        { path: 'item-creator', component: NewItemCreatorComponent, canActivate: [AuthGuardService] },
+        { path: 'detail/:id', component: OrderDetailComponent, canActivate: [AuthGuardService] }, 
+        { path: 'retrieve-password', component: PasswordRetrievalComponent, canActivate: [AuthGuardService] },
+        { path: 'detail/:id', component: PriceReportDetailComponent, canActivate: [AuthGuardService] }, 
+        { path: 'detail/:id', component: SaleDetailComponent, canActivate: [AuthGuardService] }, 
+        { path: 'search', component: SearchComponent, canActivate: [AuthGuardService] },
+        { path: 'cart', component: ShoppingCartComponent, canActivate: [AuthGuardService] },
+        { path: 'transaction-history', component: TransactionHistoryComponent, canActivate: [AuthGuardService] },
+        { path: 'user-account-settings', component: UserAccountSettingsComponent, canActivate: [AuthGuardService] },
+        { path: 'my-items', component: MyItemsComponent, canActivate: [AuthGuardService] }
     ]
   }
 ];
