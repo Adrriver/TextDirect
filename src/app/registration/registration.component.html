@@ -1,3 +1,22 @@
-<p>
-  registration works!
-</p>
+<header>
+    <h2>Registration Application</h2>
+    <h4>You are almost there!</h4>
+</header>
+<form    
+    [formGroup]="regForm">
+    <md-list>
+        <md-list-item>
+            <md-input-container>
+                <input mdInput md-line placeholder="Username" value="Choose a username" 
+                       type="text" name="username" id="username"
+                       formControlName="username" >
+            </md-input-container>
+            <md-input-container>
+                <input mdInput md-line placeholder="Password" value="Choose a password"
+                       type="password" name="password" id="password"
+                       formControlName ="password" >
+            </md-input-container>
+        </md-list-item>
+    </md-list>
+    <a md-raised-button color="accent" (click)="onSubmit(regForm.value)">Submit</a>
+</form>
