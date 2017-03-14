@@ -24,8 +24,7 @@ export class RegistrationComponent implements OnInit {
 
             firstName: new FormControl(''),
             lastName: new FormControl(''),
-            streetNumber: new FormControl(''),
-            street: new FormControl(''),
+            streetAddress: new FormControl(''),
             aptNumber: new FormControl(''),
             city: new FormControl(''),
             state: new FormControl(''),
@@ -39,7 +38,7 @@ export class RegistrationComponent implements OnInit {
 
             firstName: new FormControl(''),
             lastName: new FormControl(''),
-            streetNumber: new FormControl(''),
+            streetAddress: new FormControl(''),
             street: new FormControl(''),
             aptNumber: new FormControl(''),
             city: new FormControl(''),
@@ -78,7 +77,7 @@ export class RegistrationComponent implements OnInit {
   }
 
      onSubmit(registrationForm): void {
-        console.log(registrationForm.username);
+        console.log(registrationForm.shippingAddress);
     }
 
 }
