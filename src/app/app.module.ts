@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { routing, appRoutingProviders } from './app.routes';
 import { RegistrationComponent } from './registration/registration.component';
+import { CreditFormComponent } from './registration/credit-form/credit-form.component';
 import { AuthGuardService } from './main-area/auth-guard.service';
 import { AuthGuardAdminService } from './administration/auth-guard-admin.service';
 
@@ -30,7 +31,8 @@ import 'hammerjs';
   declarations: [
     AppComponent,
     HomeComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    CreditFormComponent
   ],
   imports: [
     BrowserModule,
