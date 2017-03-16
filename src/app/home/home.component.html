@@ -5,17 +5,17 @@
     <!--<a [routerLink]="['main-area/main-home']">Enter</a>
     <a [routerLink]="['administration/']">Administrator</a>-->
 </p>
-<div>
+<form [formGroup]="credentialsForm">
     <h2>{{logInOutcome}}</h2>
     <md-input-container>
-        <input mdInput type="text" placeholder="username" [(ngModel)]="username" value="Student Seller">
+        <input mdInput type="text" placeholder="username" formControlName="username" value="Student Seller">
     </md-input-container>
     <md-input-container>
-        <input mdInput type="password" placeholder="password" [(ngModel)]="password">
+        <input mdInput type="password" placeholder="password" formControlName="password">
     </md-input-container>
     <a md-raised-button color="accent" (click)="logIn()">Submit</a>
     <!--<a md-button color="primary">Flat Button</a>
 
     <a md-fab color="primary"><md-icon>check</md-icon></a>
     <a md-mini-fab color="primary"><md-icon>check</md-icon></a>-->
-</div>
+</form>

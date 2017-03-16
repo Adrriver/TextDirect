@@ -11,9 +11,9 @@ import { routing, appRoutingProviders } from './app.routes';
 import { RegistrationComponent } from './registration/registration.component';
 import { CreditFormComponent } from './registration/credit-form/credit-form.component';
 import { AuthGuardService } from './main-area/auth-guard.service';
-import { AuthGuardAdminService } from './administration/auth-guard-admin.service';
 
 //non-core services
+import { AuthGuardAdminService } from './administration/auth-guard-admin.service';
 import { CurrentActivityService } from './current-activity.service';
 import { CustomerRequestsService } from './customer-requests.service';
 import { OrderSubmissionService } from './order-submission.service';
@@ -37,7 +37,6 @@ import 'hammerjs';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    FormsModule,
     HttpModule,
     routing,
     MaterialModule.forRoot()
