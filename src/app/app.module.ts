@@ -23,7 +23,7 @@ import { SessionService } from './session.service';
 import { TransactionHistoryService } from './transaction-history.service';
 import { UserService } from './user.service';
 //Angular2 Material
-import { MaterialModule} from '@angular/material';
+import { MaterialModule } from '@angular/material';
 //HammerJS
 import 'hammerjs';
 

@@ -1,11 +1,11 @@
-<form [formGroup]="cardForm">
+<form [formGroup]="paymentMethods">
     <!--card form template-->
-        <div>
+        <div *ngIf="selectedMethod !== 'check'" formGroupName="credit">            
             <md-list>
                 <md-list-item>
                     <md-input-container>
                         <input mdInput md-line type="text" placeholder="Name on Card" value="John Q. Public"
-                               name="nameOnCard" id="nameOnCard" formControlName="nameOnCard" />
+                               name="nameOnCard" id="nameOnCard" formControlName="nameOnCard"/>
                     </md-input-container>
                 </md-list-item>
                 <md-list-item>
@@ -18,7 +18,7 @@
                                name="expirationDate" id="expirationDate" formControlName="expirationDate" />
                     </md-input-container>
                 </md-list-item>
-            </md-list>
+            </md-list>            
         <md-list>
             <fieldset formGroupName="billingAddress">
                 <md-list-item>
@@ -55,67 +55,74 @@
                     </md-input-container>
                 </md-list-item>
             </fieldset>
-        </md-list>                                   
-    </div>
-</form>
-<form [formGroup]="bankAcctForm">                <!--bank account form template-->
-    <div *ngIf="bankAcctForm !== null">
-        <md-list>
-            <md-list-item>
-                <md-input-container>
-                    <input mdInput type="text" placeholder="Full name (as appears on acct record)" value="John Q. Citizen"
-                           name="accountHolderName" id="accountHolderName" formControlName="accountHolderName" />
-                </md-input-container>
-            </md-list-item>
-            <md-list-item>
-                <md-input-container>
-                    <input mdInput md-line type="text" placeholder="Routing number" value="" 
-                           name="routingNumber" id="routingNumber" formControlName="routingNumber"/>
-                </md-input-container>
-                <md-input-container>
-                    <input mdInput md-line type="text" placeholder="Account Number" value=""
-                           name="accountNumber" id="accountNumber" formControlName="accountNumber" />
-                </md-input-container>
-                <md-input-container>
-                    <input mdInput md-line type="text" placeholder="Driver license or ID #" value=""
-                           name="driversLicenseNum" id="driversLicenseNum" formControlName="driverLicenseNum" />
-                </md-input-container>
-            </md-list-item>
-            <fieldset formGroupName="billingAddress">
-                <md-list-item>
-                    <md-input-container>
-                        <input mdInput type="text" name="fullName" id="fullNameBill"
-                               placeholder="Full name (as appears on card)" value="John Q. Citizen"
-                               formControlName="fullName" />
-                    </md-input-container>
-                </md-list-item>
-                <md-list-item>
-                    <md-input-container>
-                        <input mdInput type="text" placeholder="Address Line 1" value="7 North Ln"
-                               name="streeAddress" id="streetAddressCard" formControlName="streetAddress" />
-                    </md-input-container>
-                </md-list-item>
-                <md-list-item>
-                    <md-input-container>
-                        <input mdInput type="text" placeholder="Box/Apt/Ste" value="PO Box 58"
-                               name="identifier" id="identifierCard" formControlName="identifier" />
-                    </md-input-container>
-                </md-list-item>
-                <md-list-item>
-                    <md-input-container>
-                        <input mdInput md-line type="text" placeholder="City" value="New York City"
-                               name="city" id="city" formControlName="city" />
-                    </md-input-container>
-                    <md-input-container>
-                        <input mdInput md-line type="text" placeholder="State" value="New York"
-                               name="state" id="state" formControlName="state" />
-                    </md-input-container>
-                    <md-input-container>
-                        <input mdInput md-line type="number" placeholder="Zipcode" value="10108"
-                               name="zipcode" id="zipcode" formControlName="zipcode" />
-                    </md-input-container>
-                </md-list-item>
-            </fieldset>
         </md-list>
-    </div>
+            <md-list>
+                <md-list-item>
+                    <input mdInput type="number" placeholder="CVC" value="000"
+                            name="cardSecurity" id="cardSecurityCode" formControlName="cardSecurityCode" />
+                </md-list-item>
+            </md-list>
+        </div>                             
+        <div *ngIf="selectedMethod !== 'debit'" formGroupName="cash">
+        <!--<div *ngFor="let method of [1]; let i = index">-->
+            <!--<div [formGroupName]="i">-->
+                <md-list>
+                <md-list-item>
+                    <md-input-container>
+                        <input mdInput type="text" placeholder="Full name (as appears on acct record)" value="John Q. Citizen"
+                               name="accountHolderName" id="accountHolderName" formControlName="accountHolderName" />
+                    </md-input-container>
+                </md-list-item>
+                <md-list-item>
+                    <md-input-container>
+                        <input mdInput md-line type="text" placeholder="Routing number" value=""
+                               name="routingNumber" id="routingNumber" formControlName="routingNumber" />
+                    </md-input-container>
+                    <md-input-container>
+                        <input mdInput md-line type="text" placeholder="Account Number" value=""
+                               name="accountNumber" id="accountNumber" formControlName="accountNumber" />
+                    </md-input-container>
+                    <md-input-container>
+                        <input mdInput md-line type="text" placeholder="Driver license or ID #" value=""
+                               name="driversLicenseNum" id="driversLicenseNum" formControlName="driverLicenseNum" />
+                    </md-input-container>
+                </md-list-item>
+                <fieldset formGroupName="billingAddress">
+                    <md-list-item>
+                        <md-input-container>
+                            <input mdInput type="text" name="fullName" id="fullNameBill"
+                                   placeholder="Full name (as appears on card)" value="John Q. Citizen"
+                                   formControlName="fullName" />
+                        </md-input-container>
+                    </md-list-item>
+                    <md-list-item>
+                        <md-input-container>
+                            <input mdInput type="text" placeholder="Address Line 1" value="7 North Ln"
+                                   name="streeAddress" id="streetAddressCard" formControlName="streetAddress" />
+                        </md-input-container>
+                    </md-list-item>
+                    <md-list-item>
+                        <md-input-container>
+                            <input mdInput type="text" placeholder="Box/Apt/Ste" value="PO Box 58"
+                                   name="identifier" id="identifierCard" formControlName="identifier" />
+                        </md-input-container>
+                    </md-list-item>
+                    <md-list-item>
+                        <md-input-container>
+                            <input mdInput md-line type="text" placeholder="City" value="New York City"
+                                   name="city" id="city" formControlName="city" />
+                        </md-input-container>
+                        <md-input-container>
+                            <input mdInput md-line type="text" placeholder="State" value="New York"
+                                   name="state" id="state" formControlName="state" />
+                        </md-input-container>
+                        <md-input-container>
+                            <input mdInput md-line type="number" placeholder="Zipcode" value="10108"
+                                   name="zipcode" id="zipcode" formControlName="zipcode" />
+                        </md-input-container>
+                    </md-list-item>
+                </fieldset>
+            </md-list>
+        </div>
 </form>
+   

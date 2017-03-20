@@ -7,21 +7,18 @@ import { CreditFormComponent } from './credit-form/credit-form.component';
 
 
 @Component({
-  selector: 'app-registration',
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.css']
+    selector: 'app-registration',
+    templateUrl: './registration.component.html',
+    styleUrls: ['./registration.component.css'],
+    
 })
 export class RegistrationComponent implements OnInit {
 
     public regForm: FormGroup;
-    public shippingAddressSub: FormGroup;
-    public paymentMethodCredit: FormGroup;
-    public paymentMethodCash: FormGroup;
-    public billingAddressSub: FormGroup;
+    public shippingAddressSub: FormGroup;  
     public pmtArray: FormArray;
     public paymentOptions: [{}];
-    public selectedOption: string;
-    
+
 
     constructor(private formBuilder: FormBuilder, private userService: UserService) {
 
@@ -29,9 +26,8 @@ export class RegistrationComponent implements OnInit {
     }
 
     ngOnInit() {
-
-
-        this.pmtArray = <FormArray>this.formBuilder.array([this.paymentMethodCredit]);
+        
+        
         //this.regForm = new FormGroup({});
 
         this.paymentOptions = [
@@ -54,38 +50,7 @@ export class RegistrationComponent implements OnInit {
 
         });
 
-        this.billingAddressSub = new FormGroup({
-
-            fullName: new FormControl(''),
-            streetAddress: new FormControl(''),            
-            identifier: new FormControl(''),
-            city: new FormControl(''),
-            state: new FormControl(''),
-            zipcode: new FormControl('')           
-
-        });
-
-        this.paymentMethodCredit = new FormGroup({
-
-            nameOnCard: new FormControl(''),
-            lastFour: new FormControl(''),
-            expirationDate: new FormControl(''),
-            billingAddress: this.billingAddressSub,
-            cardSecurityCode: new FormControl('')
-
-        });
-
-        this.paymentMethodCash = new FormGroup({
-
-            accountHolderName: new FormControl(''),
-            routingNumber: new FormControl(''),
-            accountNumber: new FormControl(''),
-            driverLicenseNum: new FormControl(''),
-            billingAddress: this.billingAddressSub
-
-        });
-
-
+        
         this.regForm = new FormGroup({
 
             username: new FormControl(''),
@@ -94,39 +59,42 @@ export class RegistrationComponent implements OnInit {
             firstName: new FormControl(''),
             lastName: new FormControl(''),
             telephoneNumber: new FormControl(''),
-            shippingAddress: this.shippingAddressSub,
-            paymentMethod: this.pmtArray,
+            shippingAddress: this.shippingAddressSub,            
             pmtMethod: new FormControl('')
             
         });
+
           
   }
 
 
     public updatePaymentForm(): void {
         
-        let method: string = this.regForm.get('pmtMethod').value;
-        const formGroup = <FormArray>this.regForm.get('paymentMethod');
+        //let method: string = this.regForm.get('pmtMethod').value;
+        //console.log(method);
+        //const formGroup: FormArray = <FormArray>this.regForm.controls['paymentMethod'];
 
-        switch (method) {
+        //switch (method) {
 
-            case 'credit':
-                formGroup.push(this.paymentMethodCredit);
-                formGroup.push(this.paymentMethodCash);
-                break;            
-            case 'debit':
-                //formGroup.push(this.paymentMethodCredit);
-                break;
-            case 'check':
-                formGroup.push(this.paymentMethodCash);
-                break;
-            default:
-                break;
+        //    case 'credit':
+        //        formGroup.at(0) = this.paymentMethodCredit);
+        //        formGroup.push(this.paymentMethodCash);
+        //        break;            
+        //    case 'debit':
+        //        formGroup.push(this.paymentMethodCredit);
+        //        break;
+        //    case 'check':
+        //        formGroup.push(this.paymentMethodCash);
+        //        break;
+        //    default:
+        //        break;
 
-        }
-        
-        this.regForm.controls['paymentMethod'].value = formGroup;
-        console.log(this.regForm.controls['paymentMethod'][0] + "end ");
+        //}
+
+        ////formGroup);//.setValue(formGroup.value[0]);
+
+        //(<FormArray> this.regForm.controls['paymentMethod']).at(0).setValue([formGroup]);
+        //console.log((<FormArray>this.regForm.controls['paymentMethod']).controls[0].value);
         
         
     }  

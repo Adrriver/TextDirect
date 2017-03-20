@@ -105,7 +105,7 @@
             </md-card-content>
         </md-card>
     <!--Payment Method Information-->             
-    <md-card>
+    <md-card style="height:1000px;">
         <md-card-header>
             <md-card-title>
                 Payment and Deposit Information
@@ -117,23 +117,20 @@
                     {{ paymentOption.viewValue }}
                 </md-option>
             </md-select>
-        <md-card-content [ngSwitch]="regForm.controls['pmtMethod'].value">                
+            <md-card-content [ngSwitch]="regForm.controls['pmtMethod'].value">                
             <md-list *ngSwitchCase="'credit'">
                 <md-list-item>
-                    <payment-form [cardForm]="regForm.get('paymentMethod').get(0).value"></payment-form>
-                </md-list-item>
-                <md-list-item>
-                    <payment-form [bankAcctForm]="regForm.get('paymentMethod').get(1).value"></payment-form>
+                    <payment-form [selectedMethod]="regForm.controls['pmtMethod'].value"></payment-form>
                 </md-list-item>
             </md-list>                
             <md-list *ngSwitchCase="'debit'">
-                <md-list-item>
-                    <payment-form [cardForm]="regForm.controls['paymentMethod'][0]"></payment-form>
+                <md-list-item>                    
+                    <payment-form [selectedMethod]="regForm.controls['pmtMethod'].value"></payment-form>
                 </md-list-item>
             </md-list>
             <md-list *ngSwitchCase="'check'">
                 <md-list-item>
-                    <payment-form [cardForm]="regForm.controls['paymentMethod'].controls[0].value"></payment-form>
+                    <payment-form [selectedMethod]="regForm.controls['pmtMethod'].value"></payment-form>
                 </md-list-item>
             </md-list>
             <md-list *ngSwitchDefault>
