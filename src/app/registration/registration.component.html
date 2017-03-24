@@ -1,6 +1,6 @@
 
 
-<form [formGroup]="regForm">
+<form [formGroup]="regForm" novalidate>
     <md-card style="width:400px;">
         <md-card-header>
             <md-card-title>Account Credentials</md-card-title>
@@ -111,8 +111,7 @@
                 Payment and Deposit Information
             </md-card-title>
         </md-card-header>
-            <md-select placeholder="Choose Payment Method" formControlName="pmtMethod" name="paymentOption"
-                       (change)="updatePaymentForm()">
+            <md-select placeholder="Choose Payment Method" formControlName="pmtMethod" name="paymentOption">
                 <md-option *ngFor="let paymentOption of this.paymentOptions" [value]="paymentOption.value">
                     {{ paymentOption.viewValue }}
                 </md-option>
@@ -139,7 +138,7 @@
         </md-card-content>
         <md-card-footer>
             <md-card-subtitle>
-                <a md-raised-button color="accent" (click)="onSubmit(regForm.value)">submit</a>
+                <a md-raised-button color="accent" [disabled]="!(regForm.valid && paymentSubFormValid())" (click)="onSubmit(regForm.value)">submit</a>
             </md-card-subtitle>
         </md-card-footer>            
     </md-card>

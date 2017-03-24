@@ -1,23 +1,29 @@
-<form [formGroup]="paymentMethods">
+<form [formGroup]="paymentMethods" class="billingSubGroup" novalidate>
     <!--card form template-->
         <div *ngIf="selectedMethod !== 'check'" formGroupName="credit">            
             <md-list>
                 <md-list-item>
                     <md-input-container>
-                        <input mdInput md-line type="text" placeholder="Name on Card" value="John Q. Public"
+                        <input mdInput md-line type="text" placeholder="Full Name (as appears on card)" value="John Q. Public"
                                name="nameOnCard" id="nameOnCard" formControlName="nameOnCard"/>
                     </md-input-container>
                 </md-list-item>
                 <md-list-item>
                     <md-input-container>
-                        <input mdInput md-line type="number" placeholder="Card Number" value="5555 5555 5555 5555"
-                               name="lastFour" id="lastFour" formControlName="lastFour" />
+                        <input mdInput md-line type="number" placeholder="Card Number" value="" maxlength="19"
+                               onchange="detectcard()" name="lastFour" id="lastFour" formControlName="lastFour" />
                     </md-input-container>
                     <md-input-container>
-                        <input mdInput md-line type="date" placeholder="Expiration Date" value="MM/YY"
+                        <input mdInput md-line type="text" placeholder="Expiration Date" value="MM/YY"
                                name="expirationDate" id="expirationDate" formControlName="expirationDate" />
                     </md-input-container>
-                </md-list-item>
+                </md-list-item>                
+                    <md-list-item>
+                        <md-input-container>
+                            <input mdInput type="number" placeholder="CVC" value="000" maxlength="3"
+                                   name="cardSecurity" id="cardSecurityCode" formControlName="cardSecurityCode" />
+                        </md-input-container>
+                    </md-list-item>
             </md-list>            
         <md-list>
             <div formGroupName="billingAddress">
@@ -50,18 +56,14 @@
                                 name="state" id="state" formControlName="state" />
                     </md-input-container>
                     <md-input-container>
-                        <input mdInput md-line type="number" placeholder="Zipcode" value="10108"
+                        <input mdInput md-line required [(ngModel)]="zipCode" type="text" placeholder="Zipcode" value=""
                                 name="zipcode" id="zipcode" formControlName="zipcode" />
+                        <md-hint *ngIf="!isValid('credit', 'zipcode')" align="right" [ngStyle]="{'color': 'red'}">xxxxx-xxxx or xxxxx</md-hint>
                     </md-input-container>
                 </md-list-item>
             </div>
-        </md-list>
-            <md-list>
-                <md-list-item>
-                    <input mdInput type="number" placeholder="CVC" value="000"
-                            name="cardSecurity" id="cardSecurityCode" formControlName="cardSecurityCode" />
-                </md-list-item>
-            </md-list>
+        </md-list>           
+        <a md-raised-button color="accent" (click)="addressValidator(billingAddress)">submit</a>
         </div>                             
         <div *ngIf="selectedMethod !== 'debit'" formGroupName="cash">
         <!--<div *ngFor="let method of [1]; let i = index">-->
