@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
 import { Address } from '../main-area/user-account-settings/address';
@@ -18,7 +18,8 @@ export class RegistrationComponent implements OnInit {
     public shippingAddressSub: FormGroup;  
     public pmtArray: FormArray;
     public paymentOptions: [{}];
-    
+    @ViewChild(CreditFormComponent)
+    public credFormComp: CreditFormComponent;
 
 
     constructor(private formBuilder: FormBuilder, private userService: UserService) { }
@@ -63,11 +64,18 @@ export class RegistrationComponent implements OnInit {
         });
 
           
-  }
+  }   
 
+    public update() {
+        
+            this.credFormComp.getChild();
+            console.log(this.credFormComp);
+        
+    }
      
-    public onSubmit(registrationForm): void {
-        //console.log(registrationForm);
+    public onSubmit(registrationForm, paymentForm): void {
+        console.log(registrationForm.valid);
+        console.log(paymentForm.valid)
     }
 
 

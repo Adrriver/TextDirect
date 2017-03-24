@@ -63,7 +63,6 @@
                 </md-list-item>
             </div>
         </md-list>           
-        <a md-raised-button color="accent" (click)="addressValidator(billingAddress)">submit</a>
         </div>                             
         <div *ngIf="selectedMethod !== 'debit'" formGroupName="cash">
         <!--<div *ngFor="let method of [1]; let i = index">-->
@@ -125,6 +124,7 @@
                     </md-list-item>
                 </div>
             </md-list>
+        <a md-raised-button color="accent" (click)="onSubmit(cash)">submit</a>
         </div>
 </form>
    

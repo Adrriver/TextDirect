@@ -13,9 +13,10 @@ import 'rxjs/add/operator/map';
 
     //TODO --> Implement UPS API calls in single dedicated validator; implement additional validators
 
-export class CreditFormComponent /*implements OnInit*/ {
+export class CreditFormComponent implements AfterViewInit {
 
     @Input() public selectedMethod: string;
+    @Input() public parentForm: FormGroup;
     public credit: FormGroup; // credit or debit card account
     public cash: FormGroup; // commonly accepted bank accounts, i.e., checking, savings
     public paymentMethods: FormGroup;
@@ -78,11 +79,23 @@ export class CreditFormComponent /*implements OnInit*/ {
         
         this.paymentMethods.addControl('credit', this.credit);
         this.paymentMethods.addControl('cash', this.cash);
+
+
+    }
+
+    public ngAfterViewInit() {
         
 
     }
 
-   
+
+    public getChild(): FormGroup {
+
+        return this.paymentMethods;
+        
+    }
+
+
     public detectcard(): void {
         this.credit.controls['lastFour'].value.validatecreditcard(function (result) {
             alert('cc type: ' + result.card_type.name
@@ -143,9 +156,15 @@ export class CreditFormComponent /*implements OnInit*/ {
 
     public isValid(pmtMethod, control) {
         if (pmtMethod === 'credit')
+
             return this.billingAddressSubCredit.controls[control].status === 'VALID';
+
         else
             return this.billingAddressSubCash.controls[control].status === 'VALID';        
 
+    }
+
+    public onSubmit(formGroup) {
+        console.log(formGroup);
     }
 }
