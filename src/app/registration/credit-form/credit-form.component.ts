@@ -1,9 +1,11 @@
-import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { Component, Input, OnInit, AfterContentInit } from '@angular/core';
+import { FormGroup, FormControl, FormArray, FormBuilder, Validators, Validator} from '@angular/forms';
 import { Http, Headers, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
+//import services
+import { ChildServiceService } from '../../child-service.service';
 
 @Component({
   selector: 'payment-form',
@@ -13,10 +15,9 @@ import 'rxjs/add/operator/map';
 
     //TODO --> Implement UPS API calls in single dedicated validator; implement additional validators
 
-export class CreditFormComponent implements AfterViewInit {
+export class CreditFormComponent implements AfterContentInit {
 
-    @Input() public selectedMethod: string;
-    @Input() public parentForm: FormGroup;
+    @Input() public selectedMethod: string;   
     public credit: FormGroup; // credit or debit card account
     public cash: FormGroup; // commonly accepted bank accounts, i.e., checking, savings
     public paymentMethods: FormGroup;
@@ -26,12 +27,12 @@ export class CreditFormComponent implements AfterViewInit {
     public USPSVerify: string;
     public zipCode: string = "";
     
-    constructor(private formBuilder: FormBuilder, private http: Http) {
+    constructor(private formBuilder: FormBuilder, private http: Http, private childService: ChildServiceService) {
 
         this.USPSVerify = 'http://production.shippingapis.com/ShippingAPI.dll';
                             
 
-        this.paymentMethods = this.formBuilder.group({});
+        this.paymentMethods = this.formBuilder.group({}, Validators.required);
         
         this.billingAddressSubCredit = new FormGroup({
 
@@ -42,7 +43,7 @@ export class CreditFormComponent implements AfterViewInit {
             state: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[\\w\\s]+')])),
             zipcode: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[0-9]{5}-[0-9]{4}|[0-9]{5}')]))
 
-        }, this.addressValidator.bind(this) );
+        });
 
         this.billingAddressSubCash = new FormGroup({
 
@@ -53,8 +54,7 @@ export class CreditFormComponent implements AfterViewInit {
             state: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[\\w\\s]+')])),
             zipcode: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[0-9]{5}-[0-9]{4}|[0-9]{5}')]))
 
-        }, this.addressValidator.bind(this));
-
+        });
 
         this.credit = new FormGroup({
 
@@ -67,7 +67,7 @@ export class CreditFormComponent implements AfterViewInit {
         });
 
         this.cash = new FormGroup({
-
+            
             accountHolderName: new FormControl('', Validators.pattern('[\\w\\-\\s\\/]+')),
             routingNumber: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[0-9]{9}')])),
             accountNumber: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[0-9]{9,15}')])),
@@ -75,17 +75,39 @@ export class CreditFormComponent implements AfterViewInit {
             billingAddress: this.billingAddressSubCash
 
         });
-
         
+        this.cash.setValidators([]);
+        this.credit.setValidators([]);
         this.paymentMethods.addControl('credit', this.credit);
         this.paymentMethods.addControl('cash', this.cash);
 
 
     }
 
-    public ngAfterViewInit() {
-        
+    
 
+    public ngAfterContentInit() {
+
+        this.paymentMethods.valueChanges.subscribe(() => {
+            console.log("Selected method: " + this.selectedMethod)
+            switch (this.selectedMethod) {
+                case 'check':                    
+                    if (this.cash.valid) this.childService.sendUpdatedForm(this.paymentMethods);
+                    this.childService.sendMessage(this.cash.valid);
+                    break;
+                case 'debit':
+                    if (this.credit.valid) this.childService.sendUpdatedForm(this.paymentMethods);
+                    this.childService.sendMessage(this.credit.valid);                    
+                    break;
+                case 'credit':
+                    if (this.credit.valid && this.cash.valid) this.childService.sendUpdatedForm(this.paymentMethods);
+                    this.childService.sendMessage((this.cash.valid && this.credit.valid));
+                    break;
+                default:
+                    break;
+            }            
+        });
+        
     }
 
 

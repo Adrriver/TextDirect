@@ -1,4 +1,4 @@
-<form [formGroup]="paymentMethods" class="billingSubGroup" novalidate>
+<form [formGroup]="paymentMethods" class="billingSubGroup" >
     <!--card form template-->
         <div *ngIf="selectedMethod !== 'check'" formGroupName="credit">            
             <md-list>
@@ -10,11 +10,11 @@
                 </md-list-item>
                 <md-list-item>
                     <md-input-container>
-                        <input mdInput md-line type="number" placeholder="Card Number" value="" maxlength="19"
+                        <input mdInput md-line type="text" placeholder="Card Number" value="" maxlength="19"
                                onchange="detectcard()" name="lastFour" id="lastFour" formControlName="lastFour" />
                     </md-input-container>
                     <md-input-container>
-                        <input mdInput md-line type="text" placeholder="Expiration Date" value="MM/YY"
+                        <input mdInput md-line type="date" placeholder="Expiration Date" value="MM/YY"
                                name="expirationDate" id="expirationDate" formControlName="expirationDate" />
                     </md-input-container>
                 </md-list-item>                
@@ -27,6 +27,9 @@
             </md-list>            
         <md-list>
             <div formGroupName="billingAddress">
+                <md-card-subtitle>
+                    Billing Address
+                </md-card-subtitle>
                 <md-list-item>
                     <md-input-container>
                         <input mdInput type="text" name="fullName" id="fullNameBill"
@@ -56,7 +59,7 @@
                                 name="state" id="state" formControlName="state" />
                     </md-input-container>
                     <md-input-container>
-                        <input mdInput md-line required [(ngModel)]="zipCode" type="text" placeholder="Zipcode" value=""
+                        <input mdInput md-line type="text" placeholder="Zipcode" value=""
                                 name="zipcode" id="zipcode" formControlName="zipcode" />
                         <md-hint *ngIf="!isValid('credit', 'zipcode')" align="right" [ngStyle]="{'color': 'red'}">xxxxx-xxxx or xxxxx</md-hint>
                     </md-input-container>
@@ -70,7 +73,7 @@
                 <md-list>
                 <md-list-item>
                     <md-input-container>
-                        <input mdInput type="text" placeholder="Full name (as appears on acct record)" value="John Q. Citizen"
+                        <input mdInput type="text" placeholder="Full Name (as appears on record)" value="John Q. Citizen"
                                name="accountHolderName" id="accountHolderName" formControlName="accountHolderName" />
                     </md-input-container>
                 </md-list-item>
@@ -84,7 +87,7 @@
                                name="accountNumber" id="accountNumber" formControlName="accountNumber" />
                     </md-input-container>
                     <md-input-container>
-                        <input mdInput md-line type="text" placeholder="Driver license or ID #" value=""
+                        <input mdInput md-line type="text" placeholder="Driver License or ID #" value=""
                                name="driversLicenseNum" id="driversLicenseNum" formControlName="driverLicenseNum" />
                     </md-input-container>
                 </md-list-item>
@@ -92,7 +95,7 @@
                     <md-list-item>
                         <md-input-container>
                             <input mdInput type="text" name="fullName" id="fullNameBill"
-                                   placeholder="Full name (as appears on card)" value="John Q. Citizen"
+                                   placeholder="Full Name (as appears on card)" value="John Q. Citizen"
                                    formControlName="fullName" />
                         </md-input-container>
                     </md-list-item>
@@ -123,8 +126,7 @@
                         </md-input-container>
                     </md-list-item>
                 </div>
-            </md-list>
-        <a md-raised-button color="accent" (click)="onSubmit(cash)">submit</a>
+            </md-list>        
         </div>
 </form>
    

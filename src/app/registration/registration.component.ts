@@ -1,10 +1,13 @@
 import { Component, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { UserService } from '../user.service';
 import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
 import { Address } from '../main-area/user-account-settings/address';
 import { PaymentMethod } from '../main-area/user-account-settings/payment-method';
 import { CreditFormComponent } from './credit-form/credit-form.component';
+import { Subscription } from 'rxjs/Subscription';
 
+//services
+import { UserService } from '../user.service';
+import { ChildServiceService } from '../child-service.service';
 
 @Component({
     selector: 'app-registration',
@@ -18,11 +21,14 @@ export class RegistrationComponent implements OnInit {
     public shippingAddressSub: FormGroup;  
     public pmtArray: FormArray;
     public paymentOptions: [{}];
-    @ViewChild(CreditFormComponent)
-    public credFormComp: CreditFormComponent;
+    public childFormGroup: FormGroup;
+    public childSubscription: Subscription;
+    public isChildValid: boolean = false;
 
-
-    constructor(private formBuilder: FormBuilder, private userService: UserService) { }
+    constructor(private formBuilder: FormBuilder, private userService: UserService, private childService: ChildServiceService) {
+        this.childService.getChildForm().subscribe(form => { this.childFormGroup = form });
+        this.childService.getMessage().subscribe(message => { this.isChildValid = message });
+    }
 
     ngOnInit() {
         
@@ -66,16 +72,10 @@ export class RegistrationComponent implements OnInit {
           
   }   
 
-    public update() {
-        
-            this.credFormComp.getChild();
-            console.log(this.credFormComp);
-        
-    }
      
-    public onSubmit(registrationForm, paymentForm): void {
-        console.log(registrationForm.valid);
-        console.log(paymentForm.valid)
+    public onSubmit(registrationFormValid, paymentFormValid): void {
+        console.log(registrationFormValid + " " + paymentFormValid);
+        
     }
 
 
