@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
+import { CustomValidators } from 'ng2-validation';
+import { SessionService } from '../../session.service';
 
 @Component({
   selector: 'app-new-item-creator',
@@ -9,9 +12,15 @@ import { Component, OnInit } from '@angular/core';
 //Google Book API API key:  'AIzaSyBOQWG0XcRTL4bQvw4jIP9A-hLhwCKf-AY'
 export class NewItemCreatorComponent implements OnInit {
 
-  constructor() { }
+    
+    constructor(private sessionService: SessionService) {
 
-  ngOnInit() {
-  }
+
+
+    }
+
+    ngOnInit() {
+
+    }
 
 }

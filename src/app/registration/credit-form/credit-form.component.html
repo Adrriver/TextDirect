@@ -3,23 +3,23 @@
         <div *ngIf="selectedMethod !== 'check'" formGroupName="credit">            
             <md-list>
                 <md-list-item>
-                    <md-input-container>
-                        <input mdInput md-line type="text" placeholder="Full Name (as appears on card)" value="John Q. Public"
+                    <md-input-container (input)="!isValid('credit', false, 'nameOnCard').bind(this)" hintLabel="{{5}}">
+                        <input mdInput md-line type="text" #noc placeholder="Full Name (as appears on card)" value="John Q. Public"
                                name="nameOnCard" id="nameOnCard" formControlName="nameOnCard"/>
                     </md-input-container>
                 </md-list-item>
                 <md-list-item>
-                    <md-input-container>
+                    <md-input-container (input)="isValid('credit', false, 'lastFour')" >
                         <input mdInput md-line type="text" placeholder="Card Number" value="" maxlength="19"
                                onchange="detectcard()" name="lastFour" id="lastFour" formControlName="lastFour" />
                     </md-input-container>
-                    <md-input-container>
+                    <md-input-container (input)="isValid('credit', false, 'expirationDate')" hintLabel="!">
                         <input mdInput md-line type="date" placeholder="Expiration Date" value="MM/YY"
                                name="expirationDate" id="expirationDate" formControlName="expirationDate" />
                     </md-input-container>
                 </md-list-item>                
                     <md-list-item>
-                        <md-input-container>
+                        <md-input-container (input)="isValid('credit', false, 'cardSecurityCode')" hintLabel="!">
                             <input mdInput type="number" placeholder="CVC" value="000" maxlength="3"
                                    name="cardSecurity" id="cardSecurityCode" formControlName="cardSecurityCode" />
                         </md-input-container>
@@ -31,37 +31,37 @@
                     Billing Address
                 </md-card-subtitle>
                 <md-list-item>
-                    <md-input-container>
+                    <md-input-container (input)="isValid('credit', 'true', 'fullName')" hintLabel="!">
                         <input mdInput type="text" name="fullName" id="fullNameBill"
                                 placeholder="Full name (as appears on card)" value="John Q. Citizen"
                                 formControlName="fullName" />
                     </md-input-container>
                 </md-list-item>
                 <md-list-item>
-                    <md-input-container>
+                    <md-input-container (input)="isValid('credit', 'true', 'streetAddress')" hintLabel="!">
                         <input mdInput type="text" placeholder="Address Line 1" value="7 North Ln"
                                 name="streeAddress" id="streetAddressCard" formControlName="streetAddress" />
                     </md-input-container>
                 </md-list-item>
                 <md-list-item>
-                    <md-input-container>
+                    <md-input-container (input)="isValid('credit', 'true', 'identifier')" hintLabel="!" >
                         <input mdInput type="text" placeholder="Box/Apt/Ste" value="PO Box 58" 
                                 name="identifier" id="identifierCard" formControlName="identifier" />
                     </md-input-container>
                 </md-list-item>
                 <md-list-item>
-                    <md-input-container>
+                    <md-input-container (input)="isValid('credit', 'true', 'city')" hintLabel="!">
                         <input mdInput md-line type="text" placeholder="City" value="New York City"
                                 name="city" id="city" formControlName="city" />
                     </md-input-container>
-                    <md-input-container>
+                    <md-input-container (input)="isValid('credit', 'true', 'state')" hintLabel="!" >
                         <input mdInput md-line type="text" placeholder="State" value="New York"
                                 name="state" id="state" formControlName="state" />
                     </md-input-container>
-                    <md-input-container>
+                    <md-input-container (input)="isValid('credit', 'true', 'zipcode')" hintLabel="!">
                         <input mdInput md-line type="text" placeholder="Zipcode" value=""
                                 name="zipcode" id="zipcode" formControlName="zipcode" />
-                        <md-hint *ngIf="!isValid('credit', 'zipcode')" align="right" [ngStyle]="{'color': 'red'}">xxxxx-xxxx or xxxxx</md-hint>
+                        <md-hint align="right" [ngStyle]="{'color': 'red'}">xxxxx-xxxx or xxxxx</md-hint>
                     </md-input-container>
                 </md-list-item>
             </div>
@@ -72,55 +72,55 @@
             <!--<div [formGroupName]="i">-->
                 <md-list>
                 <md-list-item>
-                    <md-input-container>
-                        <input mdInput type="text" placeholder="Full Name (as appears on record)" value="John Q. Citizen"
+                    <md-input-container (input)="isValid('cash', false, 'accountHolderName')" hintLabel="{{ noc.value.length }}">
+                        <input mdInput type="text" #noc placeholder="Full Name (as appears on record)" value=""
                                name="accountHolderName" id="accountHolderName" formControlName="accountHolderName" />
                     </md-input-container>
                 </md-list-item>
                 <md-list-item>
-                    <md-input-container>
+                    <md-input-container (input)="isValid('cash', false, 'routingNumber').bind(this)" hintLabel="!">
                         <input mdInput md-line type="text" placeholder="Routing number" value=""
                                name="routingNumber" id="routingNumber" formControlName="routingNumber" />
                     </md-input-container>
-                    <md-input-container>
+                    <md-input-container (input)="isValid('cash', false, 'accountNumber')" hintLabel="!">
                         <input mdInput md-line type="text" placeholder="Account Number" value=""
                                name="accountNumber" id="accountNumber" formControlName="accountNumber" />
                     </md-input-container>
-                    <md-input-container>
+                    <md-input-container (input)="isValid('cash', false, 'driverLicenseNum')" hintLabel="!">
                         <input mdInput md-line type="text" placeholder="Driver License or ID #" value=""
                                name="driversLicenseNum" id="driversLicenseNum" formControlName="driverLicenseNum" />
                     </md-input-container>
                 </md-list-item>
                 <div formGroupName="billingAddress">
                     <md-list-item>
-                        <md-input-container>
+                        <md-input-container (input)="isValid('cash', true, 'fullName')" hintLabel="!">
                             <input mdInput type="text" name="fullName" id="fullNameBill"
                                    placeholder="Full Name (as appears on card)" value="John Q. Citizen"
                                    formControlName="fullName" />
                         </md-input-container>
                     </md-list-item>
                     <md-list-item>
-                        <md-input-container>
+                        <md-input-container (input)="isValid('cash', true, 'streetAddress')" hintLabel="!">
                             <input mdInput type="text" placeholder="Address Line 1" value="7 North Ln"
                                    name="streeAddress" id="streetAddressCard" formControlName="streetAddress" />
                         </md-input-container>
                     </md-list-item>
                     <md-list-item>
-                        <md-input-container>
+                        <md-input-container (input)="isValid('cash', true, 'identifier')" hintLabel="!">
                             <input mdInput type="text" placeholder="Box/Apt/Ste" value="PO Box 58"
                                    name="identifier" id="identifierCard" formControlName="identifier" />
                         </md-input-container>
                     </md-list-item>
                     <md-list-item>
-                        <md-input-container>
+                        <md-input-container (input)="isValid('cash', true, 'city')" hintLabel="!"> 
                             <input mdInput md-line type="text" placeholder="City" value="New York City"
                                    name="city" id="city" formControlName="city" />
                         </md-input-container>
-                        <md-input-container>
+                        <md-input-container (input)="isValid('cash', true, 'state')" hintLabel="!">
                             <input mdInput md-line type="text" placeholder="State" value="New York"
                                    name="state" id="state" formControlName="state" />
                         </md-input-container>
-                        <md-input-container>
+                        <md-input-container (input)="isValid('cash', true, 'zipcode')" hintLabel="!" >
                             <input mdInput md-line type="number" placeholder="Zipcode" value="10108"
                                    name="zipcode" id="zipcode" formControlName="zipcode" />
                         </md-input-container>

@@ -3,18 +3,20 @@ import { Address } from './address';
 export class UserAccount {
 
     //general account properties
-    public username: string;
-    public password: string;
-    public emailAddress: string; //verified college/university email account (.edu)
-    public firstName: string;
-    public lastName: string;
-    public telephoneNumber: string;
-    public paymentMethod: PaymentMethod;
-    public shippingAddress: Address;
-    
+    username: string;
+    password: string;
+    emailAddress: string; //verified college/university email account (.edu)
+    firstName: string;
+    lastName: string;
+    telephoneNumber: string;
+    paymentMethod: PaymentMethod;
+    shippingAddress: Address;
+    isAdmin: boolean; 
+    registrationDate: Date;
+    standing: boolean; //associated with incident or delinquency instance stored in DB
 
-    public UserAccount(username: string, pw: string, email: string, fName: string,
-                       lName: string, phone: string, payment: PaymentMethod) {
+    UserAccount(username: string, pw: string, email: string, fName: string,
+        lName: string, phone: string, payment: PaymentMethod, shipping: Address, isAdmin: boolean, memberSince: Date, standing: boolean) {
 
         this.username = username;
         this.password = pw;
@@ -22,7 +24,11 @@ export class UserAccount {
         this.firstName = fName;
         this.lastName = lName;
         this.telephoneNumber = phone;
-        this.paymentMethod = payment;      
+        this.paymentMethod = payment; 
+        this.shippingAddress = shipping;
+        this.isAdmin = isAdmin;     
+        this.registrationDate = memberSince;
+        this.standing = standing;
 
     }
 

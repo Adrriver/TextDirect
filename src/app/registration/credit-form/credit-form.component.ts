@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, AfterContentInit } from '@angular/core';
+import { Component, Input, OnInit, AfterContentInit, HostListener } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators, Validator} from '@angular/forms';
+import { CustomValidators } from 'ng2-validation';
 import { Http, Headers, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -59,8 +60,8 @@ export class CreditFormComponent implements AfterContentInit {
         this.credit = new FormGroup({
 
             nameOnCard: new FormControl('', Validators.pattern('[\\w\\-\\s\\/]+')),
-            lastFour: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[0-9\s]{19}|[0-9]{16}')])),
-            expirationDate: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[0-9]{2}/[0-9]{4}')])),
+            lastFour: new FormControl('', Validators.compose([Validators.required, CustomValidators.creditCard])),
+            expirationDate: new FormControl('', Validators.compose([Validators.required, CustomValidators.date])),
             billingAddress: this.billingAddressSubCredit,
             cardSecurityCode: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[0-9]{3}')]))
 
@@ -175,15 +176,29 @@ export class CreditFormComponent implements AfterContentInit {
         //xhr.send(requestData);
         
     }
+   
+    public isValid(group: string, addressControl: boolean, control: string) {
 
-    public isValid(pmtMethod, control) {
-        if (pmtMethod === 'credit')
+        switch (group) {
 
-            return this.billingAddressSubCredit.controls[control].status === 'VALID';
+            case 'credit':
+                if (addressControl === true)
+                    return this.billingAddressSubCredit.controls[control].status === 'VALID';
+                else
+                    return this.credit.controls[control].status === 'VALID';                
 
-        else
-            return this.billingAddressSubCash.controls[control].status === 'VALID';        
+            case 'check':
+                if (addressControl === true)
+                    return this.billingAddressSubCash.controls[control].status === 'VALID';
+                else
+                    return this.cash.controls[control].status === 'VALID';
+                
+            default:
+                break;
 
+        }
+
+        console.log(this.)
     }
 
     public onSubmit(formGroup) {

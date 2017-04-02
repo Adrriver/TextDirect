@@ -21,7 +21,6 @@ import { PriceReportService } from './price-report.service';
 import { SearchService } from './search.service';
 import { SessionService } from './session.service';
 import { TransactionHistoryService } from './transaction-history.service';
-import { UserService } from './user.service';
 import { ChildServiceService } from './child-service.service';
 //Angular2 Material
 import { MaterialModule } from '@angular/material';
@@ -52,7 +51,6 @@ import 'hammerjs';
               SearchService,
               SessionService,
               TransactionHistoryService,
-              UserService,
               ChildServiceService
   ],
   bootstrap: [AppComponent]

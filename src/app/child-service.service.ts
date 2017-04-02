@@ -1,8 +1,6 @@
 import { FormGroup } from '@angular/forms';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Subject } from 'rxjs/Subject';
-
+import { Observable, Subject } from 'rxjs/Rx';
 
 @Injectable()
 export class ChildServiceService {
