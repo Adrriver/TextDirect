@@ -1,3 +1,20 @@
 <h2>Lazy Module</h2>
 
+<p>
+    Navigation:
+    <a [routerLink]="['main-home']">Home</a>
+    <a [routerLink]="['./dashboard']">Dashboard</a>
+    <a [routerLink]="['./my-items']">My Items</a> <!--(editable) seller item detail-->
+    <a [routerLink]="['./checkout']">Checkout</a>
+    <a [routerLink]="['./help']">Help</a>
+    <a [routerLink]="['./item-creator']">New Listing</a>
+    <a [routerLink]="['./retrieve-password']">Forget Password?</a>
+    <a [routerLink]="['./search']">Search</a>
+    <a [routerLink]="['./cart']">My Cart</a>
+    <a [routerLink]="['./transaction-history']">Transaction History</a>
+    <a [routerLink]="['./user-account-settings']">Account</a>
+</p>
+<h3>Current Main Area Route:</h3>
+
+
 <router-outlet></router-outlet>
