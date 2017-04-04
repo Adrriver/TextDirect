@@ -13,12 +13,13 @@
                 <input mdInput type="password" placeholder="password" formControlName="password">
             </md-input-container>
             <a md-raised-button color="accent" (click)="logIn()">Submit</a>
-          <p>
-              Register: <a [routerLink]="['registration']">Here</a>
+
+              <p>Register:</p> <a [routerLink]="['registration']">Here</a>
+              <a [routerLink]="['retrieve-password']"><p>Forget Password?</p></a>
+
 
               <!--<a [routerLink]="['main-area/main-home']">Enter</a>
               <a [routerLink]="['administration/']">Administrator</a>-->
-          </p>
             <!--<a md-button color="primary">Flat Button</a>
 
             <a md-fab color="primary"><md-icon>check</md-icon></a>

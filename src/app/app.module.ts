@@ -12,6 +12,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { CreditFormComponent } from './registration/credit-form/credit-form.component';
 import { AuthGuardService } from './main-area/auth-guard.service';
 
+
 // non-core services
 import { AuthGuardAdminService } from './administration/auth-guard-admin.service';
 import { CurrentActivityService } from './current-activity.service';
@@ -27,6 +28,8 @@ import { MaterialModule } from '@angular/material';
 // HammerJS
 import 'hammerjs';
 import { FormFeedbackDirective } from './form-feedback.directive';
+import {PasswordRetrievalComponent} from "./registration/password-retrieval/password-retrieval.component";
+import {NewItemCreatorService} from "./new-item-creator.service";
 
 @NgModule({
   declarations: [
@@ -34,7 +37,8 @@ import { FormFeedbackDirective } from './form-feedback.directive';
     HomeComponent,
     RegistrationComponent,
     CreditFormComponent,
-    FormFeedbackDirective
+    FormFeedbackDirective,
+    PasswordRetrievalComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +57,8 @@ import { FormFeedbackDirective } from './form-feedback.directive';
               SearchService,
               SessionService,
               TransactionHistoryService,
-              ChildServiceService
+              ChildServiceService,
+              NewItemCreatorService
   ],
   bootstrap: [AppComponent]
 })

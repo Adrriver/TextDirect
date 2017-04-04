@@ -8,7 +8,6 @@ import { HelpRequestFormComponent } from './help-request-form/help-request-form.
 import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { NewItemCreatorComponent } from './new-item-creator/new-item-creator.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
-import { PasswordRetrievalComponent } from './password-retrieval/password-retrieval.component';
 import { PriceReportDetailComponent } from './price-report-detail/price-report-detail.component';
 import { SaleDetailComponent } from './sale-detail/sale-detail.component';
 import { SearchComponent } from './search/search.component';
@@ -30,10 +29,9 @@ const mainRoutes: Routes = [
         { path: 'help', component: HelpRequestFormComponent, canActivate: [AuthGuardService] },
         { path: 'detail/:id', component: ItemDetailComponent, canActivate: [AuthGuardService]},
         { path: 'item-creator', component: NewItemCreatorComponent, canActivate: [AuthGuardService] },
-        { path: 'detail/:id', component: OrderDetailComponent, canActivate: [AuthGuardService] }, 
-        { path: 'retrieve-password', component: PasswordRetrievalComponent, canActivate: [AuthGuardService] },
-        { path: 'detail/:id', component: PriceReportDetailComponent, canActivate: [AuthGuardService] }, 
-        { path: 'detail/:id', component: SaleDetailComponent, canActivate: [AuthGuardService] }, 
+        { path: 'detail/:id', component: OrderDetailComponent, canActivate: [AuthGuardService] },
+        { path: 'detail/:id', component: PriceReportDetailComponent, canActivate: [AuthGuardService] },
+        { path: 'detail/:id', component: SaleDetailComponent, canActivate: [AuthGuardService] },
         { path: 'search', component: SearchComponent, canActivate: [AuthGuardService] },
         { path: 'cart', component: ShoppingCartComponent, canActivate: [AuthGuardService] },
         { path: 'transaction-history', component: TransactionHistoryComponent, canActivate: [AuthGuardService] },

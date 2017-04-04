@@ -15,7 +15,6 @@ import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { SalesComponent } from './sales/sales.component';
 import { SaleDetailComponent } from './sale-detail/sale-detail.component';
 import { UserAccountSettingsComponent } from './user-account-settings/user-account-settings.component';
-import { PasswordRetrievalComponent } from './password-retrieval/password-retrieval.component';
 import { PriceReportsComponent } from './price-reports/price-reports.component';
 import { PriceReportDetailComponent } from './price-report-detail/price-report-detail.component';
 import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
@@ -42,7 +41,6 @@ import { MyItemsComponent } from './my-items/my-items.component';
                   SalesComponent,
                   SaleDetailComponent,
                   UserAccountSettingsComponent,
-                  PasswordRetrievalComponent,
                   PriceReportsComponent,
                   PriceReportDetailComponent,
                   TransactionHistoryComponent,

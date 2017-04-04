@@ -7,7 +7,7 @@ import { AuthGuardAdminService } from './auth-guard-admin.service';
 import { AuthGuardService } from '../main-area/auth-guard.service';
 
 const adminRoutes: Routes = [
-    { path: '', component: AdministrationComponent, canActivate: [AuthGuardService,AuthGuardAdminService] },
+    { path: '', component: AdministrationComponent, canActivate: [AuthGuardService, AuthGuardAdminService] },
     { path: 'detail/:id', component: CustomerServiceRequestDetailComponent, canActivate: [AuthGuardService, AuthGuardAdminService] },
     { path: 'detail/:id', component: UserAccountDetailComponent, canActivate: [AuthGuardService, AuthGuardAdminService] }
 ];
