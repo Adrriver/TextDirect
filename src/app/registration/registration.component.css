@@ -1,6 +1,6 @@
-@import '~/node_modules/@angular/material/core/theming/prebuilt/indigo-green.css';
+@import "~@angular/material/core/theming/prebuilt/indigo-green.css";
 
-md-hint-warn {
-
+._mat-warn {
+  color: tomato !important;
 }
 

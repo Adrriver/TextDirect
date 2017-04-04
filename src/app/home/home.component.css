@@ -1,0 +1,41 @@
+@import "~@angular/material/core/theming/prebuilt/indigo-green.css";
+
+#form {
+
+  margin: auto;
+  width: 65%;
+  display: block;
+  position: relative;
+  padding: 50px;
+  padding-top: calc(100px);
+
+}
+
+#login {
+
+
+  height: 500px;
+  margin: auto;
+  width: 55%;
+
+}
+
+a {
+  text-decoration: none;
+  text-color: 'white';
+}
+
+h2 {
+
+  margin: auto;
+  width: 59%;
+
+}
+
+p#form {
+
+  padding-top: 25px;
+  display: block;
+  float: right;
+
+}
