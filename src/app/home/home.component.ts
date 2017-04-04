@@ -7,8 +7,8 @@ import { FormGroup, FormControl, Validator } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html'
-  //styleUrls: ['./../../styles.css']
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
 
@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
     constructor(private sessionService: SessionService, private router: Router) { }
 
     ngOnInit() {
-       
+
         this.logInOutcome = "Welcome!";
         this.credentialsForm = new FormGroup({
             username: new FormControl(''),
@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
 
         if (this.sessionService.logIn(this.username, this.password)) {
 
-            this.logInOutcome = this.username + " " + this.password;
+            this.logInOutcome = this.username + ' ' + this.password;
 
             this.router.navigate(['main-area/main-home']);
 

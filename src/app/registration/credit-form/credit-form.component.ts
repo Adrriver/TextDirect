@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, AfterContentInit, HostListener } from '@angular/core';
+import {Component, Input, OnInit, AfterContentInit, HostListener, ChangeDetectionStrategy} from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators, Validator} from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
 import { Http, Headers, URLSearchParams } from '@angular/http';
@@ -11,14 +11,15 @@ import { ChildServiceService } from '../../child-service.service';
 @Component({
   selector: 'payment-form',
   templateUrl: './credit-form.component.html',
-  styleUrls: ['./credit-form.component.css']
+  styleUrls: ['./credit-form.component.css'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 
-    //TODO --> Implement UPS API calls in single dedicated validator; implement additional validators
+    // TODO --> Implement UPS API calls in single dedicated validator; implement additional validators
 
-export class CreditFormComponent implements AfterContentInit {
+export class CreditFormComponent {
 
-    @Input() public selectedMethod: string;   
+    @Input() public selectedMethod: string;
     public credit: FormGroup; // credit or debit card account
     public cash: FormGroup; // commonly accepted bank accounts, i.e., checking, savings
     public paymentMethods: FormGroup;
@@ -26,15 +27,15 @@ export class CreditFormComponent implements AfterContentInit {
     public billingAddressSubCash: FormGroup;
     public regAttemptOutcome: {};
     public USPSVerify: string;
-    public zipCode: string = "";
-    
+    public zipCode: string;
+
     constructor(private formBuilder: FormBuilder, private http: Http, private childService: ChildServiceService) {
 
         this.USPSVerify = 'http://production.shippingapis.com/ShippingAPI.dll';
-                            
+
 
         this.paymentMethods = this.formBuilder.group({}, Validators.required);
-        
+
         this.billingAddressSubCredit = new FormGroup({
 
             fullName: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[\\w\\-\\s\\/]+')])),
@@ -68,7 +69,7 @@ export class CreditFormComponent implements AfterContentInit {
         });
 
         this.cash = new FormGroup({
-            
+
             accountHolderName: new FormControl('', Validators.pattern('[\\w\\-\\s\\/]+')),
             routingNumber: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[0-9]{9}')])),
             accountNumber: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[0-9]{9,15}')])),
@@ -76,29 +77,20 @@ export class CreditFormComponent implements AfterContentInit {
             billingAddress: this.billingAddressSubCash
 
         });
-        
-        this.cash.setValidators([]);
-        this.credit.setValidators([]);
+
         this.paymentMethods.addControl('credit', this.credit);
         this.paymentMethods.addControl('cash', this.cash);
 
-
-    }
-
-    
-
-    public ngAfterContentInit() {
-
         this.paymentMethods.valueChanges.subscribe(() => {
-            console.log("Selected method: " + this.selectedMethod)
+
             switch (this.selectedMethod) {
-                case 'check':                    
+                case 'check':
                     if (this.cash.valid) this.childService.sendUpdatedForm(this.paymentMethods);
                     this.childService.sendMessage(this.cash.valid);
                     break;
                 case 'debit':
                     if (this.credit.valid) this.childService.sendUpdatedForm(this.paymentMethods);
-                    this.childService.sendMessage(this.credit.valid);                    
+                    this.childService.sendMessage(this.credit.valid);
                     break;
                 case 'credit':
                     if (this.credit.valid && this.cash.valid) this.childService.sendUpdatedForm(this.paymentMethods);
@@ -106,16 +98,22 @@ export class CreditFormComponent implements AfterContentInit {
                     break;
                 default:
                     break;
-            }            
+            }
         });
-        
+
     }
+
+
+
+
+
+
 
 
     public getChild(): FormGroup {
 
         return this.paymentMethods;
-        
+
     }
 
 
@@ -154,11 +152,11 @@ export class CreditFormComponent implements AfterContentInit {
         //                                     < /AddressValidateRequest>", 'text/xml');
 
 
-              
+
         //let requestData: any = new FormData();
         //let xhr = new XMLHttpRequest();
         //requestData.append('API', 'Verify');
-        //requestData.append('XML', XmlSerializer.serializeToString(xml));        
+        //requestData.append('XML', XmlSerializer.serializeToString(xml));
         //xhr.open("GET", this.USPSVerify, true);
         //xhr.setRequestHeader("Access-Control-Allow-Origin", 'http://66.190.140.47:4201/registration');
         //xhr.setRequestHeader("Content-Type", 'text/xml');
@@ -174,9 +172,9 @@ export class CreditFormComponent implements AfterContentInit {
         //};
 
         //xhr.send(requestData);
-        
+
     }
-   
+
     public isValid(group: string, addressControl: boolean, control: string) {
 
         switch (group) {
@@ -185,20 +183,20 @@ export class CreditFormComponent implements AfterContentInit {
                 if (addressControl === true)
                     return this.billingAddressSubCredit.controls[control].status === 'VALID';
                 else
-                    return this.credit.controls[control].status === 'VALID';                
+                    return this.credit.controls[control].status === 'VALID';
 
             case 'check':
                 if (addressControl === true)
                     return this.billingAddressSubCash.controls[control].status === 'VALID';
                 else
                     return this.cash.controls[control].status === 'VALID';
-                
+
             default:
                 break;
 
         }
 
-        console.log(this.)
+        console.log();
     }
 
     public onSubmit(formGroup) {

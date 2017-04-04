@@ -13,28 +13,28 @@ export class CustomerRequest {
     private outcome: [Boolean, String, Boolean]; // js object defining 'resolved : Boolean', 'dateResolved : String', 'refundIssued : Boolean'
 
     public setRequestorUsername(requestor: string): void {
-        this.requestorUsername = new String(requestor);
+        this.requestorUsername = String(requestor);
     }
     public getRequestorUsername(): String {
         return this.requestorUsername;
     }
 
     public setRequestDate(date: string): void {
-        this.requestDate = new String(date);
+        this.requestDate = String(date);
     }
     public getRequestDate(): String {
         return this.requestDate;
     }
 
     public setRequestType(type: string): void {
-        this.requestType = new String(type);
+        this.requestType = String(type);
     }
     public getRequestType(): String {
         return this.requestType;
     }
 
     public setTransactionId(id: number): void {
-        this.transactionId = new Number(id);
+        this.transactionId = Number(id);
     }
     public getTransactionId(): Number {
         return this.transactionId;
@@ -46,9 +46,9 @@ export class CustomerRequest {
     public setOutcome(outcome: string): void {
         let outcomeArray = outcome.split(",");
 
-        this.outcome['resolved'] = new Boolean(outcomeArray[0]);
-        this.outcome['dateResolved'] = new String(outcomeArray[1]);
-        this.outcome['refundIssued'] = new Boolean(outcomeArray[2]);
+        this.outcome['resolved'] = Boolean(outcomeArray[0]);
+        this.outcome['dateResolved'] = String(outcomeArray[1]);
+        this.outcome['refundIssued'] = Boolean(outcomeArray[2]);
     }
 
     public getOutcome(): [Boolean, String, Boolean] {

@@ -47,7 +47,7 @@
                 </md-list>
             </md-card-content>
         </md-card>
-        <md-card>   
+        <md-card>
         <md-card-header>
             <md-card-title>Contact Information</md-card-title>
         </md-card-header>
@@ -74,7 +74,7 @@
                                 <input mdInput md-line type="text" placeholder="Last Name" value="addressee last"
                                         name="addresseeLast" id="addresseeLast" formControlName="lastName" />
                             </md-input-container>
-                        </md-list-item>                   
+                        </md-list-item>
                         <md-list-item>
                             <md-input-container>
                                 <input mdInput md-line type="text" placeholder="Street Address" value="222 Broadway"
@@ -103,7 +103,7 @@
                     </div>
             </md-card-content>
         </md-card>
-    <!--Payment Method Information-->             
+    <!--Payment Method Information-->
     <md-card style="height:1000px;">
         <md-card-header>
             <md-card-title>
@@ -115,14 +115,14 @@
                     {{ paymentOption.viewValue }}
                 </md-option>
             </md-select>
-            <md-card-content [ngSwitch]="regForm.controls['pmtMethod'].value">                
+            <md-card-content [ngSwitch]="regForm.controls['pmtMethod'].value">
             <md-list *ngSwitchCase="'credit'">
                 <md-list-item>
                     <payment-form #credFormGroup [selectedMethod]="regForm.controls['pmtMethod'].value"></payment-form>
                 </md-list-item>
-            </md-list>                
+            </md-list>
             <md-list *ngSwitchCase="'debit'">
-                <md-list-item>                    
+                <md-list-item>
                     <payment-form #credFormGroup [selectedMethod]="regForm.controls['pmtMethod'].value"></payment-form>
                 </md-list-item>
             </md-list>
@@ -131,14 +131,14 @@
                     <payment-form #credFormGroup [selectedMethod]="regForm.controls['pmtMethod'].value"></payment-form>
                 </md-list-item>
             </md-list>
-            <md-list *ngSwitchDefault>                
-            </md-list>                
+            <md-list *ngSwitchDefault>
+            </md-list>
         </md-card-content>
-        <md-card-footer>            
+        <md-card-footer>
             <md-card-subtitle>
-                <a md-raised-button color="accent" [disabled]="!(regForm.valid && isChildValid)" (click)="onSubmit(regForm.value, childFormGroup.value)">submit</a>
+                <a md-raised-button color="accent" [disabled]="!(regForm.valid && isChildValid)" (click)="onSubmit()">submit</a>
             </md-card-subtitle>
-        </md-card-footer>            
+        </md-card-footer>
     </md-card>
 </form>
 <!--[disabled]="!(regForm.valid && credFormGroup.valid)"-->
