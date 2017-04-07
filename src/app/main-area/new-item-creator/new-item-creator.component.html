@@ -6,7 +6,7 @@
         <md-card-content>
             <md-list>
                 <md-list-item>
-                    <md-input-container hintLabel="{{pTitle.value.length/20}}" appFormFeedbackMain>
+                    <md-input-container hintLabel="{{pTitle.value.length + '/20'}}" appFormFeedbackMain>
                         <input appFormFeedbackMain mdInput md-line placeholder="Title (primary)" value=""
                                type="text" name="p-title" id="p-title" #pTitle
                                formControlName="bookTitle" />
@@ -67,13 +67,18 @@
                              type="number" name="salePrice" id="salePrice"
                              formControlName="salePrice" />
                     </md-input-container>
-                    <section>
-                      <md-checkbox value="false" formControlName="punctualShipment">I can ship this book by end of next business day</md-checkbox>
-                    </section>
                   </md-list-item>
             </md-list>
+          <md-list>
+            <md-list-item>
+              <md-card-subtitle *ngIf="this.itemAttributes.controls['punctualShipment'].value === true">{{ shipmentDate }}</md-card-subtitle>
+            </md-list-item>
+          </md-list>
         </md-card-content>
       <md-card-footer>
+        <section>
+          <md-checkbox (check)="setShipmentDate()" formControlName="punctualShipment">I can ship this book by end of next business day</md-checkbox>
+        </section>
         <md-card-subtitle>
           <a md-raised-button color="accent" [disabled]="!(itemAttributes.valid)" (click)="onSubmit()">submit</a>
         </md-card-subtitle>

@@ -22,6 +22,7 @@ export class NewItemCreatorComponent implements OnInit {
 
     public itemAttributes: FormGroup;
     public conditionList: [{}];
+    public shipmentDate: string;
     @ViewChild(ItemCompetitorsComponent)
     public competitorList: ItemCompetitorsComponent;
     public user: UserAccount;
@@ -44,35 +45,49 @@ export class NewItemCreatorComponent implements OnInit {
     ngOnInit() {
 
       this.itemAttributes = new FormGroup({
+
           bookTitle: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[\\w\\s]+')])),
+
           secondaryTitle: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[\\w\\s]+')])),
+
           authors: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[\\w\\s]+')])),
-          editors: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[\\w\\s]+')])),
+
+          editors: new FormControl('', Validators.compose([Validators.pattern('[\\w\\s]+')])),
+
           edition: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[0-9a-bA-Z]+')])),
+
           publicationDate: new FormControl('', Validators.compose([CustomValidators.required, CustomValidators.date])),
+
           publisher: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[\\w\\s]+')])),
+
           ISBN: new FormControl('', Validators.compose([Validators.required,
             Validators.pattern('(?:ISBN(?:-1[03])?:?●)?(?=[0-9X]{10}$|(?=(?:[0-9]+[-●]){3})↵[-●0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[-●]){4})[-●0-9]{17}$)(?:97[89][-●]?)?[0-9]{1,5}[-●]?[0-9]+[-●]?[0-9]+[-●]?[0-9X]$')])),
+
           MSRP: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^(\W)?[^\S]?[0-9]+(.)?[0-9]{2}$')])),
-          salePrice: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^(\W)?[^\S]?[0-9]+(.)?[0-9]{2}$')])),
+
+          salePrice: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^(\W)?[^\S]?[0-9]+(.)?[0-9](,2)$')])),
           // TODO: form option agreement
           condition: new FormControl('', Validators.compose([Validators.required])),
+
           internationalEdition: new FormControl('', Validators.compose([Validators.required])),
+
+          punctualShipment: new FormControl(coerceBooleanProperty(false), Validators.compose([Validators.required, Validators.requiredTrue])),
+
           shipsOn: new FormControl('', Validators.compose([Validators.required, CustomValidators.date])),
-          // defined by service function
+
+        // defined by service function
           itemId: new FormControl('#?'),
+
           description: new FormControl('', Validators.compose([Validators.required, Validators.minLength(50)])),
-          // added automatically
-          sellerUsername: new FormControl(this.user),
-          punctualShipment: new FormControl(coerceBooleanProperty, Validators.compose([Validators.required, Validators.requiredTrue]))
+        // added automatically
+          sellerUsername: new FormControl(this.user)
 
       });
     }
 
-    public submitItemListing() {
-
-
-
+    public setShipmentDate() {
+      const d: Date = new Date();
+      this.shipmentDate = d.getUTCDate().toString();
     }
 
     public onSubmit() {
