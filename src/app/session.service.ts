@@ -11,6 +11,7 @@ import './../../node_modules/rxjs/add/operator/map';
 import { UserAccount } from './main-area/user-account-settings/user-account';
 
 
+
 @Injectable()
 export class SessionService {
 

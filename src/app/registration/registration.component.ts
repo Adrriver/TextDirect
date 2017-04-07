@@ -10,7 +10,7 @@ import { UserAccount } from '../main-area/user-account-settings/user-account';
 // services
 import { SessionService } from '../session.service';
 import { ChildServiceService } from '../child-service.service';
-import {FormFeedbackDirective} from "../form-feedback.directive";
+import {FormFeedbackDirective} from '../form-feedback.directive';
 
 @Component({
     selector: 'app-registration',

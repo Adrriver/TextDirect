@@ -1,19 +1,16 @@
-<h2>Lazy Module</h2>
-  <!--TODO: Clean up configuration for removal of password-retrieval component (and link) from member area-->
-<p>
-    Navigation:
-    <a [routerLink]="['main-home']">Home</a>
-    <a [routerLink]="['./dashboard']">Dashboard</a>
-    <a [routerLink]="['./my-items']">My Items</a> <!--(editable) seller item detail-->
-    <a [routerLink]="['./item-creator']">Create New Listing</a>
-    <a [routerLink]="['./help']">Help</a>
-    <a [routerLink]="['./cart']">My Cart</a>
-    <a [routerLink]="['./checkout']">Checkout</a>
-    <a [routerLink]="['./transaction-history']">Transaction History</a>
-    <a [routerLink]="['./user-account-settings']">Account</a>
-    <a [routerLink]="['./search']">Search</a>
-</p>
-<h3>Current Main Area Route:</h3>
-
-
+ <!--TODO: Clean up configuration for removal of password-retrieval component (and link) from member area-->
+<md-toolbar>
+      <md-list>
+        <md-list-item [routerLink]="['main-home']">Home</md-list-item>
+        <md-list-item [routerLink]="['./dashboard']">Dashboard</md-list-item>
+        <md-list-item [routerLink]="['./my-items']">My Items</md-list-item> <!--(editable) seller item detail-->
+        <md-list-item [routerLink]="['./item-creator']">Create New Listing</md-list-item>
+        <md-list-item [routerLink]="['./help']">Help</md-list-item>
+        <md-list-item [routerLink]="['./cart']">My Cart</md-list-item>
+        <md-list-item [routerLink]="['./checkout']">Checkout</md-list-item>
+        <md-list-item [routerLink]="['./transaction-history']">Transaction History</md-list-item>
+        <md-list-item [routerLink]="['./user-account-settings']">Account</md-list-item>
+        <md-list-item [routerLink]="['./search']">Search</md-list-item>
+      </md-list>
+</md-toolbar>
 <router-outlet></router-outlet>

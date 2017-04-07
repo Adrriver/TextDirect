@@ -1,144 +1,83 @@
-
-
-<form [formGroup]="regForm" novalidate>
-    <md-card style="width:400px;">
-        <md-card-header>
-            <md-card-title>Account Credentials</md-card-title>
-        </md-card-header>
-        <md-card-content>
-            <md-list>
-                <md-list-item>
-                    <md-input-container>
-                        <input mdInput md-line placeholder="Username" value="Choose a username"
-                               type="text" name="username" id="username"
-                               formControlName="username" />
-                    </md-input-container>
-                    <md-input-container>
-                        <input mdInput md-line placeholder="Password" value="Choose a password"
-                               type="password" name="password" id="password"
-                               formControlName="password" />
-                    </md-input-container>
-                    <md-input-container>
-                        <input mdInput md-line placeholder="Institution E-Mail (.edu)" value="Valid E-Mail Address"
-                               type="email" name="emailAddress" id="emailAddress"
-                               formControlName="emailAddress" />
-                    </md-input-container>
-                </md-list-item>
-            </md-list>
-        </md-card-content>
-    </md-card>
+<form [formGroup]="itemAttributes" novalidate id="item-creator-form">
     <md-card>
         <md-card-header>
-            <md-card-title>Personal Information</md-card-title>
+            <h3>New Book Item Creator</h3>
         </md-card-header>
         <md-card-content>
             <md-list>
                 <md-list-item>
-                    <md-input-container>
-                        <input mdInput md-line placeholder="First Name" value="first name"
-                               type="text" name="firstName" id="firstName"
-                               formControlName="firstName" />
+                    <md-input-container hintLabel="{{pTitle.value.length/20}}" appFormFeedbackMain>
+                        <input appFormFeedbackMain mdInput md-line placeholder="Title (primary)" value=""
+                               type="text" name="p-title" id="p-title" #pTitle
+                               formControlName="bookTitle" />
                     </md-input-container>
-                    <md-input-container>
-                        <input mdInput md-line placeholder="Last Name" value="last name"
-                               type="text" name="lastName" id="lastName"
-                               formControlName="lastName" />
+                    <md-input-container hintLabel="{{sTitle.value.length}}" appFormFeedbackMain>
+                        <input mdInput md-line placeholder="Title (secondary)" value=""
+                               type="text" name="sTitle" id="sTitle" #sTitle
+                               formControlName="secondaryTitle" />
                     </md-input-container>
-                </md-list-item>
-            </md-list>
-        </md-card-content>
-    </md-card>
-    <md-card>
-        <md-card-header>
-            <md-card-title>Contact Information</md-card-title>
-        </md-card-header>
-        <md-card-content>
-            <md-list>
-                <md-list-item>
-                    <md-input-container>
-                        <input mdInput md-line type="text" placeholder="Telephone Number" value="(XXX)-XXX-XXXX"
-                               name="telephoneNumber" id="telephoneNumber" formControlName="telephoneNumber" />
+                    <md-input-container hintLabel="invalid format" appFormFeedbackMain>
+                        <input mdInput md-line placeholder="Author(s) 'first, second, ...'" value=""
+                               type="authors" name="authors" id="authors" #authors
+                               formControlName="authors" />
+                    </md-input-container>
+                    <md-input-container hintLabel="invalid format" appFormFeedbackMain>
+                      <input mdInput md-line placeholder="Editors" value=""
+                              type="text" name="editors" id="editors" #eds
+                              formControlName="editors" />
                     </md-input-container>
                 </md-list-item>
-            </md-list>
-            <md-card-subtitle>
-                Shipping Address
-            </md-card-subtitle>
-            <div formGroupName="shippingAddress">
-                <md-list>
-                    <md-list-item>
-                        <md-input-container>
-                            <input mdInput md-line type="text" placeholder="First Name" value="addressee first"
-                                   name="addresseeFirst" id="addresseeFirst" formControlName="firstName" />
-                        </md-input-container>
-                        <md-input-container>
-                            <input mdInput md-line type="text" placeholder="Last Name" value="addressee last"
-                                   name="addresseeLast" id="addresseeLast" formControlName="lastName" />
-                        </md-input-container>
-                    </md-list-item>
-                    <md-list-item>
-                        <md-input-container>
-                            <input mdInput md-line type="text" placeholder="Street Address" value="222 Broadway"
-                                   name="streetShipping" id="streetShipping" formControlName="streetAddress" />
-                        </md-input-container>
-                        <md-input-container>
-                            <input mdInput md-line type="text" placeholder="Apt/P.O. Box/Suite" value="#"
-                                   name="identifier" id="identifier" formControlName="identifier" />
-                        </md-input-container>
-                    </md-list-item>
-                    <md-list-item>
-                        <md-input-container>
-                            <input mdInput md-line type="text" placeholder="City" value="NYC"
-                                   name="city" id="city" formControlName="city" />
-                        </md-input-container>
-                        <md-input-container>
-                            <input mdInput md-line type="text" placeholder="State" value="New York"
-                                   name="state" id="state" formControlName="state" />
-                        </md-input-container>
-                        <md-input-container>
-                            <input mdInput md-line type="number" placeholder="Zipcode" value="63116"
-                                   name="zipcode" id="zipcode" formControlName="zipcode" />
-                        </md-input-container>
-                    </md-list-item>
-                </md-list>
-            </div>
-        </md-card-content>
-    </md-card>
-    Payment Method Information
-    <md-card style="height:1000px;">
-        <md-card-header>
-            <md-card-title>
-                Payment and Deposit Information
-            </md-card-title>
-        </md-card-header>
-        <md-select placeholder="Choose Payment Method" formControlName="pmtMethod" name="paymentOption">
-            <md-option *ngFor="let paymentOption of this.paymentOptions" [value]="paymentOption.value">
-                {{ paymentOption.viewValue }}
-            </md-option>
-        </md-select>
-        <md-card-content [ngSwitch]="regForm.controls['pmtMethod'].value">
-            <md-list *ngSwitchCase="'credit'">
                 <md-list-item>
-                    <payment-form #credFormGroup [selectedMethod]="regForm.controls['pmtMethod'].value"></payment-form>
-                </md-list-item>
-            </md-list>
-            <md-list *ngSwitchCase="'debit'">
-                <md-list-item>
-                    <payment-form #credFormGroup [selectedMethod]="regForm.controls['pmtMethod'].value"></payment-form>
-                </md-list-item>
-            </md-list>
-            <md-list *ngSwitchCase="'check'">
-                <md-list-item>
-                    <payment-form #credFormGroup [selectedMethod]="regForm.controls['pmtMethod'].value"></payment-form>
-                </md-list-item>
-            </md-list>
-            <md-list *ngSwitchDefault>
+                    <md-input-container hintLabel="invalid format" appFormFeedbackMain>
+                      <input mdInput md-line placeholder="Edition" value=""
+                             type="number" name="edition" id="edition" #edit
+                              formControlName="edition" />
+                    </md-input-container>
+                    <md-input-container hintLabel="'Month YYYY" appFormFeedbackMain>
+                      <input mdInput md-line placeholder="publicationDate" value=""
+                             type="text" name="pubDate" id="pubDate" #pubDate
+                             formControlName="publicationDate" />
+                    </md-input-container>
+                    <md-input-container hintLabel="Unrecognized ISBN" appFormFeedbackMain>
+                      <input mdInput md-line placeholder="ISBN 10 or 13" value=""
+                             type="text" name="ISBN" id="ISBN" #ISBN
+                             formControlName="ISBN" />
+                    </md-input-container>
+                  </md-list-item>
+                  <md-list-item>
+                    <section>
+                      <md-select placeholder="Select book's condition" formControlName="condition" name="itemCond">
+                        <md-option *ngFor="let conditionList of this.conditionList" [value]="conditionList.value">
+                          {{ conditionList.viewValue }}
+                        </md-option>
+                      </md-select>
+                    </section>
+                    <section>
+                    <md-checkbox mdCheck md-check>Is this book an international edition?</md-checkbox>
+                    </section>
+                  </md-list-item>
+                  <md-list-item>
+                    <md-input-container hintLabel="MSRP" appFormFeedbackMain>
+                      <input mdInput md-line placeholder="MSRP" value=""
+                             type="number" name="MSRP" id="MSRP" #MSRP
+                             formControlName="MSRP" />
+                    </md-input-container>
+                    <md-input-container hintLabel="Use USD format" appFormFeedbackMain>
+                      <input mdInput md-line placeholder="Your Price" value=""
+                             type="number" name="salePrice" id="salePrice"
+                             formControlName="salePrice" />
+                    </md-input-container>
+                    <section>
+                      <md-checkbox value="false" formControlName="punctualShipment">I can ship this book by end of next business day</md-checkbox>
+                    </section>
+                  </md-list-item>
             </md-list>
         </md-card-content>
-        <md-card-footer>
-            <md-card-subtitle>
-                <a md-raised-button color="accent" [disabled]="!(regForm.valid && isChildValid)" (click)="onSubmit(regForm.value, childFormGroup.value)">submit</a>
-            </md-card-subtitle>
-        </md-card-footer>
+      <md-card-footer>
+        <md-card-subtitle>
+          <a md-raised-button color="accent" [disabled]="!(itemAttributes.valid)" (click)="onSubmit()">submit</a>
+        </md-card-subtitle>
+      </md-card-footer>
     </md-card>
 </form>
+

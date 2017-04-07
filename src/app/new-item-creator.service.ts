@@ -1,3 +1,5 @@
+// Google Book API API key:  'AIzaSyBOQWG0XcRTL4bQvw4jIP9A-hLhwCKf-AY'
+
 import { Injectable } from '@angular/core';
 
 @Injectable()

@@ -21,11 +21,20 @@ import { TransactionHistoryComponent } from './transaction-history/transaction-h
 import { TextSearchHitsComponent } from './text-search-hits/text-search-hits.component';
 import { HelpRequestFormComponent } from './help-request-form/help-request-form.component';
 import { MyItemsComponent } from './my-items/my-items.component';
+import { ItemCompetitorsComponent } from './new-item-creator/item-competitors/item-competitors.component';
+import { ItemCompetitorComponent } from './new-item-creator/item-competitors/item-competitor/item-competitor.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MaterialModule} from '@angular/material';
+import { FormFeedbackMainDirective } from './form-feedback-main.directive';
+
 
 @NgModule({
   imports: [
     CommonModule,
-    mainRouting
+    mainRouting,
+    ReactiveFormsModule,
+    FormsModule,
+    MaterialModule.forRoot()
   ],
   declarations: [MainAreaComponent,
                   MainHomeComponent,
@@ -46,6 +55,9 @@ import { MyItemsComponent } from './my-items/my-items.component';
                   TransactionHistoryComponent,
                   TextSearchHitsComponent,
                   HelpRequestFormComponent,
-                  MyItemsComponent]
+                  MyItemsComponent,
+                  ItemCompetitorsComponent,
+                  ItemCompetitorComponent,
+                  FormFeedbackMainDirective]
 })
 export class MainAreaModule { }

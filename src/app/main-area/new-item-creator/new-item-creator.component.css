@@ -1,0 +1,10 @@
+@import '~@angular/material/core/theming/prebuilt/indigo-green.css';
+
+.mat-card {
+  height: 500px;
+}
+
+ md-card md-list-item {
+  padding: 16px 35px;
+  text-shadow: 3px 5px 4px rgba(48, 48, 48, 0.17);
+}

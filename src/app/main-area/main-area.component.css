@@ -1,0 +1,18 @@
+
+.mat-list {
+
+  padding-top: 10px;
+
+}
+
+.mat-list-item {
+
+  display: inline-block !important;
+
+}
+
+.mat-list-item:nth-child(odd) {
+
+  background-color: crimson;
+
+}

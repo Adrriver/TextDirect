@@ -2,9 +2,9 @@ import { Directive, ElementRef, Input, HostListener, IterableDiffers, IterableDi
 
 
 @Directive({
-  selector: '[appFormFeedback]'
+  selector: '[appFormFeedbackMain]'
 })
-export class FormFeedbackDirective  {
+export class FormFeedbackMainDirective  {
 
   @Input()
   public cList;
@@ -21,20 +21,20 @@ export class FormFeedbackDirective  {
   @HostListener('input')
   check() {
 
-      const warn = this.cList.contains('ng-dirty') && this.cList.contains('ng-invalid');
-      const matHint = this.el.nativeElement.querySelector('div.mat-hint');
+    const warn = this.cList.contains('ng-dirty') && this.cList.contains('ng-invalid');
+    const matHint = this.el.nativeElement.querySelector('div.mat-hint');
     // const changes = (this.differ.diff(this.cList) as Array<String>).filter( item => item.contains('items.push(item.currentValue.toString()));
     if (warn) {
       if (matHint) {
         matHint.style.color = '#f44336';
       }
     } else {
-        if (matHint) {
-          matHint.style.color = '#5e5e5e';
-        }
-
+      if (matHint) {
+        matHint.style.color = '#5e5e5e';
       }
 
     }
+
+  }
 
 }
