@@ -1,4 +1,4 @@
-package textdirect;
+package main;
 
 import org.restlet.Component;
 import org.restlet.data.Protocol;
