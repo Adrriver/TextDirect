@@ -1,11 +1,6 @@
-/textdirect/
-/sessionservice/
-/Main.class
-/TextDirect.class
 /main/
 /currentactivity/
-/itemcreatorservice/
-/searchservice/
-/transactionhistservice/
+/tsrir/
 /customerrequestservice/
-/orderservice/
+/transactionhistservice/
+/textbook/

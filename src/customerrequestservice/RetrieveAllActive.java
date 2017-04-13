@@ -2,6 +2,6 @@ package customerrequestservice;
 
 import org.restlet.resource.ServerResource;
 
-public class RetrieveAllRequests extends ServerResource {
+public class RetrieveAllActive extends ServerResource {
 
 }

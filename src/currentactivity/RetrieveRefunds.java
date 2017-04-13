@@ -2,6 +2,6 @@ package currentactivity;
 
 import org.restlet.resource.ServerResource;
 
-public class RetrievePendingRefunds extends ServerResource {
+public class RetrieveRefunds extends ServerResource {
 
 }
