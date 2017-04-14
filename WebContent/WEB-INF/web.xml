@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:web="http://xmlns.jcp.org/xml/ns/javaee">
+<property>
+	<src-dir>C:\Users\Adrian\git\TextDirect\src\</src-dir>
+</property>
   <servlet>
     <servlet-name>RestletServlet</servlet-name>
     <servlet-class>org.restlet.ext.servlet.ServerServlet</servlet-class>
     <init-param>
       <param-name>org.restlet.application</param-name>
-      <param-value>main.TextDirect</param-value>
+      <param-value>${src-dir}\main\TextDirect</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>
