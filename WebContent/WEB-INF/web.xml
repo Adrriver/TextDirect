@@ -5,7 +5,7 @@
     <servlet-class>org.restlet.ext.servlet.ServerServlet</servlet-class>
     <init-param>
       <param-name>org.restlet.application</param-name>
-      <param-value>salary2.SalariesApplication</param-value>
+      <param-value>main.TextDirect</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>
