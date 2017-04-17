@@ -129,7 +129,7 @@ public class TextDirect extends Application {
 	  	4. Deletes sale item from table sale_item	 
 	 */
 	
-		router.attach("/create-new-item", NewSaleItem.class);	
+		router.attach("/createNewItem", NewSaleItem.class);
 		router.attach("/get-item", RetrieveItem.class);
 		router.attach("/update-item", UpdateItem.class);
 		router.attach("/delete-item", DeleteItem.class);
@@ -212,5 +212,6 @@ public class TextDirect extends Application {
         return router;
     }
     
+
 
 }   
