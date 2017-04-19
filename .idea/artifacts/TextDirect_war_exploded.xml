@@ -9,6 +9,7 @@
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-jdbc:9.0.0.M1" />
           <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-juli:9.0.0.M1" />
+          <element id="library" level="project" name="Maven: javax.ws.rs:javax.ws.rs-api:2.1-m05" />
           <element id="library" level="project" name="Maven: org.restlet.jee:org.restlet:2.3.9" />
           <element id="library" level="project" name="Maven: org.restlet.jee:org.restlet.ext.jackson:2.3.9" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.4.4" />

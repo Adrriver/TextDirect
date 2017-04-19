@@ -7,22 +7,33 @@ import org.restlet.data.Protocol;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Arrays;
+import java.util.HashSet;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
+import org.restlet.service.CorsService;
 
 public class Main {
+
+	// CorsService allows cross-origin calls from Angular2 new-item-creator.service
+	private static CorsService corsService;
+
     public static void main(String[ ] args) throws Exception {
 
 	// Create a new Component.  
 	Component component = new Component();  
 	
 	// Add a new HTTP server listening on port 8182.  
-	component.getServers().add(Protocol.HTTP, 8182);  
-	
-	// Attach the application.  
-	component.getDefaultHost().attach("/textdirect", new TextDirect());
+	component.getServers().add(Protocol.HTTP, 8182);
 
+	//
+	corsService = new CorsService();
+	corsService.setAllowedOrigins(new HashSet(Arrays.asList("*")));
+
+		// Attach the application.
+	component.getDefaultHost().attach("/textdirect", new TextDirect());
+	component.getDefaultHost().getApplication().getServices().add(corsService);
 	
 	// Start the web server.  
 	component.start();

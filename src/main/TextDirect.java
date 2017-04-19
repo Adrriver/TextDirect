@@ -1,9 +1,11 @@
 package main;
 
+import itemcreatorservice.*;
 import org.restlet.Application;
 import org.restlet.Restlet;
+import org.restlet.service.Service;
 import org.restlet.routing.Router;
-
+import org.restlet.service.CorsService;
 import currentactivity.ApprovePurchase;
 import currentactivity.ApproveRefRequest;
 import currentactivity.CreateRefundRequest;
@@ -22,10 +24,6 @@ import customerrequestservice.RetrieveAllClosed;
 import customerrequestservice.RetrieveAllResolved;
 import customerrequestservice.RetrieveRequest;
 import customerrequestservice.UpdateRequest;
-import itemcreatorservice.DeleteItem;
-import itemcreatorservice.NewSaleItem;
-import itemcreatorservice.RetrieveItem;
-import itemcreatorservice.UpdateItem;
 import orderservice.SubmitOrder;
 import searchservice.AllItemSearch;
 import searchservice.AllUserAccount;
@@ -48,19 +46,25 @@ import tsrir.RetrieveClosedTsrir;
 import tsrir.RetrieveTsrir;
 import tsrir.UpdateTsrir;
 
+import java.util.Arrays;
+import java.util.HashSet;
 
 // Handles routing for all TextDirect data that may be persisted
 
 /* **JSON Responses only are provided to Angular2 clients** */
 
 public class TextDirect extends Application {
-    @Override
+
+	private CorsService corsService;
+
+	@Override
     public synchronized Restlet createInboundRoot() {
 	// To illustrate the different API possibilities, implement the
 	// Delete operation as an anonymous Restlet class. For the
 	// remaining operations, follow Restlet best practices and
 	// implement each as a Java class.
 
+	// Set Allow-Access-Set-Control Header
 	// Create the routing table.
 	Router router = new Router(getContext());
 	
@@ -72,8 +76,8 @@ public class TextDirect extends Application {
 	 * 4. Retrieves Secret Question (password reset)
 	 * 5. Updates user-account password
 	 * 6. Updates user-account information
-	 * 7. Deletesuser-account (preserves minimal record)
-	 * 8. Deletessession record
+	 * 7. Deletes user-account (preserves minimal record)
+	 * 8. Delete session record
 	 */
 	 
 	router.attach("/create-account", 			   CreateAccount.class);
@@ -129,11 +133,15 @@ public class TextDirect extends Application {
 	  	4. Deletes sale item from table sale_item	 
 	 */
 	
-		router.attach("/createNewItem", NewSaleItem.class);
+		router.attach("/create-new-item", NewSaleItem.class);
 		router.attach("/get-item", RetrieveItem.class);
 		router.attach("/update-item", UpdateItem.class);
 		router.attach("/delete-item", DeleteItem.class);
-		
+
+	/* Handles DirectTextbook API utilization; corresponds with NewItemCreatorService */
+
+		router.attach("/search-direct-textbook", DirectTextbook.class);
+
 	/* Corresponds with SearchService *
 	 * Tasks:
 	 * 1U. Retrieves search matches in table *sale_item* 
