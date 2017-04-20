@@ -1,4 +1,4 @@
-import { PaymentMethod } from './payment-method'; 
+import { PaymentMethod } from './payment-method';
 import { Address } from './address';
 export class UserAccount {
 
@@ -11,7 +11,7 @@ export class UserAccount {
     telephoneNumber: string;
     paymentMethod: PaymentMethod;
     shippingAddress: Address;
-    isAdmin: boolean; 
+    isAdmin: boolean;
     registrationDate: Date;
     standing: boolean; //associated with incident or delinquency instance stored in DB
 
@@ -24,9 +24,9 @@ export class UserAccount {
         this.firstName = fName;
         this.lastName = lName;
         this.telephoneNumber = phone;
-        this.paymentMethod = payment; 
+        this.paymentMethod = payment;
         this.shippingAddress = shipping;
-        this.isAdmin = isAdmin;     
+        this.isAdmin = isAdmin;
         this.registrationDate = memberSince;
         this.standing = standing;
 

@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, HostListener, IterableDiffers, IterableDiffer } from '@angular/core';
+import {Directive, ElementRef, Input, HostListener, IterableDiffers, IterableDiffer, HostBinding} from '@angular/core';
 
 
 @Directive({
@@ -8,6 +8,8 @@ export class FormFeedbackMainDirective  {
 
   @Input()
   public cList;
+  @HostBinding('attr.hintLabel')
+  @Input() public warnLabel: string;
   public differ: IterableDiffer;
 
   constructor(private el: ElementRef, private differs: IterableDiffers) {
@@ -27,10 +29,12 @@ export class FormFeedbackMainDirective  {
     if (warn) {
       if (matHint) {
         matHint.style.color = '#f44336';
+        this.warnLabel = 'Invalid Format';
       }
     } else {
       if (matHint) {
         matHint.style.color = '#5e5e5e';
+        this.warnLabel = '';
       }
 
     }

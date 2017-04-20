@@ -1,54 +1,62 @@
 <form [formGroup]="itemAttributes" novalidate id="item-creator-form">
+
     <md-card>
         <md-card-header>
-            <h3>New Book Item Creator</h3>
+            <md-card-title style="font-size:20px;">New Book Item Creator</md-card-title>
         </md-card-header>
-        <md-card-content>
+        <md-card-content><md-list-item></md-list-item>
             <md-list>
-                <md-list-item>
+              <section>
+              <md-card-subtitle>* Required</md-card-subtitle>
+              </section>
+              <md-list-item>
                     <md-input-container hintLabel="{{pTitle.value.length + '/20'}}" appFormFeedbackMain>
-                        <input appFormFeedbackMain mdInput md-line placeholder="Title (primary)" value=""
+                        <input appFormFeedbackMain mdInput md-line placeholder="Title (primary)*" value=""
                                type="text" name="p-title" id="p-title" #pTitle
                                formControlName="bookTitle" />
                     </md-input-container>
-                    <md-input-container hintLabel="{{sTitle.value.length}}" appFormFeedbackMain>
+                </md-list-item>
+                  <md-list-item>
+                    <md-input-container hintLabel="{{sTitle.value.length + '/20'}}" appFormFeedbackMain>
                         <input mdInput md-line placeholder="Title (secondary)" value=""
                                type="text" name="sTitle" id="sTitle" #sTitle
                                formControlName="secondaryTitle" />
                     </md-input-container>
-                    <md-input-container hintLabel="invalid format" appFormFeedbackMain>
-                        <input mdInput md-line placeholder="Author(s) 'first, second, ...'" value=""
-                               type="authors" name="authors" id="authors" #authors
+                  </md-list-item>
+                  <md-list-item>
+                    <md-input-container hintLabel="" appFormFeedbackMain>
+                        <input mdInput md-line placeholder="Author(s) 'first, second, ...*'" value=""
+                               type="text" name="authors" id="authors" #authors
                                formControlName="authors" />
                     </md-input-container>
-                    <md-input-container hintLabel="invalid format" appFormFeedbackMain>
+                    <md-input-container hintLabel="" appFormFeedbackMain>
                       <input mdInput md-line placeholder="Editors" value=""
                               type="text" name="editors" id="editors" #eds
                               formControlName="editors" />
                     </md-input-container>
                 </md-list-item>
                 <md-list-item>
-                    <md-input-container hintLabel="invalid format" appFormFeedbackMain>
-                      <input mdInput md-line placeholder="Edition" value=""
+                    <md-input-container hintLabel="" appFormFeedbackMain>
+                      <input mdInput md-line placeholder="Edition*" value=""
                              type="number" name="edition" id="edition" #edit
                               formControlName="edition" />
                     </md-input-container>
-                    <md-input-container hintLabel="'Month YYYY" appFormFeedbackMain>
-                      <input mdInput md-line placeholder="publicationDate" value=""
+                    <md-input-container hintLabel="'Month yyyy" appFormFeedbackMain>
+                      <input mdInput md-line placeholder="publicationDate*" value=""
                              type="text" name="pubDate" id="pubDate" #pubDate
                              formControlName="publicationDate" />
                     </md-input-container>
-                    <md-input-container hintLabel="Unrecognized ISBN" appFormFeedbackMain>
-                      <input mdInput md-line placeholder="ISBN 10 or 13" value=""
+                    <md-input-container hintLabel="" appFormFeedbackMain>
+                      <input mdInput md-line placeholder="ISBN 10 or 13*" value=""
                              type="text" name="ISBN" id="ISBN" #ISBN
                              formControlName="ISBN" />
                     </md-input-container>
                   </md-list-item>
                   <md-list-item>
                     <section>
-                      <md-select placeholder="Select book's condition" formControlName="condition" name="itemCond">
-                        <md-option *ngFor="let conditionList of this.conditionList" [value]="conditionList.value">
-                          {{ conditionList.viewValue }}
+                      <md-select placeholder="Select book's condition*" formControlName="condition" name="itemCond">
+                        <md-option *ngFor="let condition of conditionList" [value]="condition.value">
+                          {{ condition.viewValue }}
                         </md-option>
                       </md-select>
                     </section>
@@ -57,13 +65,13 @@
                     </section>
                   </md-list-item>
                   <md-list-item>
-                    <md-input-container hintLabel="MSRP" appFormFeedbackMain>
+                    <md-input-container hintLabel="" appFormFeedbackMain>
                       <input mdInput md-line placeholder="MSRP" value=""
                              type="number" name="MSRP" id="MSRP" #MSRP
                              formControlName="MSRP" />
                     </md-input-container>
-                    <md-input-container hintLabel="Use USD format" appFormFeedbackMain>
-                      <input mdInput md-line placeholder="Your Price" value=""
+                    <md-input-container hintLabel="" appFormFeedbackMain>
+                      <input mdInput md-line placeholder="Your Price*" value=""
                              type="number" name="salePrice" id="salePrice"
                              formControlName="salePrice" />
                     </md-input-container>
@@ -71,13 +79,20 @@
             </md-list>
           <md-list>
             <md-list-item>
-              <md-card-subtitle *ngIf="this.itemAttributes.controls['punctualShipment'].value === true">{{ shipmentDate }}</md-card-subtitle>
+              <md-input-container hintLabel="" appFormFeedback>
+                <input mdInput placeholder="Predicted shipment date*" value=""
+                               type="date" name="shipsOn" id="shipsOn"
+                               formControlName="shipsOn" />
+              </md-input-container>
+            </md-list-item>
+            <md-list-item>
+              <textarea formControlName="description">Please compose a description of your item here...</textarea>
             </md-list-item>
           </md-list>
         </md-card-content>
       <md-card-footer>
         <section>
-          <md-checkbox (check)="setShipmentDate()" formControlName="punctualShipment">I can ship this book by end of next business day</md-checkbox>
+          <md-checkbox mdCheck (check)="setShipmentDate()" formControlName="punctualShipment">I can ship this book by end of next business day</md-checkbox>
         </section>
         <md-card-subtitle>
           <a md-raised-button color="accent" [disabled]="!(itemAttributes.valid)" (click)="onSubmit()">submit</a>

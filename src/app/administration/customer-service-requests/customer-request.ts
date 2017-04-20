@@ -1,6 +1,7 @@
 /* Class: CustomerRequest
    Author: Adrian Rivera
    Date: 02/24/2017
+   Class contains Request-Response pair
 */
 
 export class CustomerRequest {
