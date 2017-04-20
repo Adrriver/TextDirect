@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProjectModuleManager">
+    <path name="com/sun/net/httpserver"/>
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TextDirect.iml" filepath="$PROJECT_DIR$/TextDirect.iml" />
     </modules>

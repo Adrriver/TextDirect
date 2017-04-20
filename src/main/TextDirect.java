@@ -1,6 +1,10 @@
 package main;
 
-import itemcreatorservice.*;
+import itemcreatorservice.DeleteItem;
+import itemcreatorservice.DirectTextbook;
+import itemcreatorservice.NewSaleItem;
+import itemcreatorservice.RetrieveItem;
+import itemcreatorservice.UpdateItem;
 import org.restlet.Application;
 import org.restlet.Restlet;
 import org.restlet.service.Service;
@@ -58,16 +62,19 @@ public class TextDirect extends Application {
 	private CorsService corsService;
 
 	@Override
-    public synchronized Restlet createInboundRoot() {
-	// To illustrate the different API possibilities, implement the
-	// Delete operation as an anonymous Restlet class. For the
-	// remaining operations, follow Restlet best practices and
-	// implement each as a Java class.
+	public synchronized Restlet createInboundRoot() {
+		// To illustrate the different API possibilities, implement the
+		// Delete operation as an anonymous Restlet class. For the
+		// remaining operations, follow Restlet best practices and
+		// implement each as a Java class.
 
-	// Set Allow-Access-Set-Control Header
+		// Set Allow-Access-Set-Control Header
+		corsService = new CorsService();
+		corsService.setAllowedOrigins(new HashSet(Arrays.asList("*")));
+
 	// Create the routing table.
 	Router router = new Router(getContext());
-	
+
 	/* Corresponds with SessionService *
 	 * Tasks:
 	 * 1. Creates new user account
@@ -137,10 +144,10 @@ public class TextDirect extends Application {
 		router.attach("/get-item", RetrieveItem.class);
 		router.attach("/update-item", UpdateItem.class);
 		router.attach("/delete-item", DeleteItem.class);
+		router.attach("/search-direct-textbook", DirectTextbook.class);
 
 	/* Handles DirectTextbook API utilization; corresponds with NewItemCreatorService */
 
-		router.attach("/search-direct-textbook", DirectTextbook.class);
 
 	/* Corresponds with SearchService *
 	 * Tasks:
@@ -216,7 +223,7 @@ public class TextDirect extends Application {
 		router.attach("/delete-tsrir", DeleteTsrir.class);
 	
 		
-		
+
         return router;
     }
     

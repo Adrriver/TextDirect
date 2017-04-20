@@ -70,7 +70,7 @@ public class NewSaleItem extends ServerResource {
 
 
         setStatus(Status.SUCCESS_OK);
-        return new StringRepresentation(out, MediaType.TEXT_PLAIN);
+        return new StringRepresentation("Well, this is working...", MediaType.TEXT_PLAIN);
 
     }
 

@@ -28,13 +28,12 @@ public class Main {
 	component.getServers().add(Protocol.HTTP, 8182);
 
 	//
-	corsService = new CorsService();
-	corsService.setAllowedOrigins(new HashSet(Arrays.asList("*")));
+
+
 
 		// Attach the application.
 	component.getDefaultHost().attach("/textdirect", new TextDirect());
-	component.getDefaultHost().getApplication().getServices().add(corsService);
-	
+
 	// Start the web server.  
 	component.start();
 
