@@ -26,8 +26,7 @@ export class NewItemCreatorComponent implements OnInit {
     @ViewChild(ItemCompetitorsComponent)
     public competitorList: ItemCompetitorsComponent;
     public user: UserAccount;
-
-
+    public bookInfo;
 
 
     constructor(private sessionService: SessionService, private creatorService: NewItemCreatorService) {
@@ -39,6 +38,7 @@ export class NewItemCreatorComponent implements OnInit {
                             { value: 'fair', viewValue: 'Fair ()'},
                             { value: 'poor', viewValue: 'Poor ()'}
       ];
+
 
       this.sessionService.getUser().subscribe(res => { this.user = res; });
 
@@ -83,16 +83,40 @@ export class NewItemCreatorComponent implements OnInit {
 
           description: new FormControl('', Validators.compose([Validators.required, Validators.minLength(50)])),
         // added automatically
-          sellerUsername: new FormControl(this.user)
+          sellerUsername: new FormControl(this.user.toString)
 
       });
 
-      let response;
-      this.creatorService.ajaxBook('9788193245200').subscribe((res) => {
-          response = res;
+      this.creatorService.ajaxBook('9781118261361').subscribe((res) => {
+        console.log(res);
       });
-      // this.itemAttributes.controls['description'] = response;
-      console.log(response);
+
+    }
+
+    public isbnSearch(isbn: string): void {
+      this.creatorService.ajaxBook('9781118261361').subscribe((res) => {
+        const response = res['book'];
+        this.itemAttributes.controls['bookTitle'].setValue(response['title']);
+        this.itemAttributes.controls['secondaryTitle'].setValue(response['title']);
+        this.itemAttributes.controls['authors'].setValue(response['author']);
+        this.itemAttributes.controls['editors'].setValue(response['editor']);
+        this.itemAttributes.controls['publicationDate'].setValue(response['publicationdate']);
+        this.itemAttributes.controls['publisher'].setValue(response['publisher']);
+        this.itemAttributes.controls['ISBN'].setValue(response['isbn']);
+        this.itemAttributes.controls['MSRP'].setValue(response['listprice']);
+
+
+
+
+      });
+
+
+    }
+
+    // TODO: Add Edit -> Item functionality
+    public checkInventory(user: UserAccount): void {
+
+
     }
 
     public setShipmentDate() {

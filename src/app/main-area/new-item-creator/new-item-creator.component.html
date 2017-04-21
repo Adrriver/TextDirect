@@ -10,6 +10,11 @@
               <md-card-subtitle>* Required</md-card-subtitle>
               </section>
               <md-list-item>
+                    <md-input-container hintLabel="" appFormFeedbackMain>
+                      <input mdInput md-line placeholder="ISBN 10 or 13*" value=""
+                             type="text" name="ISBN" id="ISBN" #ISBN
+                             formControlName="ISBN" />
+                    </md-input-container>
                     <md-input-container hintLabel="{{pTitle.value.length + '/20'}}" appFormFeedbackMain>
                         <input appFormFeedbackMain mdInput md-line placeholder="Title (primary)*" value=""
                                type="text" name="p-title" id="p-title" #pTitle
@@ -45,11 +50,6 @@
                       <input mdInput md-line placeholder="publicationDate*" value=""
                              type="text" name="pubDate" id="pubDate" #pubDate
                              formControlName="publicationDate" />
-                    </md-input-container>
-                    <md-input-container hintLabel="" appFormFeedbackMain>
-                      <input mdInput md-line placeholder="ISBN 10 or 13*" value=""
-                             type="text" name="ISBN" id="ISBN" #ISBN
-                             formControlName="ISBN" />
                     </md-input-container>
                   </md-list-item>
                   <md-list-item>
