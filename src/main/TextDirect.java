@@ -7,6 +7,7 @@ import itemcreatorservice.RetrieveItem;
 import itemcreatorservice.UpdateItem;
 import org.restlet.Application;
 import org.restlet.Restlet;
+import org.restlet.data.Status;
 import org.restlet.service.Service;
 import org.restlet.routing.Router;
 import org.restlet.service.CorsService;
@@ -72,8 +73,8 @@ public class TextDirect extends Application {
 		corsService = new CorsService();
 		corsService.setAllowedOrigins(new HashSet(Arrays.asList("*")));
 
-	// Create the routing table.
-	Router router = new Router(getContext());
+		// Create the routing table.
+		Router router = new Router(getContext());
 
 	/* Corresponds with SessionService *
 	 * Tasks:
@@ -86,15 +87,15 @@ public class TextDirect extends Application {
 	 * 7. Deletes user-account (preserves minimal record)
 	 * 8. Delete session record
 	 */
-	 
-	router.attach("/create-account", 			   CreateAccount.class);
-	router.attach("/login", 		 			   LoginUser.class);
-	router.attach("/get-credentials/session-info", RetrieveSession.class);
-	router.attach("/get-credentials/secret-q",	   RetrieveSession.class);
-	router.attach("/update-password", 			   UpdatePassword.class);
-	router.attach("/update-account", 			   UpdateAccountInfo.class);	
-	router.attach("/delete", 	  				   DeleteUserAccount.class); // instance of anonymous class
-	router.attach("/logout", 	  				   LogoutUser.class);
+
+		router.attach("/create-account", CreateAccount.class);
+		router.attach("/login", LoginUser.class);
+		router.attach("/get-credentials/session-info", RetrieveSession.class);
+		router.attach("/get-credentials/secret-q", RetrieveSession.class);
+		router.attach("/update-password", UpdatePassword.class);
+		router.attach("/update-account", UpdateAccountInfo.class);
+		router.attach("/delete", DeleteUserAccount.class); // instance of anonymous class
+		router.attach("/logout", LogoutUser.class);
 /*	router.attach("/json",        				   JsonAllResource.class);
 	router.attach("/create",      				   CreateResource.class);
 	router.attach("/update",      				   UpdateResource.class);*/
@@ -112,16 +113,26 @@ public class TextDirect extends Application {
 		9.	Updates re-shipment confirmation data at refund_req table
 	 */
 
-		/*1*/ 	router.attach("/conf-ship", ShipmentConfirmation.class);
-		/*2*/ 	router.attach("/approve", ApprovePurchase.class);
-		/*3*/	router.attach("/dispute", DisputeTransaction.class);
-		/*4*/	router.attach("/get-pending-ord", RetrievePendingOrders.class);
-		/*5*/	router.attach("/get-pending-sales", RetrievePendingSales.class);
-		/*6*/	router.attach("/get-refs", RetrieveRefunds.class);//1-pending; 2-complete
-		/*7*/	router.attach("/init-ref", CreateRefundRequest.class); //creates refund record
-		/*8*/   router.attach("/approve-ref-request", ApproveRefRequest.class);
-		/*9*/	router.attach("/update-refund", UpdateRefund.class);
-		/*10*/	router.attach("/conf-reship", ReShipmentConfirmation.class);
+		/*1*/
+		router.attach("/conf-ship", ShipmentConfirmation.class);
+		/*2*/
+		router.attach("/approve", ApprovePurchase.class);
+		/*3*/
+		router.attach("/dispute", DisputeTransaction.class);
+		/*4*/
+		router.attach("/get-pending-ord", RetrievePendingOrders.class);
+		/*5*/
+		router.attach("/get-pending-sales", RetrievePendingSales.class);
+		/*6*/
+		router.attach("/get-refs", RetrieveRefunds.class);//1-pending; 2-complete
+		/*7*/
+		router.attach("/init-ref", CreateRefundRequest.class); //creates refund record
+		/*8*/
+		router.attach("/approve-ref-request", ApproveRefRequest.class);
+		/*9*/
+		router.attach("/update-refund", UpdateRefund.class);
+		/*10*/
+		router.attach("/conf-reship", ReShipmentConfirmation.class);
 		/*11*/  //router.attach("/)
 		
 		/* Corresponds with OrderSubmissionService *
@@ -129,7 +140,8 @@ public class TextDirect extends Application {
 	 		1.  Creates new sale item order (for customer)	 	
 		 */
 		
-		/*1*/ router.attach("/submit-order", SubmitOrder.class );
+		/*1*/
+		router.attach("/submit-order", SubmitOrder.class);
 	
 	/* Corresponds with NewItemCreatorService *
 	 * Tasks:
@@ -139,12 +151,12 @@ public class TextDirect extends Application {
 	 	3. Updates sale item in table sale_item 
 	  	4. Deletes sale item from table sale_item	 
 	 */
-	
+
 		router.attach("/create-new-item", NewSaleItem.class);
 		router.attach("/get-item", RetrieveItem.class);
 		router.attach("/update-item", UpdateItem.class);
 		router.attach("/delete-item", DeleteItem.class);
-		router.attach("/search-direct-textbook", DirectTextbook.class);
+		router.attach("/search-direct-textbook/{isbn}", DirectTextbook.class);
 
 	/* Handles DirectTextbook API utilization; corresponds with NewItemCreatorService */
 
@@ -157,7 +169,7 @@ public class TextDirect extends Application {
 	 * 1A. Retrieves all TextDirect user-account data
 	 * 2A. Retrieves single TextDirect user-account data
 	 */
-	
+
 		router.attach("/search", AllItemSearch.class);
 		router.attach("/get-all-items", AllItemSearch.class);
 		router.attach("/get-all-accounts", AllUserAccount.class);
@@ -167,7 +179,7 @@ public class TextDirect extends Application {
 	 * Tasks:
 	 * 1. Creates new textbook record for transition to local API
 	 */
-		
+
 		router.attach("/add-textbook", CreateTBookRecord.class);
 		
 		
@@ -179,7 +191,7 @@ public class TextDirect extends Application {
 	 * 2. Updates transaction record with a customer rating
 	 * 
 	 */
-		router.attach("/get-all-trans", AllTransactions.class);		
+		router.attach("/get-all-trans", AllTransactions.class);
 		router.attach("/set-trans-rating", UpdateTransRating.class);
 		
 	 /* Corresponds with CustomerRequestService *
@@ -193,7 +205,7 @@ public class TextDirect extends Application {
 	  *	7.	Deletes all customer-request instance
 	  *	8.	Deletes a single (given id) customer-request instance
 	  */
-	
+
 		router.attach("/create-request", CreateServiceRequest.class);
 		router.attach("/get-all-requests", RetrieveAllActive.class);
 		router.attach("/get-request", RetrieveRequest.class);
@@ -213,7 +225,7 @@ public class TextDirect extends Application {
 	  *	6.	Deletes all closed TSRIR cases (instances)
 	  *	7.	Deletes a single (given id) closed TSRIR instance
 	  */
-	
+
 		router.attach("/create-tsrir", CreateTsrir.class);
 		router.attach("/get-all-active", RetrieveActiveTsrir.class);
 		router.attach("/get-all-closed", RetrieveClosedTsrir.class);
@@ -221,12 +233,15 @@ public class TextDirect extends Application {
 		router.attach("/update-tsrir", UpdateTsrir.class); // e.g., update case transcript, status, etc.
 		router.attach("/delete-all-closed", DeleteAllTsrir.class);
 		router.attach("/delete-tsrir", DeleteTsrir.class);
-	
-		
-
-        return router;
-    }
-    
 
 
-}   
+		return router;
+	}
+
+
+	private String badRequest(String msg) {
+		Status error = new Status(Status.CLIENT_ERROR_BAD_REQUEST, msg);
+		return error.toString();
+
+	}
+}
