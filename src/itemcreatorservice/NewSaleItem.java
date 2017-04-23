@@ -3,7 +3,11 @@ package itemcreatorservice;
 import javafx.beans.property.adapter.JavaBeanObjectProperty;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
+import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONString;
+import org.restlet.data.Parameter;
+import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.resource.Get;
 import org.restlet.resource.ServerResource;
 
@@ -19,7 +23,12 @@ import javax.ws.rs.FormParam;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement; 
+import java.sql.Statement;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
+
+import static org.glassfish.hk2.utilities.Stub.Type.VALUES;
 
 
 public class NewSaleItem extends ServerResource {
@@ -55,14 +64,9 @@ public class NewSaleItem extends ServerResource {
     }
 
     @Post
-    public Representation createNewItem(Representation data){
-
-        Form form = new Form(data);
-
-        form.get(0);
-
-        System.err.println("form at [0]: " + form.get(0));
-        JOptionPane.showMessageDialog(null, "form at [0]: " + form.get(0));
+    public Representation createNewItem(JsonRepresentation data) {
+        JSONObject item = ((JSONObject)data.getJsonObject().get("item"));
+        
         DataSource datasource = new DataSource();
         datasource.setPoolProperties(p);
         String out = null;
@@ -70,26 +74,30 @@ public class NewSaleItem extends ServerResource {
         try {
             con = datasource.getConnection();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("INSERT INTO sale_item\n" +
-                    "VALUES('1', '1', 'Concepts of Programming Languages', '', 'Robert Sebesta', '', '11', '2015/01/01', 'Pearson', '013394302X', '167.20',\n" +
-                    "       '80.50', 'GOOD', '0', '2017/11/24', 'This is a useful book! Looks almost new.', 'Arive2')");
-            int cnt = 1;
-            while (rs.next()) {
-                out += ". Attribute One:" +rs.getString("attribute_one");
-            }
-            rs.close();
+            boolean rs = st.execute(String.format("INSERT INTO sale_item VALUES(%d, '%s', '%s', '%s', '%s', '%s', '%s', " +
+                                                    "'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+                    0, item.get("quantity").toString(), item.get("bookTitle").toString(), item.get("secondaryTitle").toString(),
+                    item.get("authors").toString(), item.get("editors").toString(), item.get("edition").toString(), item.get("publicationDate").toString(),
+                    item.get("publisher"), item.get("ISBN").toString(), item.get("MSRP").toString(), item.get("salePrice").toString(),
+                    item.get("condition").toString(), item.get("internationalEdition").toString(), item.get("shipsOn").toString(),
+                    item.get("description").toString(), item.get("sellerUsername").toString(), item.get("pageCount").toString()));
+
             st.close();
+            setStatus(Status.SUCCESS_OK);
+            return new JsonRepresentation(new JSONObject().put("message", "Your item was created successfully!"));
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            if (con!=null) try {con.close();}catch (Exception ignore) {}
+            if (con != null) try {
+                con.close();
+            } catch (Exception ignore) {
+            }
         }
 
-        setStatus(Status.SUCCESS_OK);
-        return new StringRepresentation("Well, this is working...", MediaType.TEXT_PLAIN);
+        this.getLogger().log(Level.INFO, data.getJsonObject().toString());
+        setStatus(Status.CLIENT_ERROR_FAILED_DEPENDENCY);
+        return new JsonRepresentation("I'm sorry, there was an error; please try again.");
 
     }
-
-
-
 }
