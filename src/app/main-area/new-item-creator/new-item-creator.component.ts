@@ -6,9 +6,12 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
 import { SessionService } from '../../session.service';
 import { NewItemCreatorService } from '../../new-item-creator.service';
-import {ItemCompetitorsComponent} from './item-competitors/item-competitors.component';
 import {UserAccount} from '../user-account-settings/user-account';
 import {coerceBooleanProperty} from '@angular/material';
+import {ItemCompetitor} from './item-competitors/item-competitor';
+import {Http, Headers, RequestOptions} from '@angular/http';
+import { MdSnackBar } from '@angular/material';
+import { Router } from '@angular/router'
 
 
 @Component({
@@ -23,25 +26,23 @@ export class NewItemCreatorComponent implements OnInit {
     public itemAttributes: FormGroup;
     public conditionList: [{}];
     public shipmentDate: number;
-    @ViewChild(ItemCompetitorsComponent)
-    public competitorList: ItemCompetitorsComponent;
+   /* @ViewChild(ItemCompetitorsComponent)*/
+    public competitors: ItemCompetitor[];
     public user: UserAccount;
-    public bookInfo;
+    public url: string;
+    public requestOutcome: string;
 
+    constructor(private sessionService: SessionService, private creatorService: NewItemCreatorService,
+                private http: Http, private snackBar: MdSnackBar, private router: Router) {
 
-    constructor(private sessionService: SessionService, private creatorService: NewItemCreatorService) {
-
-      this.conditionList = [{ value: 'new', viewValue: 'New ()' },
-                            { value: 'fine', viewValue: 'Fine ()'},
-                            { value: 'vgood', viewValue: 'Very Good ()'},
-                            { value: 'good', viewValue: 'Good ()'},
-                            { value: 'fair', viewValue: 'Fair ()'},
-                            { value: 'poor', viewValue: 'Poor ()'}
+      this.url = 'http://localhost:8080/textdirect/create-new-item';
+      this.conditionList = [{ value: 'new', viewValue: 'New' },
+                            { value: 'fine', viewValue: 'Fine'},
+                            { value: 'vgood', viewValue: 'Very Good'},
+                            { value: 'good', viewValue: 'Good'},
+                            { value: 'fair', viewValue: 'Fair'},
+                            { value: 'poor', viewValue: 'Poor'}
       ];
-
-
-      this.sessionService.getUser().subscribe(res => { this.user = res; });
-
 
     }
 
@@ -53,7 +54,7 @@ export class NewItemCreatorComponent implements OnInit {
 
           secondaryTitle: new FormControl('', Validators.compose([Validators.pattern('[\\w\\s\]+')])),
 
-          authors: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[\\w\\s]+')])),
+          authors: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[\\w\\s\\W\\S]+')])),
 
           editors: new FormControl('', Validators.compose([Validators.pattern('[\\w\\s]+')])),
 
@@ -83,30 +84,51 @@ export class NewItemCreatorComponent implements OnInit {
 
           description: new FormControl('', Validators.compose([Validators.required, Validators.minLength(50)])),
         // added automatically
-          sellerUsername: new FormControl(this.user.toString)
+          sellerUsername: new FormControl({value: '', disabled: true}),
+
+          pageCount: new FormControl('', CustomValidators.max(999))
 
       });
 
-      this.creatorService.ajaxBook('9781118261361').subscribe((res) => {
-        console.log(res);
+
+      this.sessionService.getUser().subscribe(res => { this.user = res;
+          this.itemAttributes.controls['sellerUsername'].setValue(this.user);
       });
 
     }
 
     public isbnSearch(isbn: string): void {
-      this.creatorService.ajaxBook('9781118261361').subscribe((res) => {
+      this.creatorService.ajaxBook(isbn).subscribe((res) => {
         const response = res['book'];
         this.itemAttributes.controls['bookTitle'].setValue(response['title']);
-        this.itemAttributes.controls['secondaryTitle'].setValue(response['title']);
+        this.itemAttributes.controls['secondaryTitle'].setValue('' /* unimplemented */);
         this.itemAttributes.controls['authors'].setValue(response['author']);
         this.itemAttributes.controls['editors'].setValue(response['editor']);
         this.itemAttributes.controls['publicationDate'].setValue(response['publicationdate']);
         this.itemAttributes.controls['publisher'].setValue(response['publisher']);
         this.itemAttributes.controls['ISBN'].setValue(response['isbn']);
         this.itemAttributes.controls['MSRP'].setValue(response['listprice']);
+        this.itemAttributes.controls['pageCount'].setValue(response['pages']);
 
 
+        const compList: ItemCompetitor[] = [];
 
+
+        for (const competitor of response['items']['item']) {
+          if (competitor !== undefined) {
+                const comp = new ItemCompetitor(response['title'],
+                                                response['edition'],
+                                                response['format'],
+                                                response['isbn'],
+                                                competitor);
+
+            compList.push(comp);
+          }
+
+
+        }
+
+        this.competitors = compList;
 
       });
 
@@ -127,6 +149,24 @@ export class NewItemCreatorComponent implements OnInit {
 
     public onSubmit() {
 
+          const body = this.itemAttributes.value.json();
+          const headers = new Headers({ 'Content-Type' : 'application/json'});
+          const options = new RequestOptions({ headers: headers });
+
+          this.http.post(this.url, body, options).map(
+              response => {
+                  this.requestOutcome = response.json();
+                  this.snackBar.open(this.requestOutcome, 'loading dashboard',
+                    { duration: 2000});
+
+                  const promise = this.router.navigate(['/dashboard']);
+              },
+              error => {
+                  this.requestOutcome = error.json();
+                  this.snackBar.open(this.requestOutcome, 'Please try again/report issue',
+                    { duration: 4000});
+                  window.moveTo(0, 0);
+              });
 
     }
 

@@ -1,3 +1,15 @@
-<p>
-  item-competitors works!
-</p>
+<md-list *ngIf="competitorList !== undefined" [style.overflow]="'scroll'">
+  <md-list-item *ngFor="let competitor of competitorList" [style.padding-top]="'162px'">
+    <md-divider [style.font-size]="'.9em'">
+        <h3>{{competitor.bookTitle}}</h3>
+          <p>Edition {{competitor.edition}}</p>
+            <p>Condition {{competitor.condition}}</p>
+          <p>Price ${{competitor.salePrice}}</p>
+        <a href="{{competitor.itemUrl}}">Book seller: {{competitor.sellerUsername}}</a>
+      <md-divider *ngIf="competitor.internationalEdition !== undefined">
+      <p>International Edition? {{competitor.internationalEdition}}</p>
+      </md-divider>
+    </md-divider>
+  </md-list-item>
+</md-list>
+<!--*ngFor="let competitor of competitorList"-->

@@ -1,18 +1,33 @@
 @import '~@angular/material/core/theming/prebuilt/indigo-green.css';
 
-.mat-card {
-  height: 900px;
+md-card {
+  height: 100%;
+}
+
+textarea {
+
+  resize: none;
+  height: 300px;
+  width: 600px;
+  float: left;
+  position: absolute;
+  margin-top: 138px;
+  border-radius: 4px;
+
+}
+
+md-card-footer {
+  margin-bottom: -191px !important;
 }
 
  md-card md-list-item {
-  padding: 16px 35px;
-  text-shadow: 3px 5px 4px rgba(48, 48, 48, 0.17);
+  padding: 10px;
 }
-
  md-card-footer {
-   padding: 16px 35px;
+   padding: 268px 35px;
  }
 
  button {
    padding-top: 10px;
  }
+

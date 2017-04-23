@@ -15,13 +15,14 @@ export class Item {
     public publisher: string;
     public ISBN: string;
     public MSRP: number;
+    public pageCount: number;
     public salePrice: number;
     public condition: string;
     public internationalEdition: boolean;
     public shipsOn: string;
     public itemId: number;
     public description: string;
-    public sellerUsername: string;   
+    public sellerUsername: string;
 
     public Item(title, secTitle, authors, editors, edition, pubDate, publisher,
         isbn, msrp, price, condition, intEd, ships, itemId, desc, seller) {

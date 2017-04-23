@@ -28,11 +28,6 @@ export class NewItemCreatorService {
   public ajaxBook(isbn: string): Observable<string> {
 
     const searchParams = new URLSearchParams();
-    // searchParams.set('isbn', isbn);
-    // searchParams.set('Content-Type', 'application/json');
-    // searchParams.set('accept', 'application/json');
-    // this.searchParams.append('Access-Control-Allow-Origin', '*');
-
         return this.http.get(NewItemCreatorService.url + isbn).map( (res) => res.json());
 
   }

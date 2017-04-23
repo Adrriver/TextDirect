@@ -22,6 +22,7 @@ export class FormFeedbackDirective  {
   check() {
 
       const warn = this.cList.contains('ng-dirty') && this.cList.contains('ng-invalid');
+
       const matHint = this.el.nativeElement.querySelector('div.mat-hint');
     // const changes = (this.differ.diff(this.cList) as Array<String>).filter( item => item.contains('items.push(item.currentValue.toString()));
     if (warn) {

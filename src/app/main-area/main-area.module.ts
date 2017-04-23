@@ -22,7 +22,6 @@ import { TextSearchHitsComponent } from './text-search-hits/text-search-hits.com
 import { HelpRequestFormComponent } from './help-request-form/help-request-form.component';
 import { MyItemsComponent } from './my-items/my-items.component';
 import { ItemCompetitorsComponent } from './new-item-creator/item-competitors/item-competitors.component';
-import { ItemCompetitorComponent } from './new-item-creator/item-competitors/item-competitor/item-competitor.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from '@angular/material';
 import { FormFeedbackMainDirective } from './form-feedback-main.directive';
@@ -57,7 +56,6 @@ import { FormFeedbackMainDirective } from './form-feedback-main.directive';
                   HelpRequestFormComponent,
                   MyItemsComponent,
                   ItemCompetitorsComponent,
-                  ItemCompetitorComponent,
                   FormFeedbackMainDirective]
 })
 export class MainAreaModule { }
