@@ -32,13 +32,11 @@ import javax.xml.bind.JAXBElement;
  **/
 public class DirectTextbook extends ServerResource {
 
+
+    // DirectTextbooks.com API
     private static String baseURL;
     private static Client client;
-    private WebTarget target; // DirectTextbooks.com API
-    private static Response res;
-    private JSONObject jsonObject;
-    private JAXBElement jaxbElement;
-    private static Response response;
+    private WebTarget target;
     private static String resString;
     private static ConverterHelper ch;
     private static Invocation invocation;
@@ -46,22 +44,25 @@ public class DirectTextbook extends ServerResource {
     public DirectTextbook() {
 
         baseURL = "http://www.directtextbook.com/xml.php?key=47ac79ce5903e90ad84d7bc45ae5af45";
+
+        // client object also constructs WebTarget to invoke GET request on
         client = ClientBuilder.newBuilder().register(XmlConverter.class).build();
-        this.jsonObject = new JSONObject();
 
     }
 
     @Get()
+    @SuppressWarnings(value = "unused")
     public String getBookPrices() {
+
         String isbnData = this.getRequestAttributes().get("isbn").toString().split("[=]")[1];
 
         int isbnLength = isbnData.length();
 
         // Build WebTarget instance with ClientBuilder
-        this.target = client.target(baseURL).queryParam("ean", isbnData);
+        this.target = client.target(baseURL).queryParam("isbn", isbnData);
 
 
-        if (isbnLength == 13) {
+        if (isbnLength == 13 || isbnLength == 10) {
 
              invocation = this.target.request("text/xml")
                                     .accept("text/xml").buildGet();
@@ -71,28 +72,14 @@ public class DirectTextbook extends ServerResource {
 
             setStatus(Status.SUCCESS_OK);
             return XML.toJSONObject(resString).toString();
-        }
-        /*else if(isbnLength == 10) {
-            //DirectTextbook.data = dt.queryParam("isbn", isbnData).request().get(XML.class);
-            setStatus(Status.SUCCESS_OK);
-            return jsonObject.put("data", data);
+
         } else {
+
             setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
-            return jsonObject.put("Error", "invalid ISBN code").toString();
-        }*/
+            return XML.toJSONObject("Error: invalid ISBN code").toString();
 
-
-        return jsonObject.put("Error", "Something went wrong.").toString();
+        }
 
     }
-
-
-    /*private class BookPrice {
-
-        protected
-
-
-    }*/
-
 
 }

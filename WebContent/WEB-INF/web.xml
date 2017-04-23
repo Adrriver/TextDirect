@@ -29,4 +29,10 @@
     <filter-name>CorsFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  <httpProtocol>
+    <customHeaders>
+      <add name="Access-Control-Allow-Origin" value="*"/>
+      <add name="Access-Control-Allow-Headers" value="Content-Type"/>
+    </customHeaders>
+  </httpProtocol>
 </web-app>
