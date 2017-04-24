@@ -171,6 +171,7 @@ public class TextDirect extends Application {
 	 */
 
 		router.attach("/search", AllItemSearch.class);
+		router.attach("/search/{isbn}", AllItemSearch.class).setMatchingQuery(false);
 		router.attach("/get-all-items", AllItemSearch.class);
 		router.attach("/get-all-accounts", AllUserAccount.class);
 		router.attach("/get-accounts", UserAccount.class);
