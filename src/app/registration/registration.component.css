@@ -4,3 +4,32 @@
   color: tomato !important;
 }
 
+form > .mat-card {
+
+  margin: auto ;
+  width: 750px;
+  margin-block-start: 20px;
+
+}
+
+#secAnswer, #secQuestion {
+
+  width: 29em;
+
+}
+
+form .mat-card:last-of-type {
+
+  padding-bottom: 600px;
+
+}
+
+form .mat-card:last-of-type .mat-card-content {
+  margin-block-start: 200px;
+}
+
+form .mat-raised-button {
+  background-color: rgba(220, 20, 1, .8) !important;
+  margin-left: auto !important;
+  margin-block-start: 10px !important;
+}

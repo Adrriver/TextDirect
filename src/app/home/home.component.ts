@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit {
 
         } else {
 
-            this.logInOutcome = "Please check your credentials\n and try again.\n Thanks!";
+            this.logInOutcome = 'Please check your credentials and try again. Thanks!';
 
         }
 

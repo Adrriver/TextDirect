@@ -25,6 +25,7 @@ import { ItemCompetitorsComponent } from './new-item-creator/item-competitors/it
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from '@angular/material';
 import { FormFeedbackMainDirective } from './form-feedback-main.directive';
+import { PaginationComponent } from './search/pagination/pagination.component';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { FormFeedbackMainDirective } from './form-feedback-main.directive';
                   HelpRequestFormComponent,
                   MyItemsComponent,
                   ItemCompetitorsComponent,
-                  FormFeedbackMainDirective]
+                  FormFeedbackMainDirective,
+                  PaginationComponent]
 })
 export class MainAreaModule { }

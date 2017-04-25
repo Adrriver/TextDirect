@@ -7,17 +7,19 @@ md-card {
 textarea {
 
   resize: none;
-  height: 300px;
-  width: 600px;
+  height: 268px;
+  width: 568px;
   float: left;
   position: absolute;
-  margin-top: 138px;
+  bottom: 198px;
   border-radius: 4px;
+  padding: 20px;
 
 }
 
 md-card-footer {
-  margin-bottom: -191px !important;
+  bottom: -288px !important;
+  position: relative;
 }
 
  md-card md-list-item {

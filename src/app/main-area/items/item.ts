@@ -11,10 +11,11 @@ export class Item {
     public authors: string;
     public editors: string;
     public edition: number;
+    public quantity: number;
     public publicationDate: string;
     public publisher: string;
-    public ISBN: string;
-    public MSRP: number;
+    public isbn: string;
+    public msrp: number;
     public pageCount: number;
     public salePrice: number;
     public condition: string;
@@ -34,8 +35,8 @@ export class Item {
         this.edition = edition;
         this.publicationDate = pubDate;
         this.publisher = publisher;
-        this.ISBN = isbn;
-        this.MSRP = msrp;
+        this.isbn = isbn;
+        this.isbn = msrp;
         this.salePrice = price;
         this.condition = condition;
         this.internationalEdition = intEd;

@@ -1,0 +1,5 @@
+@import "~@angular/material/core/theming/prebuilt/indigo-green.css";
+
+body {
+  background-color: orangered;
+}

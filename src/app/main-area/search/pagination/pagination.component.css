@@ -1,0 +1,16 @@
+@import "~@angular/material/core/theming/prebuilt/indigo-green.css";
+
+a:link {
+  text-decoration: none;
+}
+
+ul > li {
+  list-style-type: none;
+  padding: 10px;
+}
+
+
+ul {
+  display: inline-flex;
+}
+

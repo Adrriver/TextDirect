@@ -15,7 +15,7 @@
                         <md-input-container *ngIf="itemAttributes.controls['sellerUsername'].value !== undefined">
                         <input mdInput md-line placeholder="Seller"
                                type="text" name="Seller Name" id="sellerName"
-                               formControlName="sellerUsername"/>
+                               formControlName="sellerUsername" [disabled]="true"/>
                       </md-input-container>
                       </md-list-item>
                     </md-list>
@@ -28,6 +28,11 @@
                       <a md-raised-button color="accent" [disabled]="!(itemAttributes.controls['ISBN'].valid)"
                          (click)="isbnSearch(ISBN.value)">Search</a>
 
+                      <md-input-container>
+                        <input mdInput md-line placeholder="#" value=""
+                               type="number" name="quantity" id="quantity"
+                               formControlName="quantity" />
+                      </md-input-container>
                       <md-input-container hintLabel="{{pTitle.value.length + '/100'}}" appFormFeedbackMain>
                         <input appFormFeedbackMain mdInput md-line placeholder="Title (primary)*" value=""
                                type="text" name="p-title" id="p-title" maxlength="100" #pTitle
@@ -70,7 +75,7 @@
                                     formControlName="publisher" />
                         </md-input-container>
                           <md-input-container hintLabel="'Month yyyy" appFormFeedbackMain>
-                            <input mdInput md-line placeholder="publicationDate*" value=""
+                            <input mdInput md-line placeholder="publicationDate*" value="2017-01-01"
                                    type="text" name="pubDate" id="pubDate" #pubDate
                                    formControlName="publicationDate" />
                           </md-input-container>

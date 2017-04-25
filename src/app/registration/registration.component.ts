@@ -33,8 +33,9 @@ export class RegistrationComponent implements OnInit {
 
     constructor(private formBuilder: FormBuilder, private sessionService: SessionService,
                 private childService: ChildServiceService) {
-                    this.childService.getChildForm().subscribe(form => { this.childFormGroup = form });
-                    this.childService.getMessage().subscribe(message => { this.isChildValid = message });
+                    this.childService.getChildForm().subscribe(form => { this.childFormGroup = form; });
+                    this.childService.getMessage().subscribe(message => { this.isChildValid = message; });
+                    // TODO: Implement UserAccount instance creation (Object.assign(...)
                     this.sessionService.getUser().subscribe(user => { this.user = user; });
 
     }
@@ -69,6 +70,8 @@ export class RegistrationComponent implements OnInit {
 
             username: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[\\w\\d]{1,12}')])),
             password: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[\\w\\d]{6,20}')])),
+            idVerQuestion: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(100), Validators.pattern('[\\w\\s\\W\\S]+')])),
+            idVerAnswer: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(100), Validators.pattern('[\\w\\s\\W\\S]+')])),
             emailAddress: new FormControl('', Validators.compose([Validators.required, CustomValidators.email])),
             firstName: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z- ]+')])),
             lastName: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z- ]+')])),

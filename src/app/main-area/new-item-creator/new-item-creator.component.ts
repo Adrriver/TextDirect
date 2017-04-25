@@ -30,7 +30,7 @@ export class NewItemCreatorComponent implements OnInit {
     public competitors: ItemCompetitor[];
     public user: UserAccount;
     public url: string;
-    public requestOutcome: string;
+    public requestOutcome: Object;
 
     constructor(private sessionService: SessionService, private creatorService: NewItemCreatorService,
                 private http: Http, private snackBar: MdSnackBar, private router: Router) {
@@ -50,19 +50,21 @@ export class NewItemCreatorComponent implements OnInit {
 
       this.itemAttributes = new FormGroup({
 
-          bookTitle: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[\\w\\s\]+')])),
+          quantity: new FormControl('', CustomValidators.max(10)),
 
-          secondaryTitle: new FormControl('', Validators.compose([Validators.pattern('[\\w\\s\]+')])),
+          bookTitle: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[\\w\\s\\W\\S]+')])),
+
+          secondaryTitle: new FormControl('', Validators.compose([Validators.pattern('[\\w\\s\\W\\S]+')])),
 
           authors: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[\\w\\s\\W\\S]+')])),
 
-          editors: new FormControl('', Validators.compose([Validators.pattern('[\\w\\s]+')])),
+          editors: new FormControl('', Validators.compose([Validators.pattern('[\\w\\s\\W\\S]+')])),
 
           edition: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[0-9a-bA-Z]+')])),
 
-          publicationDate: new FormControl('', Validators.compose([Validators.required, CustomValidators.date])),
+          publicationDate: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(4)])),
 
-          publisher: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[\\w\\s]+')])),
+          publisher: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[\\w\\s\\W\\S]+')])),
 
           ISBN: new FormControl('', Validators.compose([Validators.required,
             Validators.pattern('(?:ISBN(?:-1[03])?:?●)?(?=[0-9X]{10}$|(?=(?:[0-9]+[-●]){3})↵[-●0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[-●]){4})[-●0-9]{17}$)(?:97[89][-●]?)?[0-9]{1,5}[-●]?[0-9]+[-●]?[0-9]+[-●]?[0-9X]$')])),
@@ -73,20 +75,22 @@ export class NewItemCreatorComponent implements OnInit {
           // TODO: form option agreement
           condition: new FormControl('', Validators.compose([Validators.required])),
 
-          internationalEdition: new FormControl('', ),
+          internationalEdition: new FormControl(0, ),
 
           punctualShipment: new FormControl(coerceBooleanProperty(false), Validators.compose([Validators.required, Validators.requiredTrue])),
 
           shipsOn: new FormControl('', Validators.compose([Validators.required, CustomValidators.date])),
 
         // defined by service function
-          itemId: new FormControl('#?', Validators.nullValidator),
+          itemId: new FormControl('', Validators.nullValidator),
 
           description: new FormControl('', Validators.compose([Validators.required, Validators.minLength(50)])),
         // added automatically
-          sellerUsername: new FormControl({value: '', disabled: true}),
 
-          pageCount: new FormControl('', CustomValidators.max(999))
+          sellerUsername: new FormControl('', Validators.minLength(2)),
+
+          pageCount: new FormControl('', CustomValidators.max(999)),
+
 
       });
 
@@ -100,19 +104,20 @@ export class NewItemCreatorComponent implements OnInit {
     public isbnSearch(isbn: string): void {
       this.creatorService.ajaxBook(isbn).subscribe((res) => {
         const response = res['book'];
+
+
         this.itemAttributes.controls['bookTitle'].setValue(response['title']);
         this.itemAttributes.controls['secondaryTitle'].setValue('' /* unimplemented */);
         this.itemAttributes.controls['authors'].setValue(response['author']);
         this.itemAttributes.controls['editors'].setValue(response['editor']);
+        this.itemAttributes.controls['edition'].setValue(response['edition']);
         this.itemAttributes.controls['publicationDate'].setValue(response['publicationdate']);
         this.itemAttributes.controls['publisher'].setValue(response['publisher']);
         this.itemAttributes.controls['ISBN'].setValue(response['isbn']);
         this.itemAttributes.controls['MSRP'].setValue(response['listprice']);
         this.itemAttributes.controls['pageCount'].setValue(response['pages']);
 
-
         const compList: ItemCompetitor[] = [];
-
 
         for (const competitor of response['items']['item']) {
           if (competitor !== undefined) {
@@ -149,21 +154,22 @@ export class NewItemCreatorComponent implements OnInit {
 
     public onSubmit() {
 
-          const body = this.itemAttributes.value.json();
+          const body = JSON.stringify({item: this.itemAttributes.value});
+          console.log(body);
           const headers = new Headers({ 'Content-Type' : 'application/json'});
           const options = new RequestOptions({ headers: headers });
 
-          this.http.post(this.url, body, options).map(
+          this.http.post(this.url, body, options).subscribe(
               response => {
                   this.requestOutcome = response.json();
-                  this.snackBar.open(this.requestOutcome, 'loading dashboard',
-                    { duration: 2000});
+                  this.snackBar.open(this.requestOutcome.toString(), 'loading dashboard',
+                    { duration: 5000});
 
-                  const promise = this.router.navigate(['/dashboard']);
+                  const promise = this.router.navigate(['/main-area/dashboard']);
               },
               error => {
                   this.requestOutcome = error.json();
-                  this.snackBar.open(this.requestOutcome, 'Please try again/report issue',
+                  this.snackBar.open(this.requestOutcome[0], 'Please try again/report issue',
                     { duration: 4000});
                   window.moveTo(0, 0);
               });

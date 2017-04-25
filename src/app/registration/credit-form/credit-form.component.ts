@@ -103,94 +103,55 @@ export class CreditFormComponent {
 
     }
 
-
-
-
-
-
-
-
     public getChild(): FormGroup {
-
         return this.paymentMethods;
-
     }
 
 
-    public detectcard(): void {
-        this.credit.controls['lastFour'].value.validatecreditcard(function (result) {
-            alert('cc type: ' + result.card_type.name
-                + '\nlength validation: ' + result.length_valid
-                + '\nluhn validation: ' + result.luhn_valid);
-        });
-    }
+    /*public addressValidator(group: FormGroup) {
 
+        let response: {};
 
-    public addressValidator(group: FormGroup) {
+        console.log(group);
 
-        //let response: {};
+        if (this.zipCode.length < 5) {
+           console.log("zipCode's length: " + this.zipCode);
+           return null;
+        }
+        console.log("street address: " + group.controls["streetAddress"].value.toString());
+        let XmlParser = new DOMParser();
+        let XmlSerializer = new XMLSerializer();
+        let xml = XmlParser.parseFromString("< AddressValidateRequest USERID=\"287TEXTD4274\"> \
+                                               <FirmName /> \
+                                                   < Address ID= \"0\" /> \
+                                                       <Address1>" + group.controls["identifier"].value.toString() + "</Address1> \
+                                                           < Address2 >" + group.controls["streetAddress"].value.toString() + "< /Address2> \
+                                                               < City >" + group.controls["city"].value.toString() + "< /City> \
+                                                           < State >" + group.controls["state"].value.toString() + "< /State> \
+                                                       < Zip5 >" + group.controls["zipcode"].value.toString() + "<Zip5> \
+                                                   < Zip4 ></Zip4> \
+                                               < /Address> \
+                                            < /AddressValidateRequest>", 'text/xml');
 
-        //console.log(group);
-
-        //if (this.zipCode.length < 5) {
-        //    console.log("zipCode's length: " + this.zipCode);
-        //    return null;
-        //}
-        //console.log("street address: " + group.controls["streetAddress"].value.toString());
-        //let XmlParser = new DOMParser();
-        //let XmlSerializer = new XMLSerializer();
-        //let xml = XmlParser.parseFromString("< AddressValidateRequest USERID=\"287TEXTD4274\"> \
-        //                                        <FirmName /> \
-        //                                            < Address ID= \"0\" /> \
-        //                                                <Address1>" + group.controls["identifier"].value.toString() + "</Address1> \
-        //                                                    < Address2 >" + group.controls["streetAddress"].value.toString() + "< /Address2> \
-        //                                                        < City >" + group.controls["city"].value.toString() + "< /City> \
-        //                                                    < State >" + group.controls["state"].value.toString() + "< /State> \
-        //                                                < Zip5 >" + group.controls["zipcode"].value.toString() + "<Zip5> \
-        //                                            < Zip4 ></Zip4> \
-        //                                        < /Address> \
-        //                                     < /AddressValidateRequest>", 'text/xml');
-
-
-
-        //let requestData: any = new FormData();
-        //let xhr = new XMLHttpRequest();
-        //requestData.append('API', 'Verify');
-        //requestData.append('XML', XmlSerializer.serializeToString(xml));
-        //xhr.open("GET", this.USPSVerify, true);
-        //xhr.setRequestHeader("Access-Control-Allow-Origin", 'http://66.190.140.47:4201/registration');
-        //xhr.setRequestHeader("Content-Type", 'text/xml');
-
-        //xhr.onreadystatechange = (ev) => {
-        //    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-        //        console.log(xhr.responseXML);
-        //        return true;
-        //    } else {
-        //        console.log(xhr.responseText)
-        //        return false;
-        //    }
-        //};
-
-        //xhr.send(requestData);
-
-    }
+    }*/
 
     public isValid(group: string, addressControl: boolean, control: string) {
 
         switch (group) {
 
             case 'credit':
-                if (addressControl === true)
-                    return this.billingAddressSubCredit.controls[control].status === 'VALID';
-                else
-                    return this.credit.controls[control].status === 'VALID';
+                if (addressControl === true) {
+                  return this.billingAddressSubCredit.controls[control].status === 'VALID';
 
+                } else {
+                  return this.credit.controls[control].status === 'VALID';
+                }
             case 'check':
-                if (addressControl === true)
-                    return this.billingAddressSubCash.controls[control].status === 'VALID';
-                else
-                    return this.cash.controls[control].status === 'VALID';
-
+                if (addressControl === true) {
+                  return this.billingAddressSubCash.controls[control].status === 'VALID';
+                } else {
+                  return this.cash.controls[control].status === 'VALID';
+                }
             default:
                 break;
 

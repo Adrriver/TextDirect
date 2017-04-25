@@ -1,31 +1,29 @@
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import { URLSearchParams } from '@angular/http';
+import {Http, Headers, URLSearchParams, RequestOptions} from '@angular/http';
 import { Observable, Subject } from 'rxjs/Rx';
 import { FormGroup } from '@angular/forms';
-import './../../node_modules/rxjs/add/operator/catch';
-import './../../node_modules/rxjs/add/operator/map';
 
 //  local imports
 import { UserAccount } from './main-area/user-account-settings/user-account';
+import {MdSnackBar} from "@angular/material";
 
 
 
 @Injectable()
 export class SessionService {
 
-     user: Subject<UserAccount>;
-     currentUser: Subject<UserAccount>;
-     loggedIn: boolean;
+     public user: Subject<UserAccount>;
+     public currentUser: Subject<UserAccount>;
+     public loggedIn: boolean;
      // TODO: employ URL field for JAX-RS URL prefix
-     URL: string;
-     token: string;
-     searchParams: URLSearchParams;
+     public baseUrl: string;
+     public token: string;
+     public searchParams: URLSearchParams;
 
-    constructor(private http: Http, private router: Router) {
+    constructor(private http: Http, private router: Router, private snackBar: MdSnackBar) {
         this.user = new Subject<UserAccount>();
-        // URL will go here
+        this.baseUrl = 'http://localhost:8080/textdirect/create-account';
         this.loggedIn = false;
         this.token = 'text_direct_token';
         this.searchParams = new URLSearchParams();
@@ -67,7 +65,7 @@ export class SessionService {
 
     isAdmin(): boolean {
         // let result;
-        return true; //this.currentUser.asObservable(). // .forEach(user => { user.isAdmin; }); // implement status logic
+        return true; // this.currentUser.asObservable(). // .forEach(user => { user.isAdmin; }); // implement status logic
         // return result;
     }
 
@@ -90,13 +88,25 @@ export class SessionService {
     }
 
     createUser(regForm: FormGroup, paymentForm: FormGroup): boolean {
-        // TODO: create POST body containing form data
-        this.http.put('POST NEW USER URL', { /*body*/ })
+
+        const headers = new Headers({ 'Content-Type' : 'application/json'});
+        const options = new RequestOptions({ headers : headers });
+        const body = JSON.stringify([{reg: regForm}, {paymentForm: paymentForm}]);
+
+        this.http.put(this.baseUrl, body, options)
             .map((res) => {
-                if (res.json().data === 'true') {
-                    return this.router.navigate(['/']);
-                }
-            }).catch(error => { console.log(error); return error; });
+                  res.json().subscribe( data => {
+                    const newCreds = data.json();
+                    this.logIn(newCreds['username'], newCreds['password']);
+                    return this.router.navigate(['/dashboard']);
+                },
+                    error => {
+                      console.log(error);
+                      this.snackBar.open(error.toString(),
+                        'Error creating user. Please contact support',
+                         { duration: 5000});
+                  });
+            });
 
         return false;
     }
