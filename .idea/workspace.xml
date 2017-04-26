@@ -8,8 +8,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b9b1b27a-6b45-46ba-b046-f962b0bcd0a8" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/TextDirect.java" afterPath="$PROJECT_DIR$/src/main/TextDirect.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/itemcreatorservice/NewSaleItem.java" afterPath="$PROJECT_DIR$/src/itemcreatorservice/NewSaleItem.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/searchservice/AllItemSearch.java" afterPath="$PROJECT_DIR$/src/searchservice/AllItemSearch.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sessionservice/CreateAccount.java" afterPath="$PROJECT_DIR$/src/sessionservice/CreateAccount.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,27 +38,38 @@
       <file leaf-file-name="NewSaleItem.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/itemcreatorservice/NewSaleItem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-34">
-              <caret line="67" column="8" lean-forward="false" selection-start-line="67" selection-start-column="8" selection-end-line="67" selection-end-column="73" />
+            <state relative-caret-position="119">
+              <caret line="61" column="72" lean-forward="false" selection-start-line="61" selection-start-column="72" selection-end-line="61" selection-end-column="72" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1492964391639" expanded="true" signature="2543:2757" ph="INSERT INTO sale_itemVALUES... " />
-                <marker date="1492964391639" expanded="true" signature="3418:3601" ph="INSERT INTO sale_item... " />
+                <marker date="1493152783537" expanded="true" signature="2011:2227" ph="INSERT INTO sale_itemVALUES... " />
+                <marker date="1493152783537" expanded="true" signature="2888:3638" ph="INSERT INTO sale_item... " />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AllItemSearch.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AllItemSearch.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/searchservice/AllItemSearch.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-51">
-              <caret line="87" column="35" lean-forward="false" selection-start-line="87" selection-start-column="35" selection-end-line="87" selection-end-column="35" />
+            <state relative-caret-position="221">
+              <caret line="66" column="43" lean-forward="false" selection-start-line="66" selection-start-column="43" selection-end-line="66" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1783#1810#0" expanded="true" />
-                <marker date="1493074469089" expanded="true" signature="2562:2613" ph="SELECT * FRO... sale_item" />
-                <marker date="1493074469089" expanded="true" signature="2562:2643" ph="SELECT * FRO... sale_item" />
+                <marker date="1493087114688" expanded="true" signature="2583:2638" ph="SELECT * FRO... sale_item" />
+                <marker date="1493087114688" expanded="true" signature="2583:2668" ph="SELECT * FRO... sale_item" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CreateAccount.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/sessionservice/CreateAccount.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="95">
+              <caret line="72" column="127" lean-forward="false" selection-start-line="72" selection-start-column="127" selection-end-line="72" selection-end-column="127" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -66,7 +78,7 @@
       <file leaf-file-name="DirectTextbook.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/itemcreatorservice/DirectTextbook.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
+            <state relative-caret-position="17">
               <caret line="56" column="72" lean-forward="false" selection-start-line="56" selection-start-column="72" selection-end-line="56" selection-end-column="72" />
               <folding />
             </state>
@@ -88,11 +100,9 @@
       <file leaf-file-name="TextDirect.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/TextDirect.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="173" column="37" lean-forward="false" selection-start-line="173" selection-start-column="37" selection-end-line="173" selection-end-column="37" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="2057">
+              <caret line="173" column="29" lean-forward="false" selection-start-line="173" selection-start-column="29" selection-end-line="173" selection-end-column="29" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -117,6 +127,13 @@
       <find>+ &quot;, '&quot; +</find>
       <find>%s</find>
       <find>s%</find>
+      <find>(p)[.\s=]{1}</find>
+      <find>item</find>
+      <find>pmtMethod</find>
+      <find>Credit</find>
+      <find>),</find>
+      <find>(setStatus([\\w\\s]+))</find>
+      <find>.trim()</find>
     </findStrings>
     <replaceStrings>
       <replace>isbnData</replace>
@@ -124,6 +141,11 @@
       <replace>,+&quot;'</replace>
       <replace>,</replace>
       <replace>'%s'</replace>
+      <replace>this.poolProperties.</replace>
+      <replace>registrationForm</replace>
+      <replace>paymentMethod</replace>
+      <replace>Cash</replace>
+      <replace>).toString().trim(),</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -143,9 +165,10 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/itemcreatorservice/DirectTextbook.java" />
         <option value="$PROJECT_DIR$/WebContent/WEB-INF/web.xml" />
-        <option value="$PROJECT_DIR$/src/itemcreatorservice/NewSaleItem.java" />
         <option value="$PROJECT_DIR$/src/main/TextDirect.java" />
         <option value="$PROJECT_DIR$/src/searchservice/AllItemSearch.java" />
+        <option value="$PROJECT_DIR$/src/itemcreatorservice/NewSaleItem.java" />
+        <option value="$PROJECT_DIR$/src/sessionservice/CreateAccount.java" />
       </list>
     </option>
   </component>
@@ -267,7 +290,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1370" />
+    <option name="width" value="1382" />
     <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -328,25 +351,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="searchservice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TextDirect" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TextDirect" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="itemcreatorservice" />
+              <option name="myItemId" value="sessionservice" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -992,7 +997,8 @@
       <workItem from="1492947979067" duration="17769000" />
       <workItem from="1493004770791" duration="1404000" />
       <workItem from="1493063973886" duration="12000" />
-      <workItem from="1493064152136" duration="10433000" />
+      <workItem from="1493064152136" duration="33708000" />
+      <workItem from="1493159644521" duration="7921000" />
     </task>
     <task id="LOCAL-00001" summary="Testing">
       <created>1492640737378</created>
@@ -1005,7 +1011,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="119165000" />
+    <option name="totallyTimeSpent" value="150361000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -1017,7 +1023,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1370" height="744" extended-state="1" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1040,9 +1046,9 @@
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.71331316" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.49394855" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3659306" sideWeight="0.77231467" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41571194" sideWeight="0.77231467" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.48487142" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18833087" sideWeight="0.4893617" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19465649" sideWeight="0.4893617" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25718608" sideWeight="0.5097561" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.049167927" sideWeight="0.5106383" order="2" side_tool="true" content_ui="tabs" />
@@ -1133,13 +1139,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="833">
-          <caret line="49" column="19" lean-forward="false" selection-start-line="49" selection-start-column="19" selection-end-line="49" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -1154,9 +1153,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1802">
           <caret line="158" column="47" lean-forward="false" selection-start-line="158" selection-start-column="47" selection-end-line="158" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1173,8 +1170,8 @@
           <caret line="8" column="49" lean-forward="false" selection-start-line="8" selection-start-column="49" selection-end-line="8" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1492964391639" expanded="true" signature="2543:2757" ph="INSERT INTO sale_itemVALUES... " />
-            <marker date="1492964391639" expanded="true" signature="3418:3601" ph="INSERT INTO sale_item... " />
+            <marker date="1493152783537" expanded="true" signature="2011:2227" ph="INSERT INTO sale_itemVALUES... " />
+            <marker date="1493152783537" expanded="true" signature="2888:3638" ph="INSERT INTO sale_item... " />
           </folding>
         </state>
       </provider>
@@ -1207,9 +1204,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1564">
           <caret line="135" column="38" lean-forward="false" selection-start-line="135" selection-start-column="38" selection-end-line="135" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1226,8 +1221,8 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1492964391639" expanded="true" signature="2543:2757" ph="INSERT INTO sale_itemVALUES... " />
-            <marker date="1492964391639" expanded="true" signature="3418:3601" ph="INSERT INTO sale_item... " />
+            <marker date="1493152783537" expanded="true" signature="2011:2227" ph="INSERT INTO sale_itemVALUES... " />
+            <marker date="1493152783537" expanded="true" signature="2888:3638" ph="INSERT INTO sale_item... " />
           </folding>
         </state>
       </provider>
@@ -1267,9 +1262,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2856">
           <caret line="214" column="0" lean-forward="false" selection-start-line="214" selection-start-column="0" selection-end-line="214" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1279,8 +1272,8 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1492964391639" expanded="true" signature="2543:2757" ph="INSERT INTO sale_itemVALUES... " />
-            <marker date="1492964391639" expanded="true" signature="3418:3601" ph="INSERT INTO sale_item... " />
+            <marker date="1493152783537" expanded="true" signature="2011:2227" ph="INSERT INTO sale_itemVALUES... " />
+            <marker date="1493152783537" expanded="true" signature="2888:3638" ph="INSERT INTO sale_item... " />
           </folding>
         </state>
       </provider>
@@ -1299,9 +1292,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2856">
           <caret line="214" column="0" lean-forward="false" selection-start-line="214" selection-start-column="0" selection-end-line="214" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1326,9 +1317,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="55" column="13" lean-forward="false" selection-start-line="55" selection-start-column="13" selection-end-line="55" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1512,17 +1501,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/TextDirect.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="173" column="37" lean-forward="false" selection-start-line="173" selection-start-column="37" selection-end-line="173" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="2057">
+          <caret line="173" column="29" lean-forward="false" selection-start-line="173" selection-start-column="29" selection-end-line="173" selection-end-column="29" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/itemcreatorservice/DirectTextbook.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
+        <state relative-caret-position="17">
           <caret line="56" column="72" lean-forward="false" selection-start-line="56" selection-start-column="72" selection-end-line="56" selection-end-column="72" />
           <folding />
         </state>
@@ -1530,25 +1517,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/itemcreatorservice/NewSaleItem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-34">
-          <caret line="67" column="8" lean-forward="false" selection-start-line="67" selection-start-column="8" selection-end-line="67" selection-end-column="73" />
+        <state relative-caret-position="119">
+          <caret line="61" column="72" lean-forward="false" selection-start-line="61" selection-start-column="72" selection-end-line="61" selection-end-column="72" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1492964391639" expanded="true" signature="2543:2757" ph="INSERT INTO sale_itemVALUES... " />
-            <marker date="1492964391639" expanded="true" signature="3418:3601" ph="INSERT INTO sale_item... " />
+            <marker date="1493152783537" expanded="true" signature="2011:2227" ph="INSERT INTO sale_itemVALUES... " />
+            <marker date="1493152783537" expanded="true" signature="2888:3638" ph="INSERT INTO sale_item... " />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/searchservice/AllItemSearch.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-51">
-          <caret line="87" column="35" lean-forward="false" selection-start-line="87" selection-start-column="35" selection-end-line="87" selection-end-column="35" />
+        <state relative-caret-position="221">
+          <caret line="66" column="43" lean-forward="false" selection-start-line="66" selection-start-column="43" selection-end-line="66" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1783#1810#0" expanded="true" />
-            <marker date="1493074469089" expanded="true" signature="2562:2613" ph="SELECT * FRO... sale_item" />
-            <marker date="1493074469089" expanded="true" signature="2562:2643" ph="SELECT * FRO... sale_item" />
+            <marker date="1493087114688" expanded="true" signature="2583:2638" ph="SELECT * FRO... sale_item" />
+            <marker date="1493087114688" expanded="true" signature="2583:2668" ph="SELECT * FRO... sale_item" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sessionservice/CreateAccount.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="72" column="127" lean-forward="false" selection-start-line="72" selection-start-column="127" selection-end-line="72" selection-end-column="127" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

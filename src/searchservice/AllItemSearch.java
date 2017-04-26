@@ -42,7 +42,7 @@ public class AllItemSearch extends ServerResource {
         p.setTestOnReturn(false);
         p.setValidationInterval(30000);
         p.setTimeBetweenEvictionRunsMillis(30000);
-        p.setMaxActive(100);
+        p.setMaxActive(1000);
         p.setInitialSize(10);
         p.setMaxWait(10000);
         p.setRemoveAbandonedTimeout(60);
@@ -58,7 +58,7 @@ public class AllItemSearch extends ServerResource {
 
     @Get
     @SuppressWarnings("unused")
-    public JsonRepresentation search() {
+    public JsonRepresentation search() throws SQLException {
 
         String isbnData = this.getRequestAttributes().get("isbn").toString().split("[=]")[1];
         String titleQuery = null;
@@ -77,7 +77,7 @@ public class AllItemSearch extends ServerResource {
             con = datasource.getConnection();
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(
-                    String.format("SELECT * FROM sale_item WHERE MATCH(title) AGAINST('%s' IN NATURAL LANGUAGE MODE)", titleQuery));
+                    String.format("SELECT * FROM sale_item WHERE MATCH(bookTitle) AGAINST('%s' IN NATURAL LANGUAGE MODE)", titleQuery));
 
             ResultSetMetaData meta = rs.getMetaData();
             int columnCount = rs.getMetaData().getColumnCount();
@@ -86,7 +86,7 @@ public class AllItemSearch extends ServerResource {
 
                 List row = new LinkedList<String[]>();
                 for(int c = 1; c <= columnCount; c++) {
-                       row.add(0, new String[]{String.valueOf(c), rs.getString(c)});
+                       row.add(0, new String[]{rs.getMetaData().getColumnName(c), rs.getString(c)});
                 }
 
                 rows.add(row);
@@ -102,7 +102,8 @@ public class AllItemSearch extends ServerResource {
         }
 
 
-        rows.forEach( (row) -> { ((List<String[]>)row).forEach( (key) -> this.tuple.put(key[0], key[1]));
+        rows.forEach( (row) -> { ((List<String[]>)row).forEach( (key) -> { System.err.println(key[0] + " " + key[1]);
+                                                                    this.tuple.put(key[0], key[1]); });
                                     this.tuples.put(this.tuple); });
 
         setStatus(Status.SUCCESS_OK);
