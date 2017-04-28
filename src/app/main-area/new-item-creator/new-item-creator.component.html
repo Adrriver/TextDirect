@@ -117,6 +117,7 @@
                     <textarea formControlName="description">Please compose a description of your item here...</textarea>
                   </md-list-item>
                 </md-list>
+                <img md-card-image *ngIf="productImageUrl !== undefined" src="{{productImageUrl}}">
               </md-card-content>
             <md-card-footer>
               <section>

@@ -2,7 +2,6 @@ import { PaymentMethod } from './payment-method';
 import { Address } from './address';
 export class UserAccount {
 
-    //general account properties
     username: string;
     password: string;
     idVerQuestion: string;
@@ -16,7 +15,7 @@ export class UserAccount {
     shippingAddress: Address;
     isAdmin: boolean;
     registrationDate: Date;
-    standing: boolean; //associated with incident or delinquency instance stored in DB
+    standing: boolean; // associated with incident or delinquency instance stored in DB
     userRating: number;
 
     UserAccount(username: string, pw: string, email: string, fName: string,

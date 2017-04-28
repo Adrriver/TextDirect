@@ -47,9 +47,9 @@ export class RegistrationComponent implements OnInit {
 
         this.paymentOptions = [
             { value: 'default', viewValue: 'Select' },
-            { value: 'credit', viewValue: 'Credit' },
-            { value: 'debit', viewValue: 'Debit' },
-            { value: 'check', viewValue: 'Checking Account' }
+            { value: 'CREDIT', viewValue: 'Credit' },
+            { value: 'DEBIT', viewValue: 'Debit' },
+            { value: 'CHECK', viewValue: 'Checking Account' }
         ];
 
         // define nested FormGroups before insertion
@@ -70,17 +70,18 @@ export class RegistrationComponent implements OnInit {
 
             username: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[\\w\\d]{1,12}')])),
             password: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[\\w\\d]{6,20}')])),
+            emailAddress: new FormControl('', Validators.compose([Validators.required, CustomValidators.email])),
             idVerQuestion: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(100), Validators.pattern('[\\w\\s\\W\\S]+')])),
             idVerAnswer: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(100), Validators.pattern('[\\w\\s\\W\\S]+')])),
-            emailAddress: new FormControl('', Validators.compose([Validators.required, CustomValidators.email])),
             firstName: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z- ]+')])),
+            middleName: new FormControl('', Validators.pattern('[\\w]+(-)+[\\w]+|^[\\S]+[\\w]+')),
             lastName: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z- ]+')])),
-            telephoneNumber: new FormControl('', Validators.compose([Validators.required,
-                                                 Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')])),
+            telephoneNumber: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')])),
             shippingAddress: this.shippingAddressSub,
-            pmtMethod: new FormControl(''),
-            standing: new FormControl(true),
-            registrationDate: new FormControl(new Date(Date.now()))
+            pmtMethod: new FormControl('DEBIT'),
+            standing: new FormControl('1'),
+            userRating: new FormControl('0'),
+            registrationDate: new FormControl(Date.now())
 
         });
 
@@ -106,7 +107,8 @@ export class RegistrationComponent implements OnInit {
 
 
     public onSubmit(): void {
-        const success = this.sessionService.createUser(this.regForm, this.childFormGroup);
+        console.log(this.childFormGroup.value);
+        const success = this.sessionService.createUser(this.regForm.value, this.childFormGroup.value);
         if (!success) { this.mustCorrect = true; }
     }
 

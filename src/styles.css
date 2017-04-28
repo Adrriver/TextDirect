@@ -1,11 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~/../node_modules/@angular/material/core/theming/prebuilt/indigo-green.css';
-@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import "~@angular/material/core/theming/prebuilt/indigo-green.css";
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://fonts.googleapis.com/css?family=Lora');
 
 body {
- font-family: 'Roboto';
+  font-family: 'Lora', serif;
+  background-color: #4CAF50;
  }
+
+.login-image {
+  //background-image: url("/assets/login-bg.jpeg");
+  background-size: cover;
+}
+
+h1, h2, h3, h4, h5, p {
+  font-family: 'Lora', serif;
+  color: #111111;
+}
+
+.mat-card-title, .mat-card-subtitle {
+  font-family: 'Lora', serif;
+  color: beige;
+}
 
 .primary-color {
     color: #303F9F!important;
@@ -15,13 +31,22 @@ body {
   }
 
 .background-primary-color {
-    background-color: #303F9F!important;
+    background-color: #606060;
   }
 
 .background-accent-color {
     background-color: #4CAF50!important;
   }
 
-.white-text {
-    color: #FFF!important;
+.mat-card-content input {
+  color: #424242;
+}
+
+.mat-input-placeholder{color:rgba(50,50,50,0.8) !important;}.mat-input-3.mat-input-1{color:rgba(50, 50, 50, .9)}.mat-input-placeholder.mat-focused{color:#388e3c}.mat-input-placeholder.mat-focused.mat-accent{color:#536dfe}.mat-input-placeholder.mat-focused.mat-warn{color:#f44336}.mat-input-element:disabled{color:rgba(255,255,255,0.3)}input.mat-input-element:-webkit-autofill+.mat-input-placeholder .mat-placeholder-required,.mat-input-placeholder.mat-float.mat-focused .mat-placeholder-required{color:#536dfe}.mat-input-underline{border-color:rgba(255,255,255,0.12)}.mat-input-underline .mat-input-ripple{background-color:#388e3c}.mat-input-underline .mat-input-ripple.mat-accent{background-color:#536dfe}.mat-input-underline{color:rgb(50, 50, 50, .8)}
+
+/* md-card styles */
+md-card-content.mat-card-content {
+  background-color: white;
+  padding: 10px;
+  border-radius: 1px;
 }

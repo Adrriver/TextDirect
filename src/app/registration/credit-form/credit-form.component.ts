@@ -60,7 +60,7 @@ export class CreditFormComponent {
 
         this.credit = new FormGroup({
 
-            nameOnCard: new FormControl('', Validators.pattern('[\\w\\-\\s\\/]+')),
+            fullNameCredit: new FormControl('', Validators.pattern('[\\w\\-\\s\\/]+')),
             lastFour: new FormControl('', Validators.compose([Validators.required, CustomValidators.creditCard])),
             expirationDate: new FormControl('', Validators.compose([Validators.required, CustomValidators.date])),
             billingAddress: this.billingAddressSubCredit,
@@ -70,10 +70,10 @@ export class CreditFormComponent {
 
         this.cash = new FormGroup({
 
-            accountHolderName: new FormControl('', Validators.pattern('[\\w\\-\\s\\/]+')),
+            fullNameChecking  : new FormControl('', Validators.pattern('[\\w\\-\\s\\/]+')),
             routingNumber: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[0-9]{9}')])),
             accountNumber: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[0-9]{9,15}')])),
-            driverLicenseNum: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[0-9]{8,16}')])),
+            driversLicenseNum: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[0-9]{8,16}')])),
             billingAddress: this.billingAddressSubCash
 
         });
@@ -84,15 +84,15 @@ export class CreditFormComponent {
         this.paymentMethods.valueChanges.subscribe(() => {
 
             switch (this.selectedMethod) {
-                case 'check':
+                case 'CHECK':
                     if (this.cash.valid) this.childService.sendUpdatedForm(this.paymentMethods);
                     this.childService.sendMessage(this.cash.valid);
                     break;
-                case 'debit':
+                case 'DEBIT':
                     if (this.credit.valid) this.childService.sendUpdatedForm(this.paymentMethods);
                     this.childService.sendMessage(this.credit.valid);
                     break;
-                case 'credit':
+                case 'CREDIT':
                     if (this.credit.valid && this.cash.valid) this.childService.sendUpdatedForm(this.paymentMethods);
                     this.childService.sendMessage((this.cash.valid && this.credit.valid));
                     break;
@@ -104,36 +104,12 @@ export class CreditFormComponent {
     }
 
     public getChild(): FormGroup {
+      if(this.paymentMethods === undefined){
+        console.log('this.paymentMethods is undefined');
+      }
         return this.paymentMethods;
     }
 
-
-    /*public addressValidator(group: FormGroup) {
-
-        let response: {};
-
-        console.log(group);
-
-        if (this.zipCode.length < 5) {
-           console.log("zipCode's length: " + this.zipCode);
-           return null;
-        }
-        console.log("street address: " + group.controls["streetAddress"].value.toString());
-        let XmlParser = new DOMParser();
-        let XmlSerializer = new XMLSerializer();
-        let xml = XmlParser.parseFromString("< AddressValidateRequest USERID=\"287TEXTD4274\"> \
-                                               <FirmName /> \
-                                                   < Address ID= \"0\" /> \
-                                                       <Address1>" + group.controls["identifier"].value.toString() + "</Address1> \
-                                                           < Address2 >" + group.controls["streetAddress"].value.toString() + "< /Address2> \
-                                                               < City >" + group.controls["city"].value.toString() + "< /City> \
-                                                           < State >" + group.controls["state"].value.toString() + "< /State> \
-                                                       < Zip5 >" + group.controls["zipcode"].value.toString() + "<Zip5> \
-                                                   < Zip4 ></Zip4> \
-                                               < /Address> \
-                                            < /AddressValidateRequest>", 'text/xml');
-
-    }*/
 
     public isValid(group: string, addressControl: boolean, control: string) {
 

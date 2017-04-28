@@ -31,6 +31,7 @@ export class NewItemCreatorComponent implements OnInit {
     public user: UserAccount;
     public url: string;
     public requestOutcome: Object;
+    public productImageUrl: string;
 
     constructor(private sessionService: SessionService, private creatorService: NewItemCreatorService,
                 private http: Http, private snackBar: MdSnackBar, private router: Router) {
@@ -105,7 +106,6 @@ export class NewItemCreatorComponent implements OnInit {
       this.creatorService.ajaxBook(isbn).subscribe((res) => {
         const response = res['book'];
 
-
         this.itemAttributes.controls['bookTitle'].setValue(response['title']);
         this.itemAttributes.controls['secondaryTitle'].setValue('' /* unimplemented */);
         this.itemAttributes.controls['authors'].setValue(response['author']);
@@ -116,6 +116,7 @@ export class NewItemCreatorComponent implements OnInit {
         this.itemAttributes.controls['ISBN'].setValue(response['isbn']);
         this.itemAttributes.controls['MSRP'].setValue(response['listprice']);
         this.itemAttributes.controls['pageCount'].setValue(response['pages']);
+        this.productImageUrl = response['imageurl'];
 
         const compList: ItemCompetitor[] = [];
 

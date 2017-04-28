@@ -8,7 +8,7 @@ const appRoutes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'registration', component: RegistrationComponent },
     { path: 'retrieve-password', component: PasswordRetrievalComponent},
-    { path: 'main-area', loadChildren: './main-area/main-area.module#MainAreaModule' },
+    { path: 'main-area', loadChildren: './main-area/main-area.module#MainAreaModule'},
     { path: 'administration', loadChildren: './administration/administration.module#AdministrationModule' },
     { path: '**', redirectTo: '' }
 ];

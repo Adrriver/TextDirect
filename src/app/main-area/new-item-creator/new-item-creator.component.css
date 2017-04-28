@@ -4,6 +4,18 @@ md-card {
   height: 100%;
 }
 
+img {
+  display: table-caption;
+  position: absolute;
+  height: auto;
+  width: 24%;
+  top: 154px;
+  right: 100px;
+  box-shadow: 11px 6px 0.5em 0.01em rgba(0, 0, 0, 0.2);
+  /* padding: 10px; */
+  background-origin: inherit;
+}
+
 textarea {
 
   resize: none;

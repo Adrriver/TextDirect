@@ -50,12 +50,17 @@
                 <md-list>
                     <md-list-item>
                         <md-input-container>
-                            <input mdInput md-line placeholder="First Name" value="first name"
+                            <input mdInput md-line placeholder="First Name*" value=""
                                     type="text" name="firstName" id="firstName"
                                     formControlName="firstName" />
                         </md-input-container>
                         <md-input-container>
-                            <input mdInput md-line placeholder="Last Name" value="last name"
+                            <input mdInput md-line placeholder="Middle" value=""
+                                   type="text" name="middleName" id="middleName"
+                                   formControlName="middleName" />
+                        </md-input-container>
+                        <md-input-container>
+                            <input mdInput md-line placeholder="Last Name*" value=""
                                     type="text" name="lastName" id="lastName"
                                     formControlName="lastName" />
                         </md-input-container>
@@ -132,17 +137,17 @@
                 </md-option>
             </md-select>
             <md-card-content [ngSwitch]="regForm.controls['pmtMethod'].value">
-            <md-list *ngSwitchCase="'credit'">
+            <md-list *ngSwitchCase="'CREDIT'">
                 <md-list-item>
                     <payment-form #credFormGroup [selectedMethod]="regForm.controls['pmtMethod'].value"></payment-form>
                 </md-list-item>
             </md-list>
-            <md-list *ngSwitchCase="'debit'">
+            <md-list *ngSwitchCase="'DEBIT'">
                 <md-list-item>
                     <payment-form #credFormGroup [selectedMethod]="regForm.controls['pmtMethod'].value"></payment-form>
                 </md-list-item>
             </md-list>
-            <md-list *ngSwitchCase="'check'">
+            <md-list *ngSwitchCase="'CHECK'">
                 <md-list-item>
                     <payment-form #credFormGroup [selectedMethod]="regForm.controls['pmtMethod'].value"></payment-form>
                 </md-list-item>
@@ -153,6 +158,6 @@
         <md-card-footer>
         </md-card-footer>
     </md-card>
-  <a md-raised-button color="accent" [disabled]="!(regForm.valid && isChildValid)" (click)="onSubmit()">submit</a>
+  <a md-raised-button color="accent"  (click)="onSubmit()">submit</a>
 </form>
-<!--[disabled]="!(regForm.valid && credFormGroup.valid)"-->
+<!--[disabled]="!(regForm.valid && isChildValid)"-->

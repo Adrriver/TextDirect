@@ -8,7 +8,7 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
 
   constructor(private sessionService: SessionService, private router: Router) { }
 
-  canActivate() : boolean {
+  canActivate(): boolean {
       if (this.sessionService.isLoggedIn()) {
           return true;
       } else {

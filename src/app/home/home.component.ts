@@ -33,19 +33,8 @@ export class HomeComponent implements OnInit {
 
         this.username = this.credentialsForm.get('username').value;
         this.password = this.credentialsForm.get('password').value;
+        this.sessionService.logIn(this.username, this.password);
 
-        if (this.sessionService.logIn(this.username, this.password)) {
-
-            this.logInOutcome = this.username + ' ' + this.password;
-
-            this.router.navigate(['main-area/main-home']);
-
-
-        } else {
-
-            this.logInOutcome = 'Please check your credentials and try again. Thanks!';
-
-        }
 
     }
 

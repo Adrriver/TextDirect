@@ -1,20 +1,33 @@
 import { Router } from '@angular/router';
-import { Injectable } from '@angular/core';
+import {Injectable, ViewChild} from '@angular/core';
 import {Http, Headers, URLSearchParams, RequestOptions} from '@angular/http';
 import { Observable, Subject } from 'rxjs/Rx';
 import { FormGroup } from '@angular/forms';
+import {MdSnackBar} from '@angular/material';
 
 //  local imports
 import { UserAccount } from './main-area/user-account-settings/user-account';
-import {MdSnackBar} from "@angular/material";
+import {OrdersComponent} from './main-area/orders/orders.component';
+import {SalesComponent} from './main-area/sales/sales.component';
+import {ItemsComponent} from './main-area/items/items.component';
+import {TransactionHistoryComponent} from './main-area/transaction-history/transaction-history.component';
 
 
 
 @Injectable()
 export class SessionService {
 
-     public user: Subject<UserAccount>;
+     public user: Subject<UserAccount>; // ?
      public currentUser: Subject<UserAccount>;
+     public paymentInfo: Object;
+     @ViewChild(ItemsComponent)
+     public items: ItemsComponent;
+     @ViewChild(SalesComponent)
+     public sales: SalesComponent;
+     @ViewChild(OrdersComponent)
+     public orders: OrdersComponent;
+     @ViewChild(TransactionHistoryComponent)
+     public transactions: TransactionHistoryComponent;
      public loggedIn: boolean;
      // TODO: employ URL field for JAX-RS URL prefix
      public baseUrl: string;
@@ -23,24 +36,33 @@ export class SessionService {
 
     constructor(private http: Http, private router: Router, private snackBar: MdSnackBar) {
         this.user = new Subject<UserAccount>();
-        this.baseUrl = 'http://localhost:8080/textdirect/create-account';
+        this.baseUrl = 'http://localhost:8080/textdirect';
         this.loggedIn = false;
         this.token = 'text_direct_token';
         this.searchParams = new URLSearchParams();
 
     }
 
-    logIn(username: string, password: string): boolean {
+    logIn(username: string, password: string): void {
 
-        this.searchParams.append('username', username);
-        this.searchParams.append('password', password);
+        this.searchParams.set('password', password);
 
-        this.http.get('uri/args here', { search: this.searchParams }).map(res => {
-         localStorage.setItem(this.token, res.json().data.token);
-         this.initUser();
-        }).catch(error => {  return error.getMessage();
-                          });
-        return true;
+        // Restlet returns account data sufficient to construct full UserAccount item to be
+        // used for typical user session activity
+        this.http.get(this.baseUrl + '/login/' + 'username=' + username,
+                                { search: this.searchParams }).map(res => res.json()).subscribe(
+
+          res => {
+
+            localStorage.setItem('username_text_direct', username);
+            // this.setUser(res);
+            // localStorage.setItem(this.token, res.json().data.token);
+            this.router.navigate(['/main-area/main-home']);
+        },
+          error => {
+            this.snackBar.open('Invalid credentials', 'Try again!',
+              { duration: 3000 });
+        });
 
     }
 
@@ -48,18 +70,18 @@ export class SessionService {
 
         this.loggedIn = false;
         this.user = null;
-        this.searchParams.delete('username');
-        this.searchParams.delete('token');
 
-        localStorage.removeItem(this.token);
+        this.searchParams.delete('password');
+
+        localStorage.clear(); // ('username_text_direct');
 
         return true;
     }
 
 
     isLoggedIn(): boolean {
-
-        return true; // implement authentication logic
+        console.log(localStorage.getItem('username_text_direct').length);
+        return !(localStorage.getItem('username_text_direct').length === 0) ? true : false; // implement authentication logic
 
     }
 
@@ -69,46 +91,59 @@ export class SessionService {
         // return result;
     }
 
+    public setUser(user: Array<Object>): void {
+
+      // Create fresh UserAccount instance
+      user.forEach((index, val) => {
+
+        switch (index) {
+
+          case 0:
+
+            break;
+
+          case 1:
+
+            break;
+
+          case 2:
+
+            break;
+
+          default:
+
+            break;
+
+        }
+
+
+      });
+    }
+
     getUser(): Observable<UserAccount> {
 
         return this.user.asObservable();
 
     }
 
-    initUser(): void {
-
-        this.searchParams.delete('password');
-        this.searchParams.append('token', this.token);
-
-        this.http.get('getuseraccounturl', { search: this.searchParams }).map(res => {
-                this.currentUser.next(this.extractData(res));
-          }
-        ).catch(error => { console.log(error); return error; });
-
-    }
-
-    createUser(regForm: FormGroup, paymentForm: FormGroup): boolean {
-
+    createUser(regForm: FormGroup, paymentForm: FormGroup): void {
+        console.log('in createUser');
         const headers = new Headers({ 'Content-Type' : 'application/json'});
         const options = new RequestOptions({ headers : headers });
-        const body = JSON.stringify([{reg: regForm}, {paymentForm: paymentForm}]);
+        const body = JSON.stringify([{reg: regForm}, {paymentForm: paymentForm}, {isAdmin: false}]);
 
-        this.http.put(this.baseUrl, body, options)
-            .map((res) => {
-                  res.json().subscribe( data => {
-                    const newCreds = data.json();
+        this.http.post(this.baseUrl + '/create-account', body, options).subscribe((res) => {
+
+                    const newCreds = res.json();
                     this.logIn(newCreds['username'], newCreds['password']);
-                    return this.router.navigate(['/dashboard']);
+                    let navResult = this.router.navigate(['/main-area/dashboard']);
                 },
-                    error => {
-                      console.log(error);
-                      this.snackBar.open(error.toString(),
-                        'Error creating user. Please contact support',
-                         { duration: 5000});
+                  error => {
+                    console.log(error);
+                    this.snackBar.open(error.toString(),
+                      'Error creating user. Please contact support',
+                       { duration: 5000});
                   });
-            });
-
-        return false;
     }
 
     // primarily for voluntary user account updates or revisions
