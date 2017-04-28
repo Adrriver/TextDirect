@@ -1,7 +1,9 @@
 package sessionservice;
 
+import jdk.nashorn.internal.scripts.JO;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.resource.ServerResource;
@@ -55,12 +57,13 @@ public class CreateAccount extends ServerResource {
         boolean rs;
         Connection con = null;
         Statement st = null;
+        JSONArray dataArray = data.getJsonArray();
+        JSONObject registrationForm = ((JSONObject)dataArray.getJSONObject(0).get("reg")); // 'reg'
+        JSONObject cAccountInfo = null; // credit account info.
+        JSONObject chAccountInfo = null; // checking (used when payment_method is either credit or checking)
 
-
-            JSONObject registrationForm = ((JSONObject)data.getJsonArray().getJSONObject(0).get("reg")); // 'reg'
-        System.err.println(registrationForm.toString());
-            this.username = registrationForm.get("username").toString();
-            this.password = registrationForm.get("password").toString();
+        this.username = registrationForm.get("username").toString();
+        this.password = registrationForm.get("password").toString();
 
 
         try {
@@ -93,9 +96,9 @@ public class CreateAccount extends ServerResource {
 
             try {
     /* INSERT shipping address information from sub-form object */
-                JSONObject shippingAddress = (JSONObject) registrationForm.getJSONObject("shippingAddress");
+                JSONObject shippingAddress = registrationForm.getJSONObject("shippingAddress");
 
-                rs = st.execute(String.format("INSERT INTO address"
+                rs = st.execute(String.format("INSERT INTO address (username, firstName, lastName, streetAddress, identifier, city, state, zipcode)"
                                 + "VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
                         this.username, shippingAddress.get("firstName").toString().trim(), shippingAddress.get("lastName"),
                         shippingAddress.get("streetAddress").toString().trim(), shippingAddress.get("identifier").toString().trim(), shippingAddress.get("city"),
@@ -116,17 +119,24 @@ public class CreateAccount extends ServerResource {
 
     /* INSERT paymentMethod information sub-form object data according to type */
 
+
             String paymentMethod = registrationForm.get("pmtMethod").toString();
-            JSONObject cAccountInfo = data.getJsonArray().getJSONObject(0).getJSONObject("credit");
-            JSONObject chAccountInfo = data.getJsonArray().getJSONObject(0).getJSONObject("cash");
+            if (paymentMethod.equals("CREDIT")) {
+                cAccountInfo = ((JSONObject) dataArray.getJSONObject(1).getJSONObject("paymentForm").get("credit"));
+                chAccountInfo = ((JSONObject) dataArray.getJSONObject(1).getJSONObject("paymentForm").get("cash"));
+            } else if (paymentMethod.equals("DEBIT")) {
+                cAccountInfo = ((JSONObject) dataArray.getJSONObject(1).getJSONObject("paymentForm").get("credit"));
+            } else if (paymentMethod.equals("CHECK")){
+                chAccountInfo = ((JSONObject) dataArray.getJSONObject(1).getJSONObject("paymentForm").get("cash"));
+            }
 
     if(paymentMethod.equalsIgnoreCase("credit")) {
 
             try {
 
-                rs = st.execute(String.format("INSERT INTO payment_method"
-                                + "VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
-                        this.username, cAccountInfo.get("nameOnCard").toString().trim(), cAccountInfo.get("lastFour"),
+                rs = st.execute(String.format("INSERT INTO payment_method (username, fullNameCredit, lastFour, expirationDate, cardSecurityCode)"
+                                + "VALUES('%s', '%s', '%s', '%s', '%s')",
+                        this.username, cAccountInfo.get("fullNameCredit").toString().trim(), cAccountInfo.get("lastFour"),
                         cAccountInfo.get("expirationDate").toString().trim(), cAccountInfo.get("cardSecurityCode").toString().trim()));
 
             } catch( SQLException ignore) {
@@ -146,14 +156,15 @@ public class CreateAccount extends ServerResource {
         try {
 
             JSONObject billingCredit = cAccountInfo.getJSONObject("billingAddress");
-            rs = st.execute(String.format("INSERT INTO billingAddress"
+            rs = st.execute(String.format("INSERT INTO billingAddress (username, fullName, streetAddress, identifier, city, state, zipcode, accountType)"
                             + "VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', 'CREDIT')",
-                                 this.username, billingCredit.get("fullNameCredit").toString().trim(), billingCredit.get("streetAddress"),
+                                 this.username, billingCredit.get("fullName").toString().trim(), billingCredit.get("streetAddress"),
                             billingCredit.get("identifier").toString().trim(), billingCredit.get("city").toString().trim(),
                         billingCredit.get("state").toString().trim(), billingCredit.get("zipcode").toString().trim()));
 
         } catch( SQLException ignore ) {
-
+            System.err.println("...error in insert into billing address (credit)");
+            ignore.printStackTrace();
             try{
                 st.close();
             } catch( SQLException e ){
@@ -168,9 +179,9 @@ public class CreateAccount extends ServerResource {
         try {
 
             JSONObject billingCash = chAccountInfo.getJSONObject("billingAddress");
-            rs = st.execute(String.format("INSERT INTO billingAddress"
+            rs = st.execute(String.format("INSERT INTO billingAddress (username, fullName, streetAddress, identifier, city, state, zipcode, accountType)"
                             + "VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', 'CASH')",
-                    this.username, billingCash.get("username").toString().trim(), billingCash.get("fullNameChecking"),
+                    this.username, billingCash.get("fullName"),
                     billingCash.get("streetAddress").toString().trim(), billingCash.get("identifier").toString().trim(), billingCash.get("city"),
                     billingCash.get("state").toString().trim(), billingCash.get("zipcode").toString().trim()));
 
@@ -193,13 +204,14 @@ public class CreateAccount extends ServerResource {
 
             try {
 
-                rs = st.execute(String.format("INSERT INTO payment_method"
-                                + "VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
-                        this.username, cAccountInfo.get("nameOnCard").toString().trim(), cAccountInfo.get("lastFour"),
+                rs = st.execute(String.format("INSERT INTO payment_method (username, fullNameCredit, lastFour, expirationDate, cardSecurityCode)"
+                                + "VALUES('%s', '%s', '%s', '%s', '%s')",
+                        this.username, cAccountInfo.get("fullNameCredit").toString().trim(), cAccountInfo.get("lastFour"),
                         cAccountInfo.get("expirationDate").toString().trim(), cAccountInfo.get("cardSecurityCode").toString().trim()));
 
             } catch( SQLException ignore) {
-
+                ignore.printStackTrace();
+                System.err.println("...error in insert into payment_method (debit)");
                 try{
                     st.close();
                 } catch( SQLException e ){
@@ -216,14 +228,14 @@ public class CreateAccount extends ServerResource {
             try {
 
                 JSONObject billingCredit = cAccountInfo.getJSONObject("billingAddress");
-                rs = st.execute(String.format("INSERT INTO billingAddress"
+                rs = st.execute(String.format("INSERT INTO billingAddress (username, fullName, streetAddress, identifier, city, state, zipcode, accountType)"
                                 + "VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', 'CASH')",
-                        this.username, billingCredit.get("fullNameCredit").toString().trim(), billingCredit.get("streetAddress"),
+                        this.username, billingCredit.get("fullName").toString().trim(), billingCredit.get("streetAddress"),
                             billingCredit.get("identifier").toString().trim(), billingCredit.get("city"),
                                 billingCredit.get("state").toString().trim(), billingCredit.get("zipcode").toString().trim()));
 
             } catch( SQLException ignore ) {
-
+                System.err.println("...error in insert into billing address (debit)");
                 try{
                     st.close();
                 } catch( SQLException e ){
@@ -240,12 +252,14 @@ public class CreateAccount extends ServerResource {
 
 
             try {
+
                 rs = st.execute(String.format("INSERT INTO payment_method (username, fullNameChecking, routingNumber, driversLicenseNum, accountNumber)"
                                 + "VALUES('%s', '%s', '%s', '%s', '%s')",
                         this.username, chAccountInfo.get("fullNameChecking").toString().trim(), chAccountInfo.get("routingNumber").toString().trim(), chAccountInfo.get("driversLicenseNum"),
                         chAccountInfo.get("accountNumber").toString().trim()));
             } catch (SQLException ignore) {
-
+                System.err.println("Failed to insert checking payment method information");
+                ignore.printStackTrace();
                 try{
                     st.close();
                 } catch( SQLException e ){
@@ -260,17 +274,19 @@ public class CreateAccount extends ServerResource {
 
             try {
                 JSONObject billingCash = chAccountInfo.getJSONObject("billingAddress");
-                rs = st.execute(String.format("INSERT INTO billingAddress"
+                rs = st.execute(String.format("INSERT INTO billingAddress (username, fullName, streetAddress, identifier, city, state, zipcode, accountType)"
                                 + "VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', 'CASH')",
                         this.username, billingCash.get("fullName").toString().trim(), billingCash.get("streetAddress"),
                         billingCash.get("identifier").toString().trim(), billingCash.get("city"),
                         billingCash.get("state").toString().trim(), billingCash.get("zipcode").toString().trim()));
 
             } catch (SQLException ignore) {
-
+                    ignore.printStackTrace();
+                    System.err.println("...error in insert into billing address (checking)");
                 try{
                     st.close();
                 } catch( SQLException e ){
+                    System.err.println("in st.close()");
                     e.printStackTrace();
                 }
 
@@ -280,11 +296,21 @@ public class CreateAccount extends ServerResource {
             }
 
         }
-        
+
+        try {
 
             setStatus(Status.SUCCESS_OK);
             JSONObject creds = new JSONObject();
-            return new JsonRepresentation(creds.put("credentials", new String[]{this.username, this.password}));
+            creds.put("username", this.username);
+            creds.put("password", this.password);
+
+            return new JsonRepresentation(creds.toString());
+
+        } catch( Exception e ) {
+            System.err.println(this.password + " " + this.username);
+            e.printStackTrace();
+            return new JsonRepresentation("Why, God?");
+        }
 
     }
 

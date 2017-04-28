@@ -89,7 +89,7 @@ public class TextDirect extends Application {
 	 */
 
 		router.attach("/create-account", CreateAccount.class);
-		router.attach("/login", LoginUser.class);
+		router.attach("/login/{username}", LoginUser.class);
 		router.attach("/get-credentials/session-info", RetrieveSession.class);
 		router.attach("/get-credentials/secret-q", RetrieveSession.class);
 		router.attach("/update-password", UpdatePassword.class);
