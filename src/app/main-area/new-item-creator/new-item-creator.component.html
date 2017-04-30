@@ -58,7 +58,7 @@
                                      formControlName="authors" />
                           </md-input-container>
                           <md-input-container hintLabel="" appFormFeedbackMain>
-                            <input mdInput md-line placeholder="Editors" value=""
+                            <input mdInput md-line placeholder="Editors" value="n/a"
                                     type="text" name="editors" id="editors" #eds
                                     formControlName="editors" />
                           </md-input-container>
@@ -74,9 +74,9 @@
                                    type="text" name="publisher" id="publisher"
                                     formControlName="publisher" />
                         </md-input-container>
-                          <md-input-container hintLabel="'Month yyyy" appFormFeedbackMain>
-                            <input mdInput md-line placeholder="publicationDate*" value="2017-01-01"
-                                   type="text" name="pubDate" id="pubDate" #pubDate
+                          <md-input-container hintLabel="month/date optional" appFormFeedbackMain>
+                            <input mdInput md-line placeholder="Publication Date*" value="2017-01-01"
+                                   type="date" name="pubDate" id="pubDate" #pubDate
                                    formControlName="publicationDate" />
                           </md-input-container>
                         </md-list-item>

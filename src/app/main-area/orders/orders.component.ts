@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Order} from './order';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-orders',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrdersComponent implements OnInit {
 
-  constructor() { }
+  @Input()
+  public orders: Order[];
+  @Input()
+  public order: Order;
+
+  constructor(private router: Router) {
+  }
 
   ngOnInit() {
+  }
+
+  public selectOrder(order: Order): void {
+    this.order = order;
+    alert('item selected');
+    console.log(order);
+  }
+
+  public detailView(): void {
+    this.router.navigate(['/main-area/orderDetail/', this.order.orderId]);
   }
 
 }

@@ -25,7 +25,7 @@ export class Order {
     public msrp: number;
     public salePrice: number;
     public intlEdit: boolean;
-    public date: string;
+    public orderDate: string;
 
     public Order() { }
 

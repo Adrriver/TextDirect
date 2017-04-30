@@ -26,6 +26,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from '@angular/material';
 import { FormFeedbackMainDirective } from './form-feedback-main.directive';
 import { PaginationComponent } from './search/pagination/pagination.component';
+import {SessionService} from '../session.service';
+import {AppComponent} from "../app.component";
 
 
 @NgModule({

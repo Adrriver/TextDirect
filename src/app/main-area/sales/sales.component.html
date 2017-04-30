@@ -1,3 +1,21 @@
-<p>
-  sales works!
-</p>
+<md-divider *ngIf="sales !== undefined">
+  <md-divider *ngFor="let sale of sales" (click)="selectSale(sale)">
+    <md-card [style.width]="'50%'" [style.height]="'50%'">
+      <md-card-header>
+        <md-card-title>{{sale.title}}</md-card-title>
+        <md-card-subtitle>{{sale.saleDate | date }}</md-card-subtitle>
+      </md-card-header>
+      <md-card-content [style.color]="'#424242'" [style.padding]="'1px'">
+        <md-list>
+          <md-list-item>Seller: {{sale.customer}}</md-list-item>
+          <md-list-item>authors: {{sale.authors}}</md-list-item>
+          <md-list-item>condition: {{sale.condition}}</md-list-item>
+          <md-list-item>Shipment promised for: {{sale.shipmentDate | date }}</md-list-item>
+          <md-list-item>Actual shipment date: {{sale.actualShipDate | date }}</md-list-item>
+          <md-list-item>Tracking #: {{sale.trackingNum}}</md-list-item>
+        </md-list>
+      </md-card-content>
+      <button md-raised-button color="accent" [disabled]="!sale" (click)="detailView()">  </button>
+    </md-card>
+  </md-divider>
+</md-divider>

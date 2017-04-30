@@ -1,3 +1,39 @@
-<p>
-  order-detail works!
-</p>
+<md-grid-list *ngIf="order !== undefined" cols="3" rowHeight="400px">
+  <md-grid-tile [colspan]="3" [rowspan]="1">
+    <md-card>
+      <md-card-header>
+        <md-card-title><h1>{{order.bookTitle}}</h1></md-card-title>
+        <md-card-subtitle><h3>{{order.secondaryTitle}}</h3></md-card-subtitle>
+        <md-card-subtitle><pre>{{order.authors}}</pre><pre> editors: {{order.editors}}</pre>
+        </md-card-subtitle>
+      </md-card-header>
+      <md-card-content>
+        <md-list>
+          <md-list-item><h5>Quantity: </h5>{{order.quantity}}</md-list-item>
+          <md-list-item><h5>Your Price: </h5>{{order.salePrice}}</md-list-item>
+          <md-list-item><h5>Condition: </h5>{{order.condition}}</md-list-item>
+          <md-list-item><h5>Edition: </h5>{{order.edition}}</md-list-item>
+          <md-list-item><h5>Publication Date: </h5>{{order.publicationDate}}</md-list-item>
+          <md-list-item><h5>Publisher: </h5>{{order.publisher}}</md-list-item>
+          <md-list-item><h5>ISBN: </h5>{{order.isbn}}</md-list-item>
+          <md-list-item><h5>List: </h5>{{order.msrp}}</md-list-item>
+          <md-list-item><h5>Seller: </h5>{{order.sellerUsername}}</md-list-item>
+          <md-list-item><h5>Can ship by: </h5>{{order.shipsOn}}</md-list-item>
+          <md-list-item><h5>International Ed.?: </h5>{{order.intlEdit}}</md-list-item>
+        </md-list>
+      </md-card-content>
+    </md-card>
+  </md-grid-tile>
+  <md-grid-tile [colspan]="1" [rowspan]="2">
+    <!--<img md-card-xl-image src="" alt="image"></img md-card-xl-image>-->
+  </md-grid-tile>
+  <md-grid-tile [colspan]="3" [rowspan]="2">
+    <md-card>
+      <md-card-title>About This Item</md-card-title>
+      <md-card-content>
+        <p>{{order.description}}</p>
+      </md-card-content>
+    </md-card>
+  </md-grid-tile>
+</md-grid-list>
+<a md-raised-button color="accent" (click)="goBack()">Go back</a>

@@ -63,7 +63,7 @@ export class NewItemCreatorComponent implements OnInit {
 
           edition: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[0-9a-bA-Z]+')])),
 
-          publicationDate: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(4)])),
+          publicationDate: new FormControl('', Validators.compose([Validators.required, CustomValidators.date])),
 
           publisher: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[\\w\\s\\W\\S]+')])),
 
@@ -73,24 +73,22 @@ export class NewItemCreatorComponent implements OnInit {
           MSRP: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^(\W)?[^\S]?[0-9]+(.)?[0-9]{2,2}$')])),
 
           salePrice: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^(\W)?[^\S]?[0-9]+(.)?[0-9]{2,2}$')])),
-          // TODO: form option agreement
+
+        // TODO: form option agreement
           condition: new FormControl('', Validators.compose([Validators.required])),
 
-          internationalEdition: new FormControl(0, ),
+          internationalEdition: new FormControl(0),
 
           punctualShipment: new FormControl(coerceBooleanProperty(false), Validators.compose([Validators.required, Validators.requiredTrue])),
 
           shipsOn: new FormControl('', Validators.compose([Validators.required, CustomValidators.date])),
-
-        // defined by service function
-          itemId: new FormControl('', Validators.nullValidator),
 
           description: new FormControl('', Validators.compose([Validators.required, Validators.minLength(50)])),
         // added automatically
 
           sellerUsername: new FormControl('', Validators.minLength(2)),
 
-          pageCount: new FormControl('', CustomValidators.max(999)),
+          pageCount: new FormControl('', CustomValidators.max(2000)),
 
 
       });
@@ -155,7 +153,7 @@ export class NewItemCreatorComponent implements OnInit {
 
     public onSubmit() {
 
-          const body = JSON.stringify({item: this.itemAttributes.value});
+          const body = JSON.stringify({'item': this.itemAttributes.value});
           console.log(body);
           const headers = new Headers({ 'Content-Type' : 'application/json'});
           const options = new RequestOptions({ headers: headers });

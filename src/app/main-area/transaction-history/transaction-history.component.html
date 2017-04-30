@@ -1,3 +1,21 @@
-<p>
-  transaction-history works!
-</p>
+<md-divider *ngIf="transactions !== undefined">
+  <md-divider *ngFor="let transaction of transactions">
+    <md-card>
+      <md-card-header>
+        <md-card-title>Identifier: {{transaction.transactionId}}</md-card-title>
+        <md-card-subtitle>Completion date: {{transaction.completionTime | date }}</md-card-subtitle>
+      </md-card-header>
+      <md-card-content>
+        <md-list>
+          <md-list-item>Textbook: {{transaction.title}}</md-list-item>
+          <md-list-item>Order Id: {{transaction.orderId}}</md-list-item>
+          <md-list-item>Merchant: {{transaction.merchant}}</md-list-item>
+          <md-list-item>Customer: {{transaction.customer }}</md-list-item>
+          <md-list-item>Deposit Conf #: {{transaction.depositConfNum }}</md-list-item>
+          <md-list-item>Deposited on: {{transaction.depositDate | date }}</md-list-item>
+          <md-list-item>Purchase rating: {{transaction.purchaseRating }}</md-list-item>
+        </md-list>
+      </md-card-content>
+    </md-card>
+  </md-divider>
+</md-divider>

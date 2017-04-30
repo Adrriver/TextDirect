@@ -1,16 +1,36 @@
 import { Item } from '../items/item';
+import DateTimeFormat = Intl.DateTimeFormat;
 
 // MySQL table 'pending_order' supplies property data
 export class Sale {
 
-    public item: Item;
-    public dateOfSale: string;
-    public purchasedBy: string; // must be registered user name
-    public accepted: [string]; // item accepted by individual by whom item was purchased {"pending", "accepted", "rejected"}
-    public shippingStatus: [string]; // 'shipped' : {'status': (t | f), 'timeOfShipment': (date/time) as string}
+  public saleId: number; // Item ordered/to order and checkout outcome with detail string
+  public quantity: number;
+  public  title: string;
+  public secTitle: string;
+  public authors: string;
+  public editors: string;
+  public edition: number;
+  public isbn: string;
+  public condition;
+  public shipmentDate: DateTimeFormat;
+  public description: string;
+  public customer: string;
+  public itemAccepted: number; // needs to be boolean T|F
+  public acceptanceDate: DateTimeFormat;
+  public actualShipDate: DateTimeFormat;
+  public trackingNum: string;
+  public publicationDate: Date;
+  public publisher: string;
+  public msrp: number;
+  public salePrice: number;
+  public intlEdit: boolean;
+  public saleDate: string;
 
 
-    public Sale(item: Item, date: string, buyer: string, accepted: [string], shippingStatus: [string]) {
+    public constructor(){ };
+
+  /* public constructor(item: Item, date: string, buyer: string, accepted: [string], shippingStatus: [string]) {
 
         this.item = item;
         this.dateOfSale = date;
@@ -18,6 +38,6 @@ export class Sale {
         this.accepted['accepted'] = accepted['accepted'];
         this.shippingStatus['shipped'] = shippingStatus['shipped'];
 
-    }
+    } */
 
 }

@@ -5,7 +5,6 @@
 
 export class Item {
 
-    //properties
     public bookTitle: string;
     public secondaryTitle: string;
     public authors: string;

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Sale} from './sale';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-sales',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SalesComponent implements OnInit {
 
-  constructor() { }
+  @Input()
+  public sales: Sale[];
+  @Input()
+  public sale: Sale;
+
+  constructor(private router: Router) {
+  }
 
   ngOnInit() {
+  }
+
+  public selectSale(sale: Sale): void {
+    this.sale = sale;
+    alert('sale selected');
+    console.log(sale);
+  }
+
+  public detailView(): void {
+    this.router.navigate(['/main-area/saleDetail/', this.sale.saleId]);
   }
 
 }

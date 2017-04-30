@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Transaction} from './transaction';
 
 @Component({
   selector: 'app-transaction-history',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./transaction-history.component.css']
 })
 export class TransactionHistoryComponent implements OnInit {
+
+  @Input()
+  public transactions: Transaction[];
 
   constructor() { }
 

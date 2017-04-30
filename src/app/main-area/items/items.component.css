@@ -1,0 +1,28 @@
+app-items .mat-list .mat-list-item .mat-list-item-content, .mat-nav-list .mat-list-item .mat-list-item-content {
+  width: 50%;
+  height: 50%;
+
+}
+
+.mat-grid-tile .mat-figure {
+  justify-content: flex-start;
+}
+
+.mat-figure .mat-card {
+  width: .4em;
+  display: inline;
+}
+
+.mat-card {
+  color: #424242;
+}
+
+app-items .mat-card .mat-card-content {
+  overflow: visible;
+  padding: 0px 0px 4px 11px;
+  color: black;
+  width: 38%;
+  background-color: #334;
+  height: calc(121px);
+  margin-top: -22px;
+}
