@@ -90,6 +90,7 @@ public class TextDirect extends Application {
 
 		router.attach("/create-account", CreateAccount.class);
 		router.attach("/login/{username}", LoginUser.class);
+		// RetrieveSession?
 		router.attach("/get-credentials/session-info", RetrieveSession.class);
 		router.attach("/get-credentials/secret-q", RetrieveSession.class);
 		router.attach("/update-password", UpdatePassword.class);
@@ -155,7 +156,7 @@ public class TextDirect extends Application {
 		router.attach("/create-new-item", NewSaleItem.class);
 		router.attach("/get-item", RetrieveItem.class);
 		router.attach("/update-item", UpdateItem.class);
-		router.attach("/delete-item", DeleteItem.class);
+		router.attach("/delete-item/{itemId}", DeleteItem.class);
 		router.attach("/search-direct-textbook/{isbn}", DirectTextbook.class);
 
 	/* Handles DirectTextbook API utilization; corresponds with NewItemCreatorService */

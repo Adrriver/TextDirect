@@ -8,10 +8,12 @@ import org.restlet.resource.ServerResource;
 import org.restlet.resource.Post;
 import org.restlet.representation.Representation;
 import org.restlet.data.Status;
+
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import java.text.NumberFormat;
 
 
 public class NewSaleItem extends ServerResource {
@@ -59,20 +61,24 @@ public class NewSaleItem extends ServerResource {
         try {
             con = datasource.getConnection();
             Statement st = con.createStatement();
-            rs = st.execute(String.format("INSERT INTO sale_item VALUES('%d', '%s', '%s', '%s', '%s', '%s', '%s', " +
-                                                    "'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
-                    0, item.get("quantity").toString(), item.get("bookTitle").toString(), item.get("secondaryTitle").toString(),
-                    item.get("authors").toString(), item.get("editors").toString(), item.get("edition").toString(), item.get("publicationDate").toString(),
-                    item.get("publisher"), item.get("ISBN").toString(), item.get("MSRP").toString(), item.get("salePrice").toString(),
-                    item.get("condition").toString(), item.get("internationalEdition").toString(), item.get("shipsOn").toString(),
-                    item.get("description").toString(), item.get("sellerUsername").toString(), item.get("pageCount").toString()));
+            rs = st.execute(String.format("INSERT INTO sale_item (quantity, bookTitle, secondaryTitle, authors, editors, " +
+                                            "edition, publicationDate, isbn, publisher, msrp, salePrice, `condition`, internationalEdition, " +
+                                            "shipsOn, description, sellerUsername, pageCount) " +
+                                            "VALUES('%d', '%s', '%s', '%s', '%s', '%d', " +
+                                                    "'%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s', '%s', '%s', '%d')",
+                    Integer.valueOf(item.get("quantity").toString()), item.get("bookTitle").toString(), item.get("secondaryTitle").toString(),
+                    item.get("authors").toString(), item.get("editors").toString(), Integer.parseInt(item.get("edition").toString()),
+                    item.get("publicationDate").toString(), item.get("ISBN"), item.get("publisher").toString(),
+                    item.get("MSRP").toString(), item.get("salePrice").toString(), item.get("condition").toString(), Integer.parseInt(item.get("internationalEdition").toString()),
+                    item.get("shipsOn").toString(), item.get("description").toString(), item.get("sellerUsername").toString(), Integer.parseInt(item.get("pageCount").toString())));
 
-
+            System.err.println(rs);
             st.close();
 
         } catch (SQLException ignore) {
-            setStatus(Status.CLIENT_ERROR_FAILED_DEPENDENCY);
-            return new JsonRepresentation("I'm sorry, there was an error; please try again.");
+                ignore.printStackTrace();
+                setStatus(Status.CLIENT_ERROR_FAILED_DEPENDENCY);
+                return new JsonRepresentation("I'm sorry, there was an error; please try again.");
         } finally {
             if (con != null) try {
                 con.close();
@@ -82,12 +88,11 @@ public class NewSaleItem extends ServerResource {
 
         // if INSERT was successful
         if(rs) {
-            setStatus(Status.SUCCESS_OK);
-            return new JsonRepresentation(new JSONObject().put("message", "Your item was created successfully!"));
-        } else {
             setStatus(Status.SERVER_ERROR_INTERNAL);
             return new JsonRepresentation("I'm sorry, there was an error; please try again.");
-
+        } else {
+            setStatus(Status.SUCCESS_OK);
+            return new JsonRepresentation("Your item was created successfully!");
         }
     }
 }
