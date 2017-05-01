@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Item} from './item';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
+import {SessionService} from "../../session.service";
 
 @Component({
   selector: 'app-items',
@@ -11,10 +12,9 @@ export class ItemsComponent implements OnInit {
 
   @Input()
   public items: Item[];
-  @Input()
   public item: Item;
 
-  constructor(private router: Router) {
+  constructor(private router: Router  ) {
   }
 
   ngOnInit() {
@@ -22,8 +22,6 @@ export class ItemsComponent implements OnInit {
 
   public selectItem(item: Item): void {
     this.item = item;
-    alert('item selected');
-    console.log(item);
   }
 
   public detailView(): void {

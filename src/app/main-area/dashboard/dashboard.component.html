@@ -1,26 +1,32 @@
 <md-divider>
-  <h1 *ngIf="user !== undefined">{{user.username}}'s Dashboard</h1>
+  <h1 *ngIf="user !== undefined" [style.font-family]="'Lora'">{{user.username}}'s Dashboard</h1>
 </md-divider>
-<md-divider>
-  <md-card>
+<section>
+
     <md-card-header>
       <md-card-title><h2>Current Activity</h2></md-card-title>
     </md-card-header>
-      <md-card-content>
-        <md-grid-list cols="4" rowHeight="400px">
-          <md-grid-tile *ngIf="items !== undefined" [rowspan]="1" [colspan]="4">
+
+          <div *ngIf="items !== undefined">
             <app-items [items]="items"></app-items>
-          </md-grid-tile>
-          <md-grid-tile *ngIf="sales !== undefined" [rowspan]="1" [colspan]="4">
+          </div>
+          <div *ngIf="sales !== undefined">
             <app-sales [sales]="sales"></app-sales>
-          </md-grid-tile>
-          <md-grid-tile *ngIf="orders !== undefined" [rowspan]="1" [colspan]="4">
+          </div>
+          <div *ngIf="orders !== undefined">
             <app-orders [orders]="orders"></app-orders>
-          </md-grid-tile>
-          <md-grid-tile *ngIf="transactions !== undefined">
-            <app-transaction-history [transactions]="transactions"></app-transaction-history>
-          </md-grid-tile>
-        </md-grid-list>
-      </md-card-content>
-  </md-card>
-</md-divider>
+          </div>
+          <div *ngIf="transactions !== undefined">
+          <app-transaction-history [transactions]="transactions"></app-transaction-history>
+          </div>
+
+
+
+
+
+
+
+
+
+
+</section>

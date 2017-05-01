@@ -1,18 +1,16 @@
+.menu-item-spacer {
+  padding-left: 19px;
+}
 
-.mat-list {
-
-  padding-top: 10px;
+.mat-list, .mat-nav-list {
+  display: contents;
+  cursor: hand !important;
 
 }
 
-.mat-list-item {
-
-  display: inline-block !important;
-
-}
-
-.mat-list-item:nth-child(odd) {
-
-  background-color: crimson;
-
+.mat-toolbar a {
+  text-decoration: none;
+  color: white;
+  font-size: 0.8em;
+  font-family: Lora, serif;
 }

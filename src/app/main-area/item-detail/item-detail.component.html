@@ -1,41 +1,40 @@
-<md-grid-list *ngIf="item !== undefined" cols="3" rowHeight="400px">
-  <md-grid-tile [colspan]="3" [rowspan]="1">
+<div *ngIf="item !== undefined" cols="3" rowHeight="300px">
     <md-card>
       <md-card-header>
         <md-card-title><h1>{{item.bookTitle}}</h1></md-card-title>
         <md-card-subtitle><h3>{{item.secondaryTitle}}</h3></md-card-subtitle>
-        <md-card-subtitle><pre>{{item.authors}}</pre><pre> editors: {{item.editors}}</pre>
+        <md-card-subtitle><h1>{{item.authors}}</h1><h2> editors: {{item.editors}}</h2>
         </md-card-subtitle>
       </md-card-header>
       <md-card-content>
         <md-list>
-          <md-list-item><h5>Quantity: </h5>{{item.quantity}}</md-list-item>
-          <md-list-item><h5>Your Price: </h5>{{item.salePrice}}</md-list-item>
-          <md-list-item><h5>Condition: </h5>{{item.condition}}</md-list-item>
-          <md-list-item><h5>Edition: </h5>{{item.edition}}</md-list-item>
-          <md-list-item><h5>Publication Date: </h5>{{item.publicationDate}}</md-list-item>
-          <md-list-item><h5>Publisher: </h5>{{item.publisher}}</md-list-item>
-          <md-list-item><h5>ISBN: </h5>{{item.isbn}}</md-list-item>
-          <md-list-item><h5>List: </h5>{{item.msrp}}</md-list-item>
-          <md-list-item><h5>Seller: </h5>{{item.sellerUsername}}</md-list-item>
-          <md-list-item><h5>Can ship by: </h5>{{item.shipsOn}}</md-list-item>
-          <md-list-item><h5>International Ed.?: </h5>{{item.intlEdit}}</md-list-item>
+          <md-list-item><h5>Quantity: </h5>{{' ' + item.quantity}}</md-list-item>
+          <md-list-item><h5>Your Price: </h5>{{' ' + item.salePrice}}</md-list-item>
+          <md-list-item><h5>Condition: </h5>{{' ' + item.condition}}</md-list-item>
+          <md-list-item><h5>Edition: </h5>{{' ' + item.edition}}</md-list-item>
+          <md-list-item><h5>Publication Date: </h5>{{' ' + item.publicationDate}}</md-list-item>
+          <md-list-item><h5>Publisher: </h5>{{' ' + item.publisher}}</md-list-item>
+          <md-list-item><h5>ISBN: </h5>{{' ' + item.isbn}}</md-list-item>
+          <md-list-item><h5>List: </h5>{{' ' + item.msrp}}</md-list-item>
+          <md-list-item><h5>Seller: </h5>{{' ' + item.sellerUsername}}</md-list-item>
+          <md-list-item><h5>Can ship by: </h5>{{' ' + item.shipsOn}}</md-list-item>
+          <md-list-item><h5>International Ed.?: </h5>{{' ' + item.internationalEdition}}</md-list-item>
         </md-list>
       </md-card-content>
     </md-card>
-  </md-grid-tile>
-    <md-grid-tile [colspan]="1" [rowspan]="2">
-      <!--<img md-card-xl-image src="" alt="image"></img md-card-xl-image>-->
-    </md-grid-tile>
-      <md-grid-tile [colspan]="3" [rowspan]="2">
-        <md-card>
-          <md-card-title>About This Item</md-card-title>
-            <md-card-content>
-              <p>{{item.description}}</p>
-            </md-card-content>
-        </md-card>
-      </md-grid-tile>
-</md-grid-list>
-<a *ngIf="item !== undefined">Hi</a>
-<a md-raised-button color="accent" (click)="goBack()">Go back</a>
-<a md-raised-button color="accent" (click)="deleteItem(item.itemId)">Remove Listing</a>
+  <!--<md-grid-tile [colspan]="1" [rowspan]="2">
+    <img md-card-xl-image src="" alt="image"></img md-card-xl-image>
+    </md-grid-tile>-->
+  <div>
+    <md-card>
+      <md-card-title>About This Item</md-card-title>
+        <md-card-content>
+          <p>{{item.description}}</p>
+        </md-card-content>
+    </md-card>
+  </div>
+<div>
+    <a md-raised-button color="accent" (click)="goBack()">Go back</a>
+      <a md-raised-button color="accent" *ngIf="item.sellerUsername !== username" (click)="submitOrder(item)">Order Book</a>
+    <a md-raised-button color="accent" *ngIf="item.sellerUsername !== username" (click)="deleteItem(item.itemId)">Remove Listing</a>
+</div>

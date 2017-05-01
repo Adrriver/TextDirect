@@ -24,6 +24,7 @@ export class SessionService {
      public sales: Subject<Array<Sale>>;
      public orders: Subject<Array<Order>>;
      public transactions: Subject<Array<Transaction>>;
+     public shoppingCart: Array<Item>;
 
      private accountInformationRaw: Object;
 
@@ -42,12 +43,15 @@ export class SessionService {
         this.sales = new Subject<Array<Sale>>();
         this.orders = new Subject<Array<Order>>();
         this.transactions = new Subject<Array<Transaction>>();
+        this.shoppingCart = new Array<Item>();
+
 
     }
 
     logIn(username: string, password: string): void {
 
         this.searchParams.set('password', password);
+
 
         // Restlet returns account data sufficient to construct full UserAccount item to be
         // used for typical user session activity
@@ -78,10 +82,19 @@ export class SessionService {
     }
 
 
-    isLoggedIn(): boolean {
+    public isLoggedIn(): boolean {
         console.log(localStorage.getItem('username_text_direct').length);
         return !(localStorage.getItem('username_text_direct').length === 0) ? true : false; // implement authentication logic
 
+    }
+
+    public isLogged(): void {
+      if (localStorage.getItem('username_text_direct') !== null){
+            this.router.navigate(['/main-area/dashboard']);
+      } else {
+          localStorage.removeItem('username_text_direct');
+            this.router.navigate(['']);
+      }
     }
 
     isAdmin(): boolean {
@@ -103,9 +116,10 @@ export class SessionService {
 
 
       const itemsArr = new Array<Item>();
-      const i = 0;
+
         for (const item of user[3]['UserActivity']['Items']) {
-            if (item.hasOwnProperty('sellerUsername') !== undefined) {
+            if (item.hasOwnProperty('sellerUsername')) {
+              console.log('item has sellerName property')
                 const it = <Item> Object.assign(new Item(), item);
                 itemsArr.push(it);
             } else {
@@ -116,16 +130,17 @@ export class SessionService {
       this.items.next(itemsArr);
 
       const ordersArr = new Array<Order>();
-      for (const order in user[3]['UserActivity']['Orders']) {
-        if (order !== undefined) {
-            const ord = Object.assign(new Order(), order);
+      for (const order of user[3]['UserActivity']['Orders']) {
+        if (order.hasOwnProperty('orderId')) {
+              console.log('order has orderId property')
+            const ord = <Order> Object.assign(new Order(), order);
             ordersArr.push(ord);
-              this.orders.next(ordersArr);
-        } else {
           continue;
+        } else {
         }
       }
 
+      this.orders.next(ordersArr);
 
     /*  const transArr = new Array<Transaction>();
       for (const trans in user[3]['UserActivity']['Transaction']) {
@@ -139,15 +154,17 @@ export class SessionService {
       }*/
 
       const salesArr = new Array<Sale>();
-      for (const sale in user[3]['UserActivity']['Sales'][0]) {
-        if (sale !== undefined) {
-            const sale_ = Object.assign(new Sale(), sale);
+      for (const sale of user[3]['UserActivity']['Sales']) {
+        if (sale.hasOwnProperty('orderId')) {
+              console.log('sale has orderId property')
+            const sale_ = <Sale> Object.assign(new Sale(), sale);
             salesArr.push(sale_);
-            this.sales.next(salesArr);
         } else {
           continue;
         }
       }
+
+      this.sales.next(salesArr);
 
 
       return Observable.create(true);
@@ -167,17 +184,17 @@ export class SessionService {
 
     }
 
-    public getItem(itemId: number): Observable<Object> {
+    public getItem(itemId: number): Observable<Item> {
 
-        function item(itemId_: number): Observable<Item> {
-          return this.items.asObservable().subscribe(res => {
-            console.log(res);
-            const it = res.filter(item => item.itemId === itemId_)[0];
-          });
-        }
+     return this.http.get(this.baseUrl + '/get-item?itemId=' + itemId)
+       .map(response => response.json());
 
-        return Observable.create(item(itemId));
     }
+
+/*      console.log(match);
+        return Observable.create(match);*/
+
+
 
     public deleteItem(itemId: number): Observable<boolean> {
 
@@ -199,10 +216,24 @@ export class SessionService {
 
     }
 
+    public getOrder(orderId: number): Observable<Order> {
+      return this.http.get(this.baseUrl + '/get-order?orderId=' + orderId
+                            + '&username=' + localStorage.getItem('username_text_direct'))
+        .map( response => response.json())
+        .catch(err => err.json());
+    }
+
     public getSales(): Observable<Sale[]> {
 
         return this.sales.asObservable();
 
+    }
+
+    public getSale(saleId: number): Observable<Sale> {
+      return this.http.get(this.baseUrl + '/get-sale?orderId=' + saleId
+                            + '&username=' + localStorage.getItem('username_text_direct'))
+        .map( response => response.json())
+        .catch(err => err.json());
     }
 
     public getTransactions(): Observable<Transaction[]> {
@@ -241,6 +272,18 @@ export class SessionService {
       }).catch( error => { return error.getMessage(); });
 
       return true;
+
+    }
+
+    public addToCart(item: Item): boolean {
+
+      if(this.shoppingCart !== undefined) {
+          this.shoppingCart.push(item);
+            return true;
+      } else {
+            return false;
+      }
+
 
     }
 

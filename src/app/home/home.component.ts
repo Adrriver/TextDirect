@@ -38,5 +38,9 @@ export class HomeComponent implements OnInit {
 
     }
 
+    public isLogged(): void {
+      this.sessionService.isLogged();
+    }
+
 
 }

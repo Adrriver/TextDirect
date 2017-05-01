@@ -1,28 +1,44 @@
-app-items .mat-list .mat-list-item .mat-list-item-content, .mat-nav-list .mat-list-item .mat-list-item-content {
-  width: 50%;
-  height: 50%;
-
+md-card.mat-card .mat-card-content {
+  margin-top: -13px !important;
+  padding-bottom: 23px !important;
 }
 
-.mat-grid-tile .mat-figure {
-  justify-content: flex-start;
+ul {
+  Overflow-y: scroll !important;
+  display: flex !important;
+  -webkit-padding-start: 0px !important;
 }
 
-.mat-figure .mat-card {
-  width: .4em;
-  display: inline;
+
+li {
+  list-style-type: none !important;
+  padding: 12px 7px 11px 0px !important;
+  width: 364px !important;
+  /* background-color: #4da551 !important !important;*/
+  /* box-shadow: inset 0px 0px 1em 0.01em #216923 !important !important;*/
 }
 
 .mat-card {
-  color: #424242;
+  width: 315px !important;
 }
 
-app-items .mat-card .mat-card-content {
-  overflow: visible;
-  padding: 0px 0px 4px 11px;
-  color: black;
-  width: 38%;
-  background-color: #334;
-  height: calc(121px);
-  margin-top: -22px;
+md-card-header.mat-card-header {
+  background-color: #3949ab !important;
+  padding: 9px 26px 7px 24px !important;
+  margin-top: -16px !important !important;
+  width: 91.6% !important;
+  border-bottom-left-radius: 10px !important;
+  box-shadow: -3px 1px 0.9em 0.03em #3e3c3c !important;
+}
+
+.mat-list .mat-list-item .mat-list-item-content, .mat-nav-list .mat-list-item .mat-list-item-content {
+  font-family: Lora,"Helvetica Neue",sans-serif !important;
+  padding: 0px 14px !important;
+  height: 30px !important;
+
+}
+
+.mat-list-item-content {
+  height: 24px !important;
+  font-family: 'Lora' !important;
 }

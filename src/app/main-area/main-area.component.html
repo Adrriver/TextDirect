@@ -1,16 +1,16 @@
  <!--TODO: Clean up configuration for removal of password-retrieval component (and link) from member area-->
 <md-toolbar>
       <md-list>
-        <md-list-item href="" [routerLink]="['main-home']">Home</md-list-item>
-        <md-list-item href="" [routerLink]="['./dashboard']">Dashboard</md-list-item>
-        <md-list-item href="" [routerLink]="['./my-items']">My Items</md-list-item> <!--(editable) seller item detail-->
-        <md-list-item href="" [routerLink]="['./item-creator']">Create New Listing</md-list-item>
-        <md-list-item href="" [routerLink]="['./help']">Help</md-list-item>
-        <md-list-item href="" [routerLink]="['./cart']">My Cart</md-list-item>
-        <md-list-item href="" [routerLink]="['./checkout']">Checkout</md-list-item>
-        <md-list-item href="" [routerLink]="['./transaction-history']">Transaction History</md-list-item>
-        <md-list-item href="" [routerLink]="['./user-account-settings']">Account</md-list-item>
-        <md-list-item href="" [routerLink]="['./search']">Search</md-list-item>
+        <a href="" class="menu-item-spacer" [routerLink]="['main-home']">Home</a>
+        <a href="" class="menu-item-spacer" [routerLink]="['./dashboard']">Dashboard</a>
+        <a href="" class="menu-item-spacer" [routerLink]="['./my-items']">My Items</a> <!--(editable) seller item detail-->
+        <a href="" class="menu-item-spacer" [routerLink]="['./item-creator']">Create New Listing</a>
+        <a href="" class="menu-item-spacer" [routerLink]="['./help']">Help</a>
+        <a href="" class="menu-item-spacer" [routerLink]="['./cart']">My Cart</a>
+        <a href="" class="menu-item-spacer" [routerLink]="['./checkout']">Checkout</a>
+        <a href="" class="menu-item-spacer" [routerLink]="['./transaction-history']">Transaction History</a>
+        <a href="" class="menu-item-spacer" [routerLink]="['./user-account-settings']">Account</a>
+        <a href="" class="menu-item-spacer" [routerLink]="['./search']">Search</a>
       </md-list>
         <a md-raised-button [routerLink]="['../']" (click)="logOut()">Logout</a>
 </md-toolbar>

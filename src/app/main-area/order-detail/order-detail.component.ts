@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import 'rxjs/add/operator/switchMap';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
@@ -13,33 +13,27 @@ import {Observable, Subscription} from 'rxjs/Rx';
 })
 export class OrderDetailComponent implements OnInit {
 
+  @Input()
   public order: Order;
-  public orders: Array<Order>;
-  private subscription: Subscription;
+  private username: string;
 
-  constructor(private sessionService: SessionService,
-              private route: ActivatedRoute,
-              private location: Location) {
+  constructor(private sessionService: SessionService, private route: ActivatedRoute, private location: Location) {
 
-    this.subscription = this.sessionService.getOrders().subscribe( res => {
-        this.orders = res;
-      },
-      error => {
-        alert(error);
-      });
-    this.sessionService.orders.asObservable().subscribe( res => this.order = res[0]);
-    this.sessionService.setUserAccountInfo();
+    this.username = localStorage.getItem('username_text_direct');
+    console.log('Debug: ' + this.username);
+
   }
 
   ngOnInit() {
     this.route.params.switchMap((params: Params) =>
-      Observable.create(this.orders.filter(order => params['orderId'] === order.orderId)).subscribe(
-        res => { console.log(res.hasOwnProperty('orderId')); this.order = res[0]; }));
+      this.sessionService.getOrder(+params['orderId'])).
+        subscribe( res => { this.order = res['order']; });
 
   }
 
   public goBack(): void {
     this.location.back();
   }
+
 
 }

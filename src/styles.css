@@ -34,7 +34,7 @@ body {
   }
 
 .mat-card-content input {
-  color: #424242;
+  color: white;
   font-family: 'Lora', serif;
 }
 
@@ -45,18 +45,16 @@ md-input-container {
 
 .mat-select-value-text {
   padding: 5px;
-  color: #424242;
+  color: white;
 }
 
 div.mat-select-trigger {
-  color: #424242;
+  color: white;
 }
-
-.mat-input-placeholder{color:rgba(50,50,50,0.8) !important;}.mat-input-3.mat-input-1{color:rgba(50, 50, 50, .9)}.mat-input-placeholder.mat-focused{color:#388e3c}.mat-input-placeholder.mat-focused.mat-accent{color:#536dfe}.mat-input-placeholder.mat-focused.mat-warn{color:#f44336}.mat-input-element:disabled{color:rgba(255,255,255,0.3)}input.mat-input-element:-webkit-autofill+.mat-input-placeholder .mat-placeholder-required,.mat-input-placeholder.mat-float.mat-focused .mat-placeholder-required{color:#536dfe}.mat-input-underline{border-color:rgba(255,255,255,0.12)}.mat-input-underline .mat-input-ripple{background-color:#388e3c}.mat-input-underline .mat-input-ripple.mat-accent{background-color:#536dfe}.mat-input-underline{color:rgb(50, 50, 50, .8)}
 
 /* md-card styles */
 md-card-content.mat-card-content {
-  background-color: white;
+
   padding: 10px;
   border-radius: 1px;
 }

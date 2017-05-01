@@ -1,21 +1,21 @@
-<md-divider *ngIf="orders !== undefined">
-  <md-divider *ngFor="let order of orders">
+<ul *ngIf="orders !== undefined">
+  <li *ngFor="let o of orders">
     <md-card>
       <md-card-header>
-        <md-card-title>{{order.title}}</md-card-title>
-        <md-card-subtitle>{{order.orderDate | date }}</md-card-subtitle>
+        <md-card-title>{{o.title}}</md-card-title>
+        <md-card-subtitle>{{o.orderDate | date }}</md-card-subtitle>
       </md-card-header>
-        <md-card-content>
+        <md-card-content (mouseover)="selectOrder(o)">
           <md-list>
-            <md-list-item>Seller: {{order.merchant}}</md-list-item>
-            <md-list-item>authors: {{order.authors}}</md-list-item>
-            <md-list-item>condition: {{order.condition}}</md-list-item>
-            <md-list-item>Shipment promised for: {{order.shipmentDate | date }}</md-list-item>
-            <md-list-item>Actual shipment date: {{order.actualShipDate | date }}</md-list-item>
-            <md-list-item>Tracking #: {{order.trackingNum}}</md-list-item>
+            <md-list-item>Seller: {{o.merchant}}</md-list-item>
+            <md-list-item>authors: {{o.authors}}</md-list-item>
+            <md-list-item>condition: {{o.condition}}</md-list-item>
+            <md-list-item>Shipment promised for: {{o.shipmentDate | date }}</md-list-item>
+            <md-list-item>Actual shipment date: {{o.actualShipDate | date }}</md-list-item>
+            <md-list-item>Tracking #: {{o.trackingNum}}</md-list-item>
           </md-list>
         </md-card-content>
-      <button md-raised-button color="accent" [disabled]="!order" (click)="detailView()">Details</button>
+      <button md-raised-button color="accent" [disabled]="o !== order" (click)="detailView()">Details</button>
     </md-card>
-  </md-divider>
-</md-divider>
+  </li>
+</ul>

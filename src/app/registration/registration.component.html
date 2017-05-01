@@ -158,6 +158,6 @@
         <md-card-footer>
         </md-card-footer>
     </md-card>
-  <a md-raised-button color="accent"  (click)="onSubmit()">submit</a>
+  <a md-raised-button color="accent" [disabled]="!(regForm.valid && isChildValid)" (click)="onSubmit()">submit</a>
 </form>
-<!--[disabled]="!(regForm.valid && isChildValid)"-->
+<!---->

@@ -42,10 +42,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       });
 
     this.itemsSubscription = this.sessionService.getItems().subscribe(res => {
-        console.log('copy received...');
-        console.log(res);
         this.items = <Item[]> res;
-        console.log(typeof(this.items));
+
       },
       error => {
 
@@ -82,6 +80,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
    }
 
   public ngAfterViewInit() {
-
+      this.sessionService.setUserAccountInfo();
   }
 }

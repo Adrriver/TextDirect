@@ -9,12 +9,13 @@ import {Router} from '@angular/router';
 })
 export class OrdersComponent implements OnInit {
 
+  private username: string;
   @Input()
   public orders: Order[];
-  @Input()
   public order: Order;
 
   constructor(private router: Router) {
+    this.username = localStorage.getItem('username_text_direct');
   }
 
   ngOnInit() {
@@ -22,12 +23,11 @@ export class OrdersComponent implements OnInit {
 
   public selectOrder(order: Order): void {
     this.order = order;
-    alert('item selected');
-    console.log(order);
   }
 
   public detailView(): void {
-    this.router.navigate(['/main-area/orderDetail/', this.order.orderId]);
+    console.log(this.router.navigate(['/main-area/orderDetail', this.order.orderId]));
   }
+
 
 }

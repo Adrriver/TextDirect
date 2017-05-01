@@ -4,7 +4,7 @@
   </md-card-header>
     <md-card-content>
     <div id="form">
-        <form [formGroup]="credentialsForm">
+        <form [formGroup]="credentialsForm" (load)="isLogged()">
             <p>{{logInOutcome}}</p>
             <md-input-container>
                 <input mdInput type="text" placeholder="username" formControlName="username" value="Student Seller">

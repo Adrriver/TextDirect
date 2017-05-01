@@ -1,0 +1,44 @@
+md-card.mat-card .mat-card-content {
+  margin-top: -13px !important;
+  padding-bottom: 23px !important;
+}
+
+ul {
+  Overflow-y: scroll !important;
+  display: flex !important;
+  -webkit-padding-start: 0px !important;
+}
+
+
+li {
+  list-style-type: none !important;
+  padding: 12px 7px 11px 0px !important;
+  width: 364px !important;
+  /* background-color: #4da551 !important !important;*/
+  /* box-shadow: inset 0px 0px 1em 0.01em #216923 !important !important;*/
+}
+
+.mat-card:first-of-type {
+  width: 85%;
+}
+
+md-card-header.mat-card-header {
+  background-color: #3949ab !important;
+  padding: 9px 26px 7px 24px !important;
+  margin-top: -16px !important;
+  width: 91.6% !important;
+  border-bottom-left-radius: 10px !important;
+  box-shadow: -3px 1px 0.9em 0.03em #3e3c3c !important;
+}
+
+.mat-list .mat-list-item .mat-list-item-content, .mat-nav-list .mat-list-item .mat-list-item-content {
+  font-family: Lora,"Helvetica Neue",sans-serif !important;
+  padding: 0px 14px !important;
+  height: 30px !important;
+
+}
+
+.mat-list-item-content {
+  height: 24px !important;
+  font-family: 'Lora' !important;
+}

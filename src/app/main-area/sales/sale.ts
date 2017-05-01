@@ -4,7 +4,7 @@ import DateTimeFormat = Intl.DateTimeFormat;
 // MySQL table 'pending_order' supplies property data
 export class Sale {
 
-  public saleId: number; // Item ordered/to order and checkout outcome with detail string
+  public orderId: number; // Item ordered/to order and checkout outcome with detail string
   public quantity: number;
   public  title: string;
   public secTitle: string;
@@ -16,6 +16,7 @@ export class Sale {
   public shipmentDate: DateTimeFormat;
   public description: string;
   public customer: string;
+  public merchant: string;
   public itemAccepted: number; // needs to be boolean T|F
   public acceptanceDate: DateTimeFormat;
   public actualShipDate: DateTimeFormat;
@@ -25,10 +26,10 @@ export class Sale {
   public msrp: number;
   public salePrice: number;
   public intlEdit: boolean;
-  public saleDate: string;
+  public orderDate: string;
 
 
-    public constructor(){ };
+    public constructor(){};
 
   /* public constructor(item: Item, date: string, buyer: string, accepted: [string], shippingStatus: [string]) {
 

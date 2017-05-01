@@ -1,20 +1,20 @@
-<md-divider *ngIf="items !== undefined">
-  <md-divider *ngFor="let item of items" (click)="selectItem(item)">
-    <md-card [style.width]="'50%'" [style.height]="'50%'">
+<ul *ngIf="items !== undefined">
+  <li *ngFor="let it of items">
+    <md-card>
       <md-card-header>
-        <md-card-title>{{item.bookTitle}}</md-card-title>
+        <md-card-title>{{it.bookTitle}}</md-card-title>
       </md-card-header>
-        <md-card-content [style.color]="'#424242'" [style.padding]="'1px'">
+        <md-card-content (mouseover)="selectItem(it)" [style.color]="'#424242'" [style.padding]="'1px'">
           <md-list>
-            <md-list-item>author(s): {{item.authors}}</md-list-item>
-            <md-list-item>edition: {{item.edition}}</md-list-item>
-            <md-list-item>editor(s): {{item.editors}}</md-list-item>
-            <md-list-item>condition: {{item.quantity}}</md-list-item>
-            <md-list-item>condition: {{item.condition}}</md-list-item>
-            <md-list-item>your price: {{item.salePrice}}</md-list-item>
+            <md-list-item>author(s): {{it.authors}}</md-list-item>
+            <md-list-item>edition: {{it.edition}}</md-list-item>
+            <md-list-item>editor(s): {{it.editors}}</md-list-item>
+            <md-list-item>quantity: {{it.quantity}}</md-list-item>
+            <md-list-item>condition: {{it.condition}}</md-list-item>
+            <md-list-item>your price: {{it.salePrice | currency }}</md-list-item>
           </md-list>
         </md-card-content>
-      <button md-raised-button color="accent" [disabled]="!item" (click)="detailView()">Details</button>
+      <button md-raised-button color="accent" [disabled]="it !== item" (click)="detailView()">Details</button>
     </md-card>
-  </md-divider>
-</md-divider>
+  </li>
+</ul>

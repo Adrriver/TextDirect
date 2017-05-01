@@ -20,20 +20,13 @@ export class SaleDetailComponent implements OnInit {
               private route: ActivatedRoute,
               private location: Location) {
 
-    this.subscription = this.sessionService.getSales().subscribe( res => {
-        this.sales = res;
-      },
-      error => {
-        alert(error);
-      });
-    this.sessionService.sales.asObservable().subscribe( res => this.sale = res[0]);
-    this.sessionService.setUserAccountInfo();
+
   }
 
   ngOnInit() {
     this.route.params.switchMap((params: Params) =>
-      Observable.create(this.sales.filter(sale => params['saleId'] === sale.saleId)).subscribe(
-        res => { console.log(res.hasOwnProperty('saleId')); this.sale = res[0]; }));
+      this.sessionService.getSale(+params['saleId']))
+      .subscribe( sale => this.sale = sale['sale']);
 
 
   }

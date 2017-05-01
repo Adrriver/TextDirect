@@ -27,7 +27,7 @@ export class Order {
     public intlEdit: boolean;
     public orderDate: string;
 
-    public Order() { }
+    public constructor() { }
 
 
 }

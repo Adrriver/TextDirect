@@ -1,3 +1,37 @@
-<p>
-  sale-detail works!
-</p>
+<div *ngIf="sale !== undefined" cols="3" rowHeight="300px">
+  <md-card>
+    <md-card-header>
+      <md-card-title><h1>{{sale.title}}</h1></md-card-title>
+      <md-card-subtitle><h3>{{sale.secTitle}}</h3></md-card-subtitle>
+      <md-card-subtitle><pre>{{sale.authors}}</pre><pre> editors: {{sale.editors}}</pre>
+      </md-card-subtitle>
+    </md-card-header>
+    <md-card-content>
+      <md-list>
+        <md-list-item><h5>Quantity: </h5>{{sale.quantity}}</md-list-item>
+        <md-list-item><h5>Your Price: </h5>{{sale.salePrice}}</md-list-item>
+        <md-list-item><h5>Condition: </h5>{{sale.condition}}</md-list-item>
+        <md-list-item><h5>Edition: </h5>{{sale.edition}}</md-list-item>
+        <md-list-item><h5>Publication Date: </h5>{{sale.publicationDate}}</md-list-item>
+        <md-list-item><h5>Publisher: </h5>{{sale.publisher}}</md-list-item>
+        <md-list-item><h5>ISBN: </h5>{{sale.isbn}}</md-list-item>
+        <md-list-item><h5>List: </h5>{{sale.msrp}}</md-list-item>
+        <md-list-item><h5>Customer: </h5>{{sale.customer}}</md-list-item>
+        <md-list-item><h5>Can ship by: </h5>{{sale.shipmentDate}}</md-list-item>
+        <md-list-item><h5>International Ed.?: </h5>{{sale.intlEdit}}</md-list-item>
+      </md-list>
+    </md-card-content>
+  </md-card>
+  <!-- <md-grid-tile [colspan]="1" [rowspan]="2">
+    <img md-card-xl-image src="" alt="image"></img md-card-xl-image>
+  </md-grid-tile>-->
+  <div>
+    <md-card>
+      <md-card-title>About This Item</md-card-title>
+      <md-card-content>
+        <p>{{sale.description}}</p>
+      </md-card-content>
+    </md-card>
+  </div>
+<a md-raised-button color="accent" (click)="goBack()">Go back</a>
+</div>
