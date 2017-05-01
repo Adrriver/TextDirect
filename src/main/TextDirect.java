@@ -1,5 +1,6 @@
 package main;
 
+import currentactivity.*;
 import itemcreatorservice.DeleteItem;
 import itemcreatorservice.DirectTextbook;
 import itemcreatorservice.NewSaleItem;
@@ -11,16 +12,6 @@ import org.restlet.data.Status;
 import org.restlet.service.Service;
 import org.restlet.routing.Router;
 import org.restlet.service.CorsService;
-import currentactivity.ApprovePurchase;
-import currentactivity.ApproveRefRequest;
-import currentactivity.CreateRefundRequest;
-import currentactivity.DisputeTransaction;
-import currentactivity.ReShipmentConfirmation;
-import currentactivity.RetrievePendingOrders;
-import currentactivity.RetrieveRefunds;
-import currentactivity.RetrievePendingSales;
-import currentactivity.ShipmentConfirmation;
-import currentactivity.UpdateRefund;
 import customerrequestservice.CreateServiceRequest;
 import customerrequestservice.DeleteAllRequests;
 import customerrequestservice.DeleteRequest;
@@ -155,6 +146,8 @@ public class TextDirect extends Application {
 
 		router.attach("/create-new-item", NewSaleItem.class);
 		router.attach("/get-item", RetrieveItem.class);
+		router.attach("/get-order", RetrievePendingOrder.class);
+		router.attach("/get-sale", RetrievePendingSale.class);
 		router.attach("/update-item", UpdateItem.class);
 		router.attach("/delete-item/{itemId}", DeleteItem.class);
 		router.attach("/search-direct-textbook/{isbn}", DirectTextbook.class);
